@@ -213,6 +213,7 @@ return require('packer').startup({
 			event = 'CmdlineEnter',
 		})
 		use({ 'sbdchd/neoformat' })
+		use({ 'skywind3000/asyncrun.vim' })
 
 		-- use {'michaelb/sniprun', run = 'bash install.sh'}
 

@@ -67,5 +67,9 @@
   },
   "dialog.floatHighlight": "Normal",
   "dialog.floatBorderHighlight": "Normal",
-  "markdown-preview-enhanced.scrollSync": true
+  "markdown-preview-enhanced.scrollSync": true,
+  "diagnostic-languageserver.filetypes": {
+    "vim": "vint",
+    "sh": "shellcheck",
+  },
 }

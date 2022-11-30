@@ -16,6 +16,8 @@ vim.g.coc_global_extensions = {
 	-- complete enhanced
 	'coc-lists', --
 	'coc-snippets', --
+	-- diagnostic
+	'coc-diagnostic',
 	-- in web
 	'coc-css', --
 	'coc-xml', --
