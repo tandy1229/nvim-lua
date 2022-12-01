@@ -40,6 +40,7 @@ return require('packer').startup({
 		-- my plugins for neovim interface
 		use('Iron-E/nvim-highlite') -- color scheme
 		use('tandy1229/nvim-deus') -- color scheme
+		use({ 'ellisonleao/gruvbox.nvim' })
 		use({ 'tandy1229/wordswitch.nvim' }) -- color scheme
 		-- use 'tandy1229/eleline.vim'  -- statusline interface
 
@@ -48,7 +49,7 @@ return require('packer').startup({
 		use({ 'petertriho/nvim-scrollbar', config = req('scrollbar') })
 		-- rgb colorizer
 		-- use {'norcalli/nvim-colorizer.lua', config = req 'colorizer'}
-		use({ 'uga-rosa/ccc.nvim', config = req('colorizer'), event = 'VimEnter' })
+		use({ 'uga-rosa/ccc.nvim', config = req('colorizer') })
 		-- indentlines plugin
 		use({ 'lukas-reineke/indent-blankline.nvim', config = req('indent') })
 		-- terminal enchance
