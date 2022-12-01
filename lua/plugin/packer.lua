@@ -37,11 +37,14 @@ return require('packer').startup({
 		-- lua api of neovim which describes for lsp
 		use({ 'folke/neodev.nvim', ft = { 'lua' } })
 
-		-- my plugins for neovim interface
+		-- plugins for neovim interface
 		use('Iron-E/nvim-highlite') -- color scheme
+    -- deus
 		use('tandy1229/nvim-deus') -- color scheme
+    -- gruvbox
 		use({ 'ellisonleao/gruvbox.nvim' })
-		use({ 'tandy1229/wordswitch.nvim' }) -- color scheme
+    -- gs to switch
+		use({ 'tandy1229/wordswitch.nvim' })
 		-- use 'tandy1229/eleline.vim'  -- statusline interface
 
 		-- interface modules
@@ -87,6 +90,7 @@ return require('packer').startup({
 		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' })
 		-- f enchance
 		use({ 'ggandor/leap.nvim', config = req('leap') })
+    -- s enchance
 		use({ 'ggandor/flit.nvim', config = req('flit') })
 		-- cursorword
 		use({ 'itchyny/vim-cursorword' })
@@ -121,7 +125,6 @@ return require('packer').startup({
 		-- snip engine
 		-- use({ 'L3MON4D3/LuaSnip', config = req 'snip' })
 		-- vim-snippers
-		use({ 'honza/vim-snippets', opt = true })
 		use('rafamadriz/friendly-snippets')
 
 		-- software modules
@@ -131,8 +134,6 @@ return require('packer').startup({
 			config = req('rnvimr'),
 		})
 		-- fzf combine
-		-- use {'junegunn/fzf'}
-		-- use {'junegunn/fzf.vim'}
 		use({ 'ibhagwan/fzf-lua', config = req('fzf-lua'), event = 'VimEnter' })
 
 		-- telescope opt choice
@@ -151,6 +152,13 @@ return require('packer').startup({
 			'danymat/neogen',
 			config = req('neogen'),
 			requires = 'nvim-treesitter/nvim-treesitter',
+		})
+
+		-- icon picker
+		use({
+			'ziontee113/icon-picker.nvim',
+			config = req('iconpicker'),
+			after = 'dressing.nvim',
 		})
 
 		-- gnu-sed combine
@@ -200,25 +208,25 @@ return require('packer').startup({
 		use({ 'numToStr/Comment.nvim', config = req('comment'), event = 'VimEnter' })
 		-- da= function
 		use('junegunn/vim-after-object')
-		-- gs to swithch
-		use({ 'theniceboy/antovim', opt = true })
 		-- multi change plugin!!
 		use({ 'mg979/vim-visual-multi', event = 'CursorHold' })
-		--
+		-- gS & gJ
 		use('AndrewRadev/splitjoin.vim')
+		-- test time of vimstart
 		use({ 'dstein64/vim-startuptime', cmd = 'StartupTime' })
+		-- ex mode enchance
 		use({
 			'gelguy/wilder.nvim',
 			requires = { 'romgrk/fzy-lua-native', 'kyazdani42/nvim-web-devicons' },
 			config = req('commandline'),
 			event = 'CmdlineEnter',
 		})
+		-- format code plugin
 		use({ 'sbdchd/neoformat' })
+		-- async run
 		use({ 'skywind3000/asyncrun.vim' })
-
-		-- use {'michaelb/sniprun', run = 'bash install.sh'}
-
-		use({ 'ziontee113/icon-picker.nvim', config = req('iconpicker'), after = 'dressing.nvim' })
+		-- REPL run
+		use({ 'michaelb/sniprun' }) --, run = 'bash install.sh'}
 
 		-- go languange suppport
 		use({ 'fatih/vim-go', ft = { 'go' } })
@@ -226,9 +234,8 @@ return require('packer').startup({
 		use({ 'ellisonleao/glow.nvim', ft = { 'markdown' }, cmd = 'Glow' })
 		-- markdown plugin
 		use({ 'preservim/vim-markdown', ft = 'markdown', config = req('markdown') })
+		-- tex
 		use({ 'lervag/vimtex' })
-		-- markdown preview in chrome..
-		-- use({ 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install' })
 
 		-- vim doc with Chinese
 		use({ 'yianwillis/vimcdoc', event = 'VimEnter' })
