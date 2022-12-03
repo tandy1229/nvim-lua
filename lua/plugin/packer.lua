@@ -34,16 +34,17 @@ return require('packer').startup({
 		use({ 'nvim-lua/plenary.nvim', event = 'VimEnter' })
 		-- neovim ui api
 		use({ 'stevearc/dressing.nvim', event = 'VimEnter' })
-		-- lua api of neovim which describes for lsp
+		-- lua api of neovim which describes for nvim function
 		use({ 'folke/neodev.nvim', ft = { 'lua' } })
 
 		-- plugins for neovim interface
 		use('Iron-E/nvim-highlite') -- color scheme
-    -- deus
-		use('tandy1229/nvim-deus') -- color scheme
-    -- gruvbox
+		-- deus
+		-- use('tandy1229/nvim-deus') -- color scheme
+		use({ 'tandy1229/deus.nvim' })
+		-- gruvbox
 		use({ 'ellisonleao/gruvbox.nvim' })
-    -- gs to switch
+		-- gs to switch
 		use({ 'tandy1229/wordswitch.nvim' })
 		-- use 'tandy1229/eleline.vim'  -- statusline interface
 
@@ -90,7 +91,7 @@ return require('packer').startup({
 		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' })
 		-- f enchance
 		use({ 'ggandor/leap.nvim', config = req('leap') })
-    -- s enchance
+		-- s enchance
 		use({ 'ggandor/flit.nvim', config = req('flit') })
 		-- cursorword
 		use({ 'itchyny/vim-cursorword' })
@@ -110,7 +111,9 @@ return require('packer').startup({
 		-- :Agit show git commits
 		use({ 'cohama/agit.vim', cmd = 'Agit' })
 		-- fugitive
-		use('tpope/vim-fugitive')
+		use({ 'tpope/vim-fugitive' })
+		use({ 'tpope/vim-dadbod', opt = true })
+		use({ 'kristijanhusak/vim-dadbod-ui', opt = true })
 
 		-- lsp modules
 		-- coc completion franeworks based on node
@@ -226,14 +229,17 @@ return require('packer').startup({
 		-- async run
 		use({ 'skywind3000/asyncrun.vim' })
 		-- REPL run
-		use({ 'michaelb/sniprun' }) --, run = 'bash install.sh'}
+		use({ 'michaelb/sniprun', config = req('snip') }) --, run = 'bash install.sh'}
+
+		use({ 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async', config = req('ufo') })
+		use({ 'ten3roberts/qf.nvim', config = req('quickfix') })
 
 		-- go languange suppport
 		use({ 'fatih/vim-go', ft = { 'go' } })
 		-- markdown preview in neovim with the command :Glow
 		use({ 'ellisonleao/glow.nvim', ft = { 'markdown' }, cmd = 'Glow' })
 		-- markdown plugin
-		use({ 'preservim/vim-markdown', ft = 'markdown', config = req('markdown') })
+		use({ 'preservim/vim-markdown', opt = true, config = req('markdown') })
 		-- tex
 		use({ 'lervag/vimtex' })
 

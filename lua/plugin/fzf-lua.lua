@@ -1,8 +1,8 @@
 require('fzf-lua').setup({
-	winopts = {
-		height = 0.95,
-		width = 0.95,
-	},
+	-- winopts = {
+	-- 	height = 0.95,
+	-- 	width = 0.95,
+	-- },
 })
 
 local keymap = vim.keymap
