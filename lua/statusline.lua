@@ -22,7 +22,7 @@ local mode = setmetatable({
 	r = { 'P', '%#StatusLineCommand#' },
 	rm = { 'More', '%#StatusLineCommand#' },
 	['!'] = { '!', '%#StatusLineCommand#' },
-	t = { 'T', '%#StatusLineInsert#' },
+	t = { 'T', '%#StatusLineTerminal#' },
 }, {
 	__index = function(t, k)
 		return t[k:sub(1, 1)] or t['n']
@@ -238,11 +238,11 @@ function M.statusline()
 		table.insert(stl, filename(width))
 		table.insert(stl, readonly(0))
 		table.insert(stl, get_file_size())
+		table.insert(stl, coc_status())
 		table.insert(stl, coc_diagnostic())
 
 		table.insert(stl, '%<%=')
 		table.insert(stl, show_function())
-		table.insert(stl, coc_status())
 		table.insert(stl, gitsigns())
 
 		table.insert(stl, fileformat(0))

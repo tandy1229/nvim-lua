@@ -68,22 +68,3 @@ if fn.has('nvim') then
 end
 
 vim.api.nvim_command('colorscheme deus')
-
--- terminal colors: make it not change by some plugin
--- g.terminal_color_0  = '#000000'
-g.terminal_color_0  = '#21222C'
-g.terminal_color_1  = '#FF5555'
-g.terminal_color_2  = '#50FA7B'
-g.terminal_color_3  = '#F1FA8C'
-g.terminal_color_4  = '#BD93F9'
-g.terminal_color_5  = '#FF79C6'
-g.terminal_color_6  = '#8BE9FD'
-g.terminal_color_7  = '#BFBFBF'
-g.terminal_color_8  = '#4D4D4D'
-g.terminal_color_9  = '#FF6E67'
-g.terminal_color_10 = '#5AF78E'
-g.terminal_color_11 = '#F4F99D'
-g.terminal_color_12 = '#CAA9FA'
-g.terminal_color_13 = '#FF92D0'
-g.terminal_color_14 = '#9AEDFE'
-g.terminal_color_15 = '#FFFFFF'
