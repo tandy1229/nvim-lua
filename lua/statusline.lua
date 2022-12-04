@@ -58,9 +58,6 @@ local function quickfix(winid)
 	return ('%s (%d/%d) [%d] %s'):format(prefix, info.nr, nr, info.size, title)
 end
 
---- this is a simple function
---- @param width string DISPLAY
---- @return string
 local function filename(width)
 	local bufname = api.nvim_buf_get_name(0)
 	local fugitive_name = vim.b.fugitive_fname
@@ -104,8 +101,6 @@ local function readonly(bufnr)
 	return ret
 end
 
---- this is the show of coc status
----@return string
 local function coc_status()
 	local status = vim.trim(vim.g.coc_status or '')
 	if status then
@@ -115,32 +110,29 @@ local function coc_status()
 end
 
 local function coc_diagnostic()
-	-- local ret
-	-- if info and (info.warning > 0 or info.error > 0) then
-	-- 	local signs = ''
-	-- 	if info.error > 0 then
-	-- 		signs = signs .. '' .. space .. info.error
-	-- 	end
-	-- 	if info.warning > 0 then
-	-- 		signs = signs .. '' .. space .. info.warning
-	-- 	end
-	-- end
-	local diagnostics = ''
+	local ret
+	local list = {}
 	local info = vim.b.coc_diagnostic_info
-	if info then
-		diagnostics = info.error ~= 0 and diagnostics .. '%#StatusLineHunkRemove#' .. ' ' .. info.error .. space
-			or diagnostics
-		diagnostics = info.warning ~= 0 and diagnostics .. '%#StatusLineHunkChange#' .. ' ' .. info.warning .. space
-			or diagnostics
-		diagnostics = info.information ~= 0
-				and diagnostics .. '%#StatusLineInformation#' .. ' ' .. info.information .. space
-			or diagnostics
-		diagnostics = info.hint ~= 0 and diagnostics .. '%#StatusLineHint#' .. ' ' .. info.hint .. space
-			or diagnostics
-		return diagnostics .. '%#StatusLine#'
-	else
-		return diagnostics
+	if info and (info.warning > 0 or info.error > 0) then
+		if info.error > 0 then
+			local error = '' .. space .. info.error
+			table.insert(list, '%#StatusLineHunkRemove#' .. error)
+		end
+		if info.warning > 0 then
+			local warning = '' .. space .. info.warning
+			table.insert(list, '%#StatusLineHunkChange#' .. warning)
+		end
+		if info.information > 0 then
+			local information = '' .. space .. info.information
+			table.insert(list, '%#StatusLineInformation#' .. information)
+		end
+		if info.hint > 0 then
+			local hint = '' .. space .. info.hint
+			table.insert(list, '%#StatusLineHint#' .. hint)
+		end
+		ret = table.concat(list, space) .. '%#StatusLine#'
 	end
+	return ret
 end
 
 local function gitsigns()
@@ -218,9 +210,9 @@ end
 local function checkmode()
 	local ret
 	if vim.wo.spell == true then
-		ret = ' SPELL '
+		ret = ' SPELL'
 	elseif vim.o.paste == true then
-		ret = ' PASTE '
+		ret = ' PASTE'
 	else
 		ret = ''
 	end
@@ -234,7 +226,9 @@ function M.statusline()
 	local width = api.nvim_win_get_width(vim.g.statusline_winid)
 
 	if api.nvim_get_current_win() == vim.g.statusline_winid then
-		table.insert(stl, mode_highlight .. space .. mode_name .. space .. checkmode() .. '%#StatusLine#')
+		table.insert(stl, mode_highlight)
+		table.insert(stl, mode_name .. checkmode())
+		table.insert(stl, '%#StatusLine#')
 		table.insert(stl, filename(width))
 		table.insert(stl, readonly(0))
 		table.insert(stl, get_file_size())
@@ -258,7 +252,6 @@ function M.statusline()
 
 		table.insert(stl, '%<%=')
 
-		-- table.insert(stl, mode_highlight)
 		table.insert(stl, fileformat(bufnr))
 		table.insert(stl, ' %2l/%-2L%2v ')
 	end
@@ -266,6 +259,9 @@ function M.statusline()
 end
 
 api.nvim_create_autocmd({
+	'VimEnter',
+	'BufDelete',
+	'CursorHold',
 	'BufWinEnter',
 	'ShellCmdPost',
 	'BufWritePost',
