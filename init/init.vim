@@ -30,23 +30,11 @@ fun! s:MakePair()
   endif
 endfun
 
-" Echo the highlight group under the cursor
-function! EchoHlGroup() abort
-    let l:line = line(".")
-	let l:col = col(".")
-
-	echo "Highlight Group: " . synIDattr(synID(l:line, l:col, 1), "name") |
-	\ echo 'Namespace: ' . synIDattr(synID(l:line, l:col, 0), "name") |
-	\ echo "Linked to: " . synIDattr(synIDtrans(synID(l:line, l:col, 1)), "name")
-endfunction
-
 " commands
 command! -nargs=0 CleanExtraSpaces :call CleanExtraSpaces()
 command! -nargs=0 CompileRun :call CompileRun()
 command! -bang AutoSave call s:autosave(<bang>1)
 
-" press f10 to show hlgroup
-nmap <F10> :call EchoHlGroup()<CR>
 " Move the next character to the end of the line
 inoremap <c-u> <ESC>:call <SID>MakePair()<CR>
 
