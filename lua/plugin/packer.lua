@@ -40,7 +40,6 @@ return require('packer').startup({
 		-- plugins for neovim interface
 		use('Iron-E/nvim-highlite') -- color scheme
 		-- deus
-		-- use('tandy1229/nvim-deus') -- color scheme
 		use({ 'tandy1229/deus.nvim' })
 		-- gruvbox
 		use({ 'ellisonleao/gruvbox.nvim' })
@@ -52,7 +51,6 @@ return require('packer').startup({
 		-- scrollbar showing with gitsigns and coc
 		use({ 'petertriho/nvim-scrollbar', config = req('scrollbar') })
 		-- rgb colorizer
-		-- use {'norcalli/nvim-colorizer.lua', config = req 'colorizer'}
 		use({ 'uga-rosa/ccc.nvim', config = req('colorizer') })
 		-- indentlines plugin
 		use({ 'lukas-reineke/indent-blankline.nvim', config = req('indent') })
@@ -87,6 +85,7 @@ return require('packer').startup({
 			run = ':TSUpdate',
 			-- event = 'BufRead',
 		})
+		use({ 'nvim-treesitter/playground' })
 		-- rainbow brackets
 		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' })
 		-- f enchance
@@ -125,11 +124,6 @@ return require('packer').startup({
 		-- remember the location where you quit
 		use('farmergreg/vim-lastplace')
 
-		-- snip engine
-		-- use({ 'L3MON4D3/LuaSnip', config = req 'snip' })
-		-- vim-snippers
-		use('rafamadriz/friendly-snippets')
-
 		-- software modules
 		-- ranger combine
 		use({
@@ -148,6 +142,7 @@ return require('packer').startup({
 			config = req('telescope'),
 			-- after = 'plenary.nvim',
 		})
+		-- beautiful notice
 		use({ 'rcarriga/nvim-notify', after = 'plenary.nvim' })
 
 		-- annotation plugin
@@ -239,7 +234,7 @@ return require('packer').startup({
 		-- markdown preview in neovim with the command :Glow
 		use({ 'ellisonleao/glow.nvim', ft = { 'markdown' }, cmd = 'Glow' })
 		-- markdown plugin
-		use({ 'preservim/vim-markdown', opt = true, config = req('markdown') })
+		use({ 'preservim/vim-markdown', ft = { 'markdown' }, config = req('markdown') })
 		-- tex
 		use({ 'lervag/vimtex' })
 
