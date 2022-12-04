@@ -16,6 +16,7 @@ vim.g.coc_global_extensions = {
 	-- complete enhanced
 	'coc-lists', --
 	'coc-snippets', --
+	'https://github.com/rafamadriz/friendly-snippets@main',
 	-- diagnostic
 	'coc-diagnostic',
 	-- in web
