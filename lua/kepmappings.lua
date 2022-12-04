@@ -43,3 +43,4 @@ keymap.set('n', '<Leader>sc', ':set spell!<CR>')
 keymap.set('n', '\\s', ':%s//g<left><left>')
 
 keymap.set('n', '<Leader>/', ':sp<CR>:term<CR>')
+keymap.set('n', '<F10>', '<cmd>TSHighlightCapturesUnderCursor<CR>', {silent = true})
