@@ -44,47 +44,55 @@ return require('packer').startup({
 		-- gruvbox
 		use({ 'ellisonleao/gruvbox.nvim' })
 		-- gs to switch
-		use({ 'tandy1229/wordswitch.nvim', event = 'VimEnter' })
+		use({ 'tandy1229/wordswitch.nvim', event = 'BufReadPost' })
 		-- use 'tandy1229/eleline.vim'  -- statusline interface
 
 		-- interface modules
 		-- scrollbar showing with gitsigns and coc
-		use({ 'petertriho/nvim-scrollbar', config = req('scrollbar') })
+		use({
+			'petertriho/nvim-scrollbar',
+			config = req('scrollbar'),
+			after = 'nvim-hlslens',
+		})
 		-- rgb colorizer
-    use({
-      'uga-rosa/ccc.nvim',
-      config = req('colorizer'),
-      event = 'BufRead',
-    })
+		use({
+			'uga-rosa/ccc.nvim',
+			config = req('colorizer'),
+			event = 'BufRead',
+		})
 		-- indentlines plugin
-    use({
-      'lukas-reineke/indent-blankline.nvim',
-      config = req('indent'),
-      after = 'nvim-treesitter',
-    })
+		use({
+			'lukas-reineke/indent-blankline.nvim',
+			config = req('indent'),
+			after = 'nvim-treesitter',
+		})
 		-- terminal enchance
 		use({ 'akinsho/toggleterm.nvim', tag = '*', config = req('terminal'), event = 'UIEnter' })
 		-- pairs enchance
-    use({
-      'windwp/nvim-autopairs',
-      event = 'InsertEnter',
-      config = req('autopairs'),
-    })
+		use({
+			'windwp/nvim-autopairs',
+			config = req('autopairs'),
+			event = 'InsertEnter',
+		})
 		-- registers preview
-    use({
-      'tversteeg/registers.nvim',
-      config = req('registers'),
-      event = 'BufRead',
-    })
+		use({
+			'tversteeg/registers.nvim',
+			config = req('registers'),
+			event = 'BufRead',
+		})
 		-- seach enchance
-		use({ 'kevinhwang91/nvim-hlslens', config = req('hlslens') })
+		use({
+			'kevinhwang91/nvim-hlslens',
+			config = req('hlslens'),
+			event = 'BufRead',
+		})
 		-- tabline scheme
 		use({
 			'romgrk/barbar.nvim',
 			requires = {
 				'kyazdani42/nvim-web-devicons',
 			},
-      event = 'BufRead',
+			event = 'BufRead',
 		})
 		-- use treesitter to pasar
 		-- with a good looking of syntax
@@ -92,12 +100,12 @@ return require('packer').startup({
 			'nvim-treesitter/nvim-treesitter',
 			config = req('treesitter'),
 			run = ':TSUpdate',
-			event = 'BufRead',--[[ , ]]
-			opt = true,
+			after = 'nvim-ts-rainbow',
+			-- event = 'BufRead',--[[ , ]]
 		})
 		use({ 'nvim-treesitter/playground', after = 'nvim-treesitter' })
 		-- rainbow brackets
-		use({ 'p00f/nvim-ts-rainbow' })
+		use({ 'p00f/nvim-ts-rainbow', event = 'BufRead' })
 		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' })
 		-- annotation plugin
 		use({
@@ -113,7 +121,7 @@ return require('packer').startup({
 		-- cursorword
 		use({ 'itchyny/vim-cursorword' })
 		-- editorconfig
-		use({ 'editorconfig/editorconfig-vim' })
+		use({ 'editorconfig/editorconfig-vim', event = 'BufRead' })
 
 		-- git modules
 		-- lazygit combine
@@ -123,7 +131,7 @@ return require('packer').startup({
 			'lewis6991/gitsigns.nvim',
 			requires = { 'nvim-lua/plenary.nvim' },
 			config = req('gitsigns'),
-			after = 'plenary.nvim',
+			event = { 'BufRead', 'BufNewFile' },
 		})
 		-- :Agit show git commits
 		use({ 'cohama/agit.vim', cmd = 'Agit' })
@@ -141,9 +149,9 @@ return require('packer').startup({
 			event = 'BufRead',
 		})
 		-- lsp function showing
-		use({ 'liuchengxu/vista.vim', config = req('vista'), event = 'VimEnter' })
+		use({ 'liuchengxu/vista.vim', config = req('vista'), event = 'BufRead' })
 		-- <leader>j to jump to the location of the function
-    use({ 'pechorin/any-jump.vim', event = 'BufRead' })
+		use({ 'pechorin/any-jump.vim', event = 'BufRead' })
 		-- remember the location where you quit
 		use('farmergreg/vim-lastplace')
 
@@ -164,7 +172,8 @@ return require('packer').startup({
 			opt = true,
 			requires = { { 'nvim-lua/plenary.nvim' } },
 			config = req('telescope'),
-			after = 'nvim-treesitter',
+			cmd = 'Telescope',
+			-- after = 'nvim-treesitter',
 		})
 		-- beautiful notice
 		use({ 'rcarriga/nvim-notify', after = 'plenary.nvim' })
@@ -173,8 +182,8 @@ return require('packer').startup({
 		use({
 			'ziontee113/icon-picker.nvim',
 			config = req('iconpicker'),
-			after = 'dressing.nvim',
 			opt = true,
+			event = 'BufRead',
 		})
 
 		-- gnu-sed combine
@@ -182,7 +191,21 @@ return require('packer').startup({
 
 		-- DAP
 		use({
-			{ 'mfussenegger/nvim-dap' },
+			{
+				'mfussenegger/nvim-dap',
+				cmd = {
+					'DapSetLogLevel',
+					'DapShowLog',
+					'DapContinue',
+					'DapToggleBreakpoint',
+					'DapToggleRepl',
+					'DapStepOver',
+					'DapStepInto',
+					'DapStepOut',
+					'DapTerminate',
+				},
+				opt = true,
+			},
 			{ 'rcarriga/nvim-dap-ui', after = { 'nvim-dap' } },
 			{ 'jbyuki/one-small-step-for-vimkind', after = { 'nvim-dap' } },
 		})
@@ -191,7 +214,11 @@ return require('packer').startup({
 
 		-- nvim enchance modules
 		-- yskw can change the symbol whose words are surrounded
-		use({ 'kylechui/nvim-surround', config = req('surround'), event = 'VimEnter' })
+		use({
+			'kylechui/nvim-surround',
+			config = req('surround'),
+			event = 'BufRead',
+		})
 		-- dot enchance
 		use('tpope/vim-repeat')
 		-- change the root to the location of the buffer file
@@ -202,6 +229,7 @@ return require('packer').startup({
 			'goolord/alpha-nvim',
 			requires = { 'kyazdani42/nvim-web-devicons' },
 			config = req('alpha'),
+			-- event = 'BufWinEnter'
 		})
 
 		-- quickfix enchance
@@ -211,36 +239,40 @@ return require('packer').startup({
 			'folke/todo-comments.nvim',
 			requires = 'nvim-lua/plenary.nvim',
 			config = req('todo-comment'),
-			after = 'plenary.nvim',
+			event = 'BufRead',
 		})
 		-- undotree plugin
 		-- use {'mbbill/undotree', cmd = 'UndotreeToggle'}
 		-- super <enter>
-		use('gcmt/wildfire.vim')
+		use({ 'gcmt/wildfire.vim', event = 'BufRead' })
 		-- tabular !!!
-		use({ 'godlygeek/tabular', req = 'tabular' })
+		use({ 'godlygeek/tabular', req = 'tabular', event = 'BufRead' })
 		-- gc to change code to comment
 		-- use 'tomtom/tcomment_vim'
-		use({ 'numToStr/Comment.nvim', config = req('comment'), event = 'VimEnter' })
+		use({
+			'numToStr/Comment.nvim',
+			config = req('comment'),
+			event = 'BufRead',
+		})
 		-- da= function
 		use('junegunn/vim-after-object')
 		-- multi change plugin!!
 		use({ 'mg979/vim-visual-multi', event = 'CursorHold' })
 		-- gS & gJ
-		use('AndrewRadev/splitjoin.vim')
+		use({ 'AndrewRadev/splitjoin.vim', event = 'BufRead' })
 		-- test time of vimstart
 		use({ 'dstein64/vim-startuptime', cmd = 'StartupTime' })
 		-- ex mode enchance
 		use({
 			'gelguy/wilder.nvim',
-			requires = { 'romgrk/fzy-lua-native', 'kyazdani42/nvim-web-devicons' },
+			requires = { { 'romgrk/fzy-lua-native', after = 'wilder.nvim' } },
 			config = req('commandline'),
 			event = 'CmdlineEnter',
 		})
 		-- format code plugin
 		use({ 'sbdchd/neoformat', event = 'BufRead' })
 		-- async run
-		use({ 'skywind3000/asyncrun.vim' })
+		use({ 'skywind3000/asyncrun.vim', event = 'BufRead' })
 		-- REPL run
 		use({ 'michaelb/sniprun', config = req('snip'), event = 'BufRead' }) --, run = 'bash install.sh'}
 
@@ -250,11 +282,11 @@ return require('packer').startup({
 			config = req('ufo'),
 			after = 'coc.nvim',
 		})
-    use({
-      'ten3roberts/qf.nvim',
-      config = req('quickfix'),
-      event = 'BufRead',
-    })
+		use({
+			'ten3roberts/qf.nvim',
+			config = req('quickfix'),
+			event = 'BufRead',
+		})
 
 		-- go languange suppport
 		use({ 'fatih/vim-go', ft = { 'go' } })

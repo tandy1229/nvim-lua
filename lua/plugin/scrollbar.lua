@@ -8,7 +8,4 @@ require('scrollbar').setup({
 		Misc = { color = 'purple' },
 		Hint = { color = 'magenta' },
 	},
-	handlers = {
-		search = true,
-	},
 })
