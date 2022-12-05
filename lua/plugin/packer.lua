@@ -44,22 +44,22 @@ return require('packer').startup({
 		-- gruvbox
 		use({ 'ellisonleao/gruvbox.nvim' })
 		-- gs to switch
-		use({ 'tandy1229/wordswitch.nvim' })
+		use({ 'tandy1229/wordswitch.nvim', event = 'VimEnter' })
 		-- use 'tandy1229/eleline.vim'  -- statusline interface
 
 		-- interface modules
 		-- scrollbar showing with gitsigns and coc
 		use({ 'petertriho/nvim-scrollbar', config = req('scrollbar') })
 		-- rgb colorizer
-		use({ 'uga-rosa/ccc.nvim', config = req('colorizer') })
+		use({ 'uga-rosa/ccc.nvim', config = req('colorizer'), event = 'BufRead' })
 		-- indentlines plugin
 		use({ 'lukas-reineke/indent-blankline.nvim', config = req('indent') })
 		-- terminal enchance
-		use({ 'akinsho/toggleterm.nvim', tag = '*', config = req('terminal') })
+		use({ 'akinsho/toggleterm.nvim', tag = '*', config = req('terminal'), event = 'UIEnter' })
 		-- pairs enchance
 		use({ 'windwp/nvim-autopairs', event = 'InsertEnter', config = req('autopairs') })
 		-- registers preview
-		use({ 'tversteeg/registers.nvim', config = req('registers') })
+		use({ 'tversteeg/registers.nvim', config = req('registers'), event = 'BufRead' })
 		-- seach enchance
 		use({ 'kevinhwang91/nvim-hlslens', config = req('hlslens') })
 		-- tabline scheme
@@ -69,29 +69,22 @@ return require('packer').startup({
 				'kyazdani42/nvim-web-devicons',
 			},
 		})
-		-- searchbox: search with a good looking
-		use({
-			'VonHeikemen/searchbox.nvim',
-			requires = {
-				{ 'MunifTanjim/nui.nvim' },
-			},
-			after = 'gitsigns.nvim',
-		})
 		-- use treesitter to pasar
 		-- with a good looking of syntax
 		use({
 			'nvim-treesitter/nvim-treesitter',
 			config = req('treesitter'),
 			run = ':TSUpdate',
-			-- event = 'BufRead',
+			-- event = 'BufRead',--[[ , ]]
 		})
-		use({ 'nvim-treesitter/playground' })
+		use({ 'nvim-treesitter/playground', after = 'nvim-treesitter' })
 		-- rainbow brackets
 		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' })
+		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' })
 		-- f enchance
-		use({ 'ggandor/leap.nvim', config = req('leap') })
+		use({ 'ggandor/leap.nvim', config = req('leap'), event = 'BufRead' })
 		-- s enchance
-		use({ 'ggandor/flit.nvim', config = req('flit') })
+		use({ 'ggandor/flit.nvim', config = req('flit'), event = 'BufRead' })
 		-- cursorword
 		use({ 'itchyny/vim-cursorword' })
 		-- editorconfig
@@ -99,7 +92,7 @@ return require('packer').startup({
 
 		-- git modules
 		-- lazygit combine
-		use({ 'kdheepak/lazygit.nvim', config = req('lazygit'), event = 'VimEnter' })
+		use({ 'kdheepak/lazygit.nvim', config = req('lazygit'), event = 'BufRead' })
 		-- gitgutter like
 		use({
 			'lewis6991/gitsigns.nvim',
@@ -110,13 +103,13 @@ return require('packer').startup({
 		-- :Agit show git commits
 		use({ 'cohama/agit.vim', cmd = 'Agit' })
 		-- fugitive
-		use({ 'tpope/vim-fugitive' })
+		use({ 'tpope/vim-fugitive', cmd = { 'Git', 'G' } })
 		use({ 'tpope/vim-dadbod', opt = true })
 		use({ 'kristijanhusak/vim-dadbod-ui', opt = true })
 
 		-- lsp modules
 		-- coc completion franeworks based on node
-		use({ 'neoclide/coc.nvim', branch = 'release', config = req('coc') })
+		use({ 'neoclide/coc.nvim', branch = 'release', config = req('coc'), event = 'InsertEnter' })
 		-- lsp function showing
 		use({ 'liuchengxu/vista.vim', config = req('vista'), event = 'VimEnter' })
 		-- <leader>j to jump to the location of the function
@@ -129,9 +122,10 @@ return require('packer').startup({
 		use({
 			'kevinhwang91/rnvimr',
 			config = req('rnvimr'),
+			event = 'BufRead',
 		})
 		-- fzf combine
-		use({ 'ibhagwan/fzf-lua', config = req('fzf-lua'), event = 'VimEnter' })
+		use({ 'ibhagwan/fzf-lua', config = req('fzf-lua'), event = 'BufRead' })
 
 		-- telescope opt choice
 		use({
@@ -149,7 +143,7 @@ return require('packer').startup({
 		use({
 			'danymat/neogen',
 			config = req('neogen'),
-			requires = 'nvim-treesitter/nvim-treesitter',
+			after = 'nvim-treesitter',
 		})
 
 		-- icon picker
@@ -157,10 +151,11 @@ return require('packer').startup({
 			'ziontee113/icon-picker.nvim',
 			config = req('iconpicker'),
 			after = 'dressing.nvim',
+			opt = true,
 		})
 
 		-- gnu-sed combine
-		use({ 'nvim-pack/nvim-spectre', config = req('spectre'), event = 'VimEnter' })
+		use({ 'nvim-pack/nvim-spectre', config = req('spectre'), event = 'BufRead' })
 
 		-- DAP
 		use({
@@ -169,7 +164,7 @@ return require('packer').startup({
 			{ 'jbyuki/one-small-step-for-vimkind', after = { 'nvim-dap' } },
 		})
 		-- for neovim plugin debug
-		use({ 'bfredl/nvim-luadev', config = req('luadev') })
+		-- use({ 'bfredl/nvim-luadev', config = req('luadev') })
 
 		-- nvim enchance modules
 		-- yskw can change the symbol whose words are surrounded
@@ -226,7 +221,12 @@ return require('packer').startup({
 		-- REPL run
 		use({ 'michaelb/sniprun', config = req('snip') }) --, run = 'bash install.sh'}
 
-		use({ 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async', config = req('ufo') })
+		use({
+			'kevinhwang91/nvim-ufo',
+			requires = 'kevinhwang91/promise-async',
+			config = req('ufo'),
+			after = 'coc.nvim',
+		})
 		use({ 'ten3roberts/qf.nvim', config = req('quickfix') })
 
 		-- go languange suppport
