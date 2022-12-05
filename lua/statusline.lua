@@ -231,11 +231,12 @@ function M.statusline()
 		table.insert(stl, '%#StatusLine#')
 		table.insert(stl, filename(width))
 		table.insert(stl, readonly(0))
+		table.insert(stl, '%<')
 		table.insert(stl, get_file_size())
 		table.insert(stl, coc_status())
 		table.insert(stl, coc_diagnostic())
 
-		table.insert(stl, '%<%=')
+		table.insert(stl, '%=')
 		table.insert(stl, show_function())
 		table.insert(stl, gitsigns())
 

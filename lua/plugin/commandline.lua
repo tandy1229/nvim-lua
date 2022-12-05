@@ -5,6 +5,7 @@ wilder.set_option('use_python_remote_plugin', 0)
 wilder.set_option('pipeline', {
 	wilder.branch(
 		wilder.cmdline_pipeline({
+			use_python = 0,
 			fuzzy = 1,
 			fuzzy_filter = wilder.lua_fzy_filter(),
 		}),
@@ -12,22 +13,42 @@ wilder.set_option('pipeline', {
 	),
 })
 
+local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
+	border = 'rounded',
+	empty_message = wilder.popupmenu_empty_message_with_spinner(),
+	highlighter = wilder.lua_fzy_highlighter(),
+	left = {
+		' ',
+		wilder.popupmenu_devicons(),
+		wilder.popupmenu_buffer_flags({
+			flags = ' a + ',
+			icons = { ['+'] = '', a = '', h = '' },
+		}),
+	},
+	right = {
+		' ',
+		wilder.popupmenu_scrollbar(),
+	},
+	highlights = {
+		accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
+	},
+}))
+
+local wildmenu_renderer = wilder.wildmenu_renderer({
+	highlighter = wilder.lua_fzy_highlighter(),
+	separator = ' · ',
+	left = { ' ', wilder.wildmenu_spinner(), ' ' },
+	right = { ' ', wilder.wildmenu_index() },
+	highlights = {
+		accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
+	},
+})
+
 wilder.set_option(
 	'renderer',
 	wilder.renderer_mux({
-		[':'] = wilder.popupmenu_renderer({
-			highlighter = wilder.lua_fzy_highlighter(),
-			left = { ' ', wilder.popupmenu_devicons() },
-			right = { ' ', wilder.popupmenu_scrollbar() },
-			highlights = {
-				accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
-			},
-		}),
-		['/'] = wilder.wildmenu_renderer({
-			highlighter = wilder.lua_fzy_highlighter(),
-			highlights = {
-				accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
-			},
-		}),
+		[':'] = popupmenu_renderer,
+		['/'] = wildmenu_renderer,
+		substitute = wildmenu_renderer,
 	})
 )
