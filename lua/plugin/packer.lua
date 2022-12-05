@@ -33,7 +33,7 @@ return require('packer').startup({
 		-- lua api which any lua plugins are relying
 		use({ 'nvim-lua/plenary.nvim', event = 'VimEnter' })
 		-- neovim ui api
-		use({ 'stevearc/dressing.nvim', event = 'VimEnter' })
+		use({ 'stevearc/dressing.nvim', event = 'BufRead' })
 		-- lua api of neovim which describes for nvim function
 		use({ 'folke/neodev.nvim', ft = { 'lua' } })
 
@@ -51,15 +51,31 @@ return require('packer').startup({
 		-- scrollbar showing with gitsigns and coc
 		use({ 'petertriho/nvim-scrollbar', config = req('scrollbar') })
 		-- rgb colorizer
-		use({ 'uga-rosa/ccc.nvim', config = req('colorizer'), event = 'BufRead' })
+    use({
+      'uga-rosa/ccc.nvim',
+      config = req('colorizer'),
+      event = 'BufRead',
+    })
 		-- indentlines plugin
-		use({ 'lukas-reineke/indent-blankline.nvim', config = req('indent') })
+    use({
+      'lukas-reineke/indent-blankline.nvim',
+      config = req('indent'),
+      after = 'nvim-treesitter',
+    })
 		-- terminal enchance
 		use({ 'akinsho/toggleterm.nvim', tag = '*', config = req('terminal'), event = 'UIEnter' })
 		-- pairs enchance
-		use({ 'windwp/nvim-autopairs', event = 'InsertEnter', config = req('autopairs') })
+    use({
+      'windwp/nvim-autopairs',
+      event = 'InsertEnter',
+      config = req('autopairs'),
+    })
 		-- registers preview
-		use({ 'tversteeg/registers.nvim', config = req('registers'), event = 'BufRead' })
+    use({
+      'tversteeg/registers.nvim',
+      config = req('registers'),
+      event = 'BufRead',
+    })
 		-- seach enchance
 		use({ 'kevinhwang91/nvim-hlslens', config = req('hlslens') })
 		-- tabline scheme
@@ -68,6 +84,7 @@ return require('packer').startup({
 			requires = {
 				'kyazdani42/nvim-web-devicons',
 			},
+      event = 'BufRead',
 		})
 		-- use treesitter to pasar
 		-- with a good looking of syntax
@@ -75,11 +92,12 @@ return require('packer').startup({
 			'nvim-treesitter/nvim-treesitter',
 			config = req('treesitter'),
 			run = ':TSUpdate',
-			-- event = 'BufRead',--[[ , ]]
+			event = 'BufRead',--[[ , ]]
+			opt = true,
 		})
 		use({ 'nvim-treesitter/playground', after = 'nvim-treesitter' })
 		-- rainbow brackets
-		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' })
+		use({ 'p00f/nvim-ts-rainbow' })
 		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' })
 		-- annotation plugin
 		use({
@@ -116,11 +134,16 @@ return require('packer').startup({
 
 		-- lsp modules
 		-- coc completion franeworks based on node
-		use({ 'neoclide/coc.nvim', branch = 'release', config = req('coc'), event = 'InsertEnter' })
+		use({
+			'neoclide/coc.nvim',
+			branch = 'release',
+			config = req('coc'),
+			event = 'BufRead',
+		})
 		-- lsp function showing
 		use({ 'liuchengxu/vista.vim', config = req('vista'), event = 'VimEnter' })
 		-- <leader>j to jump to the location of the function
-		use('pechorin/any-jump.vim')
+    use({ 'pechorin/any-jump.vim', event = 'BufRead' })
 		-- remember the location where you quit
 		use('farmergreg/vim-lastplace')
 
@@ -141,7 +164,7 @@ return require('packer').startup({
 			opt = true,
 			requires = { { 'nvim-lua/plenary.nvim' } },
 			config = req('telescope'),
-			-- after = 'plenary.nvim',
+			after = 'nvim-treesitter',
 		})
 		-- beautiful notice
 		use({ 'rcarriga/nvim-notify', after = 'plenary.nvim' })
@@ -215,11 +238,11 @@ return require('packer').startup({
 			event = 'CmdlineEnter',
 		})
 		-- format code plugin
-		use({ 'sbdchd/neoformat' })
+		use({ 'sbdchd/neoformat', event = 'BufRead' })
 		-- async run
 		use({ 'skywind3000/asyncrun.vim' })
 		-- REPL run
-		use({ 'michaelb/sniprun', config = req('snip') }) --, run = 'bash install.sh'}
+		use({ 'michaelb/sniprun', config = req('snip'), event = 'BufRead' }) --, run = 'bash install.sh'}
 
 		use({
 			'kevinhwang91/nvim-ufo',
@@ -227,7 +250,11 @@ return require('packer').startup({
 			config = req('ufo'),
 			after = 'coc.nvim',
 		})
-		use({ 'ten3roberts/qf.nvim', config = req('quickfix') })
+    use({
+      'ten3roberts/qf.nvim',
+      config = req('quickfix'),
+      event = 'BufRead',
+    })
 
 		-- go languange suppport
 		use({ 'fatih/vim-go', ft = { 'go' } })
