@@ -30,9 +30,9 @@ keymap.set('n', '<Leader>sa', 'ggVG')
 keymap.set('n', 'Y', 'y$')
 keymap.set('v', 'Y', '"+y')
 
-keymap.set('n', '<Leader>rc', ':e ~/.config/nvim/init.lua<CR>', {silent = true})
-keymap.set('n', '<Leader>rp', ':e ~/.config/nvim/lua/plugin/packer.lua<CR>', {silent = true})
-keymap.set('n', '<Leader>ri', ':e ~/.config/nvim/init/init.vim<CR>', {silent = true})
+keymap.set('n', '<Leader>rc', ':e ~/.config/nvim/init.lua<CR>', { silent = true })
+keymap.set('n', '<Leader>rp', ':e ~/.config/nvim/lua/plugin/packer.lua<CR>', { silent = true })
+keymap.set('n', '<Leader>ri', ':e ~/.config/nvim/init/init.vim<CR>', { silent = true })
 
 keymap.set('n', '<Leader>st', ':%s/  /\t/g')
 keymap.set('v', '<Leader>st', ':s/  /\t/g')
@@ -43,4 +43,4 @@ keymap.set('n', '<Leader>sc', ':set spell!<CR>')
 keymap.set('n', '\\s', ':%s//g<left><left>')
 
 keymap.set('n', '<Leader>/', ':sp<CR>:term<CR>')
-keymap.set('n', '<F10>', '<cmd>TSHighlightCapturesUnderCursor<CR>', {silent = true})
+keymap.set('n', '<F10>', '<cmd>TSHighlightCapturesUnderCursor<CR>', { silent = true })

@@ -1,1 +1,1 @@
-vim.bo.filetype = "sh"
+vim.bo.filetype = 'sh'
