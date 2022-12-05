@@ -81,6 +81,13 @@ return require('packer').startup({
 		-- rainbow brackets
 		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' })
 		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' })
+		-- annotation plugin
+		use({
+			'danymat/neogen',
+			config = req('neogen'),
+			after = 'nvim-treesitter',
+		})
+
 		-- f enchance
 		use({ 'ggandor/leap.nvim', config = req('leap'), event = 'BufRead' })
 		-- s enchance
@@ -138,13 +145,6 @@ return require('packer').startup({
 		})
 		-- beautiful notice
 		use({ 'rcarriga/nvim-notify', after = 'plenary.nvim' })
-
-		-- annotation plugin
-		use({
-			'danymat/neogen',
-			config = req('neogen'),
-			after = 'nvim-treesitter',
-		})
 
 		-- icon picker
 		use({
