@@ -29,6 +29,7 @@ local mode = setmetatable({
 	end,
 })
 
+
 local function is_tmp_file()
 	-- local filename = fn.expand('%:p')
 	local bufname = api.nvim_buf_get_name(0) -- use the nvim api
@@ -98,7 +99,11 @@ local function readonly(bufnr)
 	if vim.bo[bufnr].readonly then
 		ret = loop.fs_stat(api.nvim_buf_get_name(bufnr or 0)) and '' or ''
 	end
-	return ret
+  if ret then
+    return ret
+  else
+    return ''
+  end
 end
 
 local function coc_status()
@@ -229,9 +234,7 @@ function M.statusline()
 		table.insert(stl, mode_highlight)
 		table.insert(stl, mode_name .. checkmode())
 		table.insert(stl, '%#StatusLine#')
-		table.insert(stl, filename(width))
-		table.insert(stl, readonly(0))
-		table.insert(stl, '%<')
+		table.insert(stl, filename(width) .. readonly(0) .. '%<')
 		table.insert(stl, get_file_size())
 		table.insert(stl, coc_status())
 		table.insert(stl, coc_diagnostic())
