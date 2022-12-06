@@ -72,7 +72,7 @@ return require('packer').startup({
 		use({
 			'tversteeg/registers.nvim',
 			config = req('registers'),
-      keys = { { 'n', '"' }, { 'i', '<c-r>' }}
+			keys = { { 'n', '"' }, { 'i', '<c-r>' } },
 		})
 		-- seach enchance
 		use({
@@ -94,14 +94,13 @@ return require('packer').startup({
 			'nvim-treesitter/nvim-treesitter',
 			config = req('treesitter'),
 			run = ':TSUpdate',
-			after = 'nvim-ts-rainbow',
-			-- event = 'BufRead',--[[ , ]]
+			event = 'BufRead',--[[ , ]]
 		})
 		use({ 'nvim-treesitter/playground', after = 'nvim-treesitter' })
 		-- rainbow brackets
-		use({ 'p00f/nvim-ts-rainbow', event = 'BufRead' })
-		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' })
-    use({ 'RRethy/nvim-treesitter-endwise', after = 'nvim-treesitter' })
+		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter', config = req('rainbow') })
+		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', config = req('autotag') })
+		use({ 'RRethy/nvim-treesitter-endwise', after = 'nvim-treesitter', config = req('endwise') })
 		-- annotation plugin
 		use({
 			'danymat/neogen',
@@ -147,7 +146,7 @@ return require('packer').startup({
 			'neoclide/coc.nvim',
 			branch = 'release',
 			config = req('coc'),
-			event = {'BufRead', 'BufAdd'},
+			event = { 'BufRead', 'BufAdd' },
 		})
 		-- lsp function showing
 		use({ 'liuchengxu/vista.vim', config = req('vista'), event = 'BufRead' })
@@ -263,8 +262,8 @@ return require('packer').startup({
 		use({ 'AndrewRadev/splitjoin.vim', event = 'BufRead' })
 		-- test time of vimstart
 		use({ 'dstein64/vim-startuptime', cmd = 'StartupTime' })
-    -- helpful
-    use({'tweekmonster/helpful.vim', cmd = 'HelpfulVersion'})
+		-- helpful
+		use({ 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' })
 		-- ex mode enchance
 		use({
 			'gelguy/wilder.nvim',
