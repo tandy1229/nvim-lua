@@ -101,6 +101,12 @@ return require('packer').startup({
 		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter', config = req('rainbow') })
 		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', config = req('autotag') })
 		use({ 'RRethy/nvim-treesitter-endwise', after = 'nvim-treesitter', config = req('endwise') })
+		use({ 'andymass/vim-matchup', after = 'nvim-treesitter', config = req('matchup') })
+		use({
+			'JoosepAlviste/nvim-ts-context-commentstring',
+			after = 'nvim-treesitter',
+			config = req('commentstring'),
+		})
 		-- annotation plugin
 		use({
 			'danymat/neogen',
@@ -259,7 +265,7 @@ return require('packer').startup({
 		-- multi change plugin!!
 		use({ 'mg979/vim-visual-multi', event = 'CursorHold' })
 		-- gS & gJ
-		use({ 'AndrewRadev/splitjoin.vim', event = 'BufRead' })
+		use({ 'AndrewRadev/splitjoin.vim' })
 		-- test time of vimstart
 		use({ 'dstein64/vim-startuptime', cmd = 'StartupTime' })
 		-- helpful
