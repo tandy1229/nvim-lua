@@ -41,4 +41,10 @@ require('nvim-treesitter.configs').setup({
 		-- colors = {}, -- table of hex strings
 		-- termcolors = {} -- table of colour name strings
 	},
+	endwise = {
+		enable = true,
+	},
+  autotag = {
+    enable = true,
+  },
 })

@@ -38,7 +38,7 @@ return require('packer').startup({
 		use({ 'folke/neodev.nvim', ft = { 'lua' } })
 
 		-- plugins for neovim interface
-		use('Iron-E/nvim-highlite') -- color scheme
+		-- use('Iron-E/nvim-highlite') -- color scheme
 		-- deus
 		use({ 'tandy1229/deus.nvim' })
 		-- gruvbox
@@ -60,12 +60,6 @@ return require('packer').startup({
 			config = req('colorizer'),
 			event = 'BufRead',
 		})
-		-- indentlines plugin
-		use({
-			'lukas-reineke/indent-blankline.nvim',
-			config = req('indent'),
-			after = 'nvim-treesitter',
-		})
 		-- terminal enchance
 		use({ 'akinsho/toggleterm.nvim', tag = '*', config = req('terminal'), event = 'UIEnter' })
 		-- pairs enchance
@@ -78,7 +72,7 @@ return require('packer').startup({
 		use({
 			'tversteeg/registers.nvim',
 			config = req('registers'),
-			event = 'BufRead',
+      keys = { { 'n', '"' }, { 'i', '<c-r>' }}
 		})
 		-- seach enchance
 		use({
@@ -107,10 +101,17 @@ return require('packer').startup({
 		-- rainbow brackets
 		use({ 'p00f/nvim-ts-rainbow', event = 'BufRead' })
 		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' })
+    use({ 'RRethy/nvim-treesitter-endwise', after = 'nvim-treesitter' })
 		-- annotation plugin
 		use({
 			'danymat/neogen',
 			config = req('neogen'),
+			after = 'nvim-treesitter',
+		})
+		-- indentlines plugin
+		use({
+			'lukas-reineke/indent-blankline.nvim',
+			config = req('indent'),
 			after = 'nvim-treesitter',
 		})
 
@@ -146,7 +147,7 @@ return require('packer').startup({
 			'neoclide/coc.nvim',
 			branch = 'release',
 			config = req('coc'),
-			event = 'BufRead',
+			event = {'BufRead', 'BufAdd'},
 		})
 		-- lsp function showing
 		use({ 'liuchengxu/vista.vim', config = req('vista'), event = 'BufRead' })
@@ -160,7 +161,7 @@ return require('packer').startup({
 		use({
 			'kevinhwang91/rnvimr',
 			config = req('rnvimr'),
-			event = 'BufRead',
+			event = 'VimEnter',
 		})
 		-- fzf combine
 		use({ 'ibhagwan/fzf-lua', config = req('fzf-lua'), event = 'BufRead' })
@@ -262,6 +263,8 @@ return require('packer').startup({
 		use({ 'AndrewRadev/splitjoin.vim', event = 'BufRead' })
 		-- test time of vimstart
 		use({ 'dstein64/vim-startuptime', cmd = 'StartupTime' })
+    -- helpful
+    use({'tweekmonster/helpful.vim', cmd = 'HelpfulVersion'})
 		-- ex mode enchance
 		use({
 			'gelguy/wilder.nvim',

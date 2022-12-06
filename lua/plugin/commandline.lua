@@ -5,7 +5,6 @@ wilder.set_option('use_python_remote_plugin', 0)
 wilder.set_option('pipeline', {
 	wilder.branch(
 		wilder.cmdline_pipeline({
-			use_python = 0,
 			fuzzy = 1,
 			fuzzy_filter = wilder.lua_fzy_filter(),
 		}),
@@ -15,7 +14,6 @@ wilder.set_option('pipeline', {
 
 local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
 	border = 'rounded',
-	empty_message = wilder.popupmenu_empty_message_with_spinner(),
 	highlighter = wilder.lua_fzy_highlighter(),
 	left = {
 		' ',
