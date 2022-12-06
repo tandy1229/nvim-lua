@@ -3,7 +3,7 @@
 --
 local g, api = vim.g, vim.api
 
-require('impatient')
+pcall(require, 'impatient')
 require('config')
 require('kepmappings')
 require('statusline')

@@ -152,7 +152,7 @@ return require('packer').startup({
 			'neoclide/coc.nvim',
 			branch = 'release',
 			config = req('coc'),
-			event = { 'BufRead', 'BufAdd' },
+			event = { 'BufRead', 'BufAdd', 'InsertEnter' },
 		})
 		-- lsp function showing
 		use({ 'liuchengxu/vista.vim', config = req('vista'), event = 'BufRead' })
