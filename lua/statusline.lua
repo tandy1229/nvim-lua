@@ -29,7 +29,6 @@ local mode = setmetatable({
 	end,
 })
 
-
 local function is_tmp_file()
 	-- local filename = fn.expand('%:p')
 	local bufname = api.nvim_buf_get_name(0) -- use the nvim api
@@ -99,11 +98,11 @@ local function readonly(bufnr)
 	if vim.bo[bufnr].readonly then
 		ret = loop.fs_stat(api.nvim_buf_get_name(bufnr or 0)) and '' or ''
 	end
-  if ret then
-    return ret
-  else
-    return ''
-  end
+	if ret then
+		return ret
+	else
+		return ''
+	end
 end
 
 local function coc_status()

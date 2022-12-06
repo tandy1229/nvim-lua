@@ -58,13 +58,13 @@ opt.wildmenu = true
 opt.wildmode = { 'longest:full', 'full' }
 opt.writebackup = false
 opt.fillchars = {
-  horiz = '━',
-  horizup = '┻',
-  horizdown = '┳',
-  vert = '┃',
-  vertleft = '┫',
-  vertright = '┣',
-  verthoriz = '╋',
+	horiz = '━',
+	horizup = '┻',
+	horizdown = '┳',
+	vert = '┃',
+	vertleft = '┫',
+	vertright = '┣',
+	verthoriz = '╋',
 }
 
 -- languange support disable
