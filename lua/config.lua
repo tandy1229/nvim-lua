@@ -48,15 +48,24 @@ opt.splitright = true
 opt.signcolumn = 'yes'
 opt.scrolloff = 5
 opt.tabstop = 4
-opt.shiftwidth = 4
+opt.shiftwidth = 0
 opt.expandtab = true
-opt.ttimeoutlen = 0
+opt.ttimeoutlen = 20
 opt.termguicolors = true
 opt.updatetime = 100
 opt.visualbell = true
 opt.wildmenu = true
 opt.wildmode = { 'longest:full', 'full' }
 opt.writebackup = false
+opt.fillchars = {
+  horiz = '━',
+  horizup = '┻',
+  horizdown = '┳',
+  vert = '┃',
+  vertleft = '┫',
+  vertright = '┣',
+  verthoriz = '╋',
+}
 
 -- languange support disable
 g.loaded_ruby_provider = 0
