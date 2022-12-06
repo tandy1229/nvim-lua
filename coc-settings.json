@@ -68,8 +68,24 @@
   "dialog.floatHighlight": "Normal",
   "dialog.floatBorderHighlight": "Normal",
   "markdown-preview-enhanced.scrollSync": true,
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "swift": {
+      "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+      "args": [],
+      "filetypes": ["swift"],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",
-    "sh": "shellcheck",
-  },
+    "email": "languagetool",
+    "markdown": [ "write-good" ],
+  }
 }
