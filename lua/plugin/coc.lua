@@ -19,6 +19,7 @@ vim.g.coc_global_extensions = {
 	'https://github.com/rafamadriz/friendly-snippets@main',
 	-- diagnostic
 	'coc-diagnostic',
+	'coc-translator',
 	-- in web
 	'coc-css', --
 	'coc-xml', --
@@ -44,7 +45,16 @@ end
 -- NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 -- other plugin before putting this into your config.
 local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
-keyset('i', '<TAB>', 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+vim.cmd([[
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ v:lua.check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+let g:coc_snippet_next = '<tab>'
+nmap <Leader>ts <Plug>(coc-translator-p)
+]])
+
 keyset('i', '<S-TAB>', [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
 
 -- Make <CR> to accept selected completion item or notify coc.nvim to format

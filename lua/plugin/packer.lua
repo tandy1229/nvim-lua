@@ -183,7 +183,7 @@ return require('packer').startup({
 			-- after = 'nvim-treesitter',
 		})
 		-- beautiful notice
-		use({ 'rcarriga/nvim-notify', after = 'plenary.nvim' })
+		use({ 'rcarriga/nvim-notify' })
 
 		-- icon picker
 		use({
@@ -283,7 +283,7 @@ return require('packer').startup({
 		-- async run
 		use({ 'skywind3000/asyncrun.vim', event = 'BufRead' })
 		-- REPL run
-		use({ 'michaelb/sniprun', config = req('snip'), event = 'BufRead' }) --, run = 'bash install.sh'}
+		use({ 'michaelb/sniprun', config = req('snip'), cmd = { 'SnipRun', "'<,'>SnipRun" } }) --, run = 'bash install.sh'}
 
 		use({
 			'kevinhwang91/nvim-ufo',
