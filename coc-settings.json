@@ -1,8 +1,22 @@
 {
   "colors.enable": false,
+  "translator.engines": ["youdao", "haici"],
   "Lua.telemetry.enable": true,
-  "semanticTokens.enable": false,
+  "semanticTokens.enable": true,
   "sumneko-lua.enableNvimLuaDev": true,
+  "sumneko-lua.locale": "zh-cn",
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.workspace.maxPreload": 2000,
+  "Lua.workspace.preloadFileSize": 1000,
+  "Lua.completion.callSnippet": "Replace",
+  "Lua.diagnostics.globals": [
+    "vim",
+    "jit",
+    "it",
+    "describe",
+    "before_path",
+    "after_each"
+  ],
   "coc.preferences.useQuickfixForLocations": true,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.extensionUpdateCheck": "weekly",
@@ -72,7 +86,7 @@
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
-      "filetypes": ["sh"],
+      "filetypes": ["sh", "zsh"],
       "ignoredRootPaths": ["~"]
     },
     "swift": {
@@ -81,11 +95,17 @@
       "filetypes": ["swift"],
       "initializationOptions": {},
       "settings": {}
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
     }
   },
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",
     "email": "languagetool",
-    "markdown": [ "write-good" ],
+    "markdown": ["write-good"],
+    "dockerfile": "hadolint",
   }
 }
