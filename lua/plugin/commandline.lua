@@ -5,7 +5,7 @@ wilder.setup({ modes = { ':', '/', '?' } })
 wilder.set_option('pipeline', {
 	wilder.branch(
 		wilder.cmdline_pipeline({
-      language = 'vim',
+			language = 'vim',
 			fuzzy = 1,
 			fuzzy_filter = wilder.lua_fzy_filter(),
 		}),

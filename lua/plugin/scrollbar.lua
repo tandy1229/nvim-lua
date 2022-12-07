@@ -1,7 +1,7 @@
 require('scrollbar').setup({
 	show = true,
 	handle = {
-		color = '#83a598',
+		color = '#475c53',
 	},
 	marks = {
 		Search = { color = 'orange' },

@@ -88,6 +88,7 @@ return require('packer').startup({
 			},
 			event = 'BufRead',
 		})
+		use({ 'rainbowhxch/accelerated-jk.nvim', event = 'BufWinEnter', config = req('jk') })
 		-- use treesitter to pasar
 		-- with a good looking of syntax
 		use({
