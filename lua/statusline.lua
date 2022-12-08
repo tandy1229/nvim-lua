@@ -214,9 +214,9 @@ end
 local function checkmode()
 	local ret
 	if vim.wo.spell == true then
-		ret = ' SPELL'
+		ret = 'SPELL'
 	elseif vim.o.paste == true then
-		ret = ' PASTE'
+		ret = 'PASTE'
 	else
 		ret = ''
 	end
@@ -232,9 +232,9 @@ function M.statusline()
 	if api.nvim_get_current_win() == vim.g.statusline_winid then
 		table.insert(stl, mode_highlight)
 		table.insert(stl, mode_name .. checkmode())
-		table.insert(stl, '%#StatusLine#')
-		table.insert(stl, filename(width) .. readonly(0) .. '%<')
+		table.insert(stl, '%#StatusLine#') -- statusline group
 		table.insert(stl, get_file_size())
+		table.insert(stl, filename(width) .. readonly(0) .. '%<')
 		table.insert(stl, coc_status())
 		table.insert(stl, coc_diagnostic())
 
@@ -244,7 +244,7 @@ function M.statusline()
 
 		table.insert(stl, fileformat(0))
 		table.insert(stl, mode_highlight)
-		table.insert(stl, ' %2l/%-2L%2v ')
+		table.insert(stl, ' %l/%L%v ')
 	else
 		local winid = vim.g.statusline_winid
 		local bufnr = api.nvim_win_get_buf(winid)
@@ -256,7 +256,7 @@ function M.statusline()
 		table.insert(stl, '%<%=')
 
 		table.insert(stl, fileformat(bufnr))
-		table.insert(stl, ' %2l/%-2L%2v ')
+		table.insert(stl, ' %l/%L%v ')
 	end
 	return table.concat(stl, space)
 end

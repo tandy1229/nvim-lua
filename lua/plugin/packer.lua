@@ -36,6 +36,10 @@ return require('packer').startup({
 		use({ 'stevearc/dressing.nvim', event = 'BufRead' })
 		-- lua api of neovim which describes for nvim function
 		use({ 'folke/neodev.nvim', ft = { 'lua' } })
+		-- ui component
+		use({ 'MunifTanjim/nui.nvim' })
+		-- beautiful notice
+		use({ 'rcarriga/nvim-notify' })
 
 		-- plugins for neovim interface
 		-- use('Iron-E/nvim-highlite') -- color scheme
@@ -100,6 +104,7 @@ return require('packer').startup({
 		use({ 'nvim-treesitter/playground', after = 'nvim-treesitter' })
 		-- rainbow brackets
 		use({ 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter', config = req('rainbow') })
+		use({ 'bennypowers/nvim-regexplainer', after = 'nvim-treesitter', config = req('regex') })
 		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', config = req('autotag') })
 		use({ 'RRethy/nvim-treesitter-endwise', after = 'nvim-treesitter', config = req('endwise') })
 		use({ 'andymass/vim-matchup', after = 'nvim-treesitter', config = req('matchup') })
@@ -182,8 +187,6 @@ return require('packer').startup({
 			cmd = 'Telescope',
 			-- after = 'nvim-treesitter',
 		})
-		-- beautiful notice
-		use({ 'rcarriga/nvim-notify' })
 
 		-- icon picker
 		use({
