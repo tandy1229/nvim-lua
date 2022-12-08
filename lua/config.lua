@@ -1,30 +1,5 @@
-local g, o, opt, fn = vim.g, vim.o, vim.opt, vim.fn
-
--- Disable some builtin vim plugins
-local disabled_built_ins = {
-	'2html_plugin',
-	'getscript',
-	'getscriptPlugin',
-	'gzip',
-	'logipat',
-	'netrw',
-	'netrwPlugin',
-	'netrwSettings',
-	'netrwFileHandlers',
-	'matchit',
-	'matchparen',
-	'tar',
-	'tarPlugin',
-	'rrhelper',
-	'vimball',
-	'vimballPlugin',
-	'zip',
-	'zipPlugin',
-}
-
-for _, plugin in pairs(disabled_built_ins) do
-	g['loaded_' .. plugin] = 1
-end
+require('disabled')
+local o, opt, fn = vim.o, vim.opt, vim.fn
 
 -- vim set
 opt.background = 'dark'
@@ -66,11 +41,6 @@ opt.fillchars = {
 	vertright = '┣',
 	verthoriz = '╋',
 }
-
--- languange support disable
-g.loaded_ruby_provider = 0
-g.loaded_node_provider = 0
-g.loaded_perl_provider = 0
 
 if fn.has('nvim') then
 	opt.inccommand = 'split'

@@ -1,10 +1,11 @@
+require('wilder').set_option('use_python_remote_plugin', 0)
 local wilder = require('wilder')
-wilder.set_option('use_python_remote_plugin', 0)
 wilder.setup({ modes = { ':', '/', '?' } })
 
 wilder.set_option('pipeline', {
 	wilder.branch(
 		wilder.cmdline_pipeline({
+			use_python = 0,
 			language = 'vim',
 			fuzzy = 1,
 			fuzzy_filter = wilder.lua_fzy_filter(),

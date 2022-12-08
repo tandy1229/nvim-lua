@@ -12,14 +12,14 @@ vim.g.coc_global_extensions = {
 	'coc-markdownlint', --
 	'coc-markdown-preview-enhanced', --
 	-- tex support
-	'coc-ltex',
+	'coc-ltex', --
 	-- complete enhanced
 	'coc-snippets', --
 	'https://github.com/rafamadriz/friendly-snippets@main',
 	-- diagnostic
-	'coc-diagnostic',
+	'coc-diagnostic', --
 	-- word
-	'coc-word',
+	'coc-word', --
 	'coc-lists', --
 	'coc-translator',
 	'coc-dictionary',
