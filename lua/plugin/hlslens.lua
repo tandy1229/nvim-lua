@@ -1,4 +1,3 @@
-require('scrollbar.handlers.search').setup()
 local kopts = { noremap = true, silent = true }
 
 vim.api.nvim_set_keymap(

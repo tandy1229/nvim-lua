@@ -19,6 +19,7 @@ vim.g.coc_global_extensions = {
 	-- diagnostic
 	'coc-diagnostic', --
 	-- word
+	'coc-db',
 	'coc-word', --
 	'coc-lists', --
 	'coc-translator',
