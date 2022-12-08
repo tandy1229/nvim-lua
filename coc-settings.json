@@ -1,5 +1,6 @@
 {
   "colors.enable": false,
+  "snippets.shortcut": "🌸",
   "translator.engines": ["youdao", "haici"],
   "Lua.telemetry.enable": true,
   "semanticTokens.enable": true,

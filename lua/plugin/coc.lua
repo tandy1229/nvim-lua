@@ -14,12 +14,15 @@ vim.g.coc_global_extensions = {
 	-- tex support
 	'coc-ltex',
 	-- complete enhanced
-	'coc-lists', --
 	'coc-snippets', --
 	'https://github.com/rafamadriz/friendly-snippets@main',
 	-- diagnostic
 	'coc-diagnostic',
+	-- word
+	'coc-word',
+	'coc-lists', --
 	'coc-translator',
+	'coc-dictionary',
 	-- in web
 	'coc-css', --
 	'coc-xml', --
@@ -33,11 +36,6 @@ vim.g.coc_global_extensions = {
 	-- 'coc-dictionary', --
 }
 local keyset = vim.keymap.set
--- Auto complete
-function _G.check_back_space()
-	local col = vim.fn.col('.') - 1
-	return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
 
 -- Use tab for trigger completion with characters ahead and navigate.
 -- NOTE: There's always complete item selected by default, you may want to enable
@@ -49,8 +47,14 @@ vim.cmd([[
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ v:lua.check_back_space() ? "\<TAB>" :
+      \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh()
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 let g:coc_snippet_next = '<tab>'
 nmap <Leader>ts <Plug>(coc-translator-p)
 ]])
@@ -62,7 +66,6 @@ keyset('i', '<S-TAB>', [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
 keyset('i', '<cr>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 
 -- Use <c-j> to trigger snippets
-keyset('i', '<c-j>', '<Plug>(coc-snippets-expand-jump)')
 keyset('i', '<c-j>', '<Plug>(coc-snippets-expand-jump)')
 -- Use <c-space> to trigger completion.
 keyset('i', '<c-space>', 'coc#refresh()', { silent = true, expr = true })
@@ -134,6 +137,10 @@ keyset('n', '<leader>ac', '<Plug>(coc-codeaction)', opts)
 
 -- Apply AutoFix to problem on the current line.
 keyset('n', '<leader>qf', '<Plug>(coc-fix-current)', opts)
+
+keyset('n', '<leader>o', '<Plug>(coc-openlink)', opts)
+
+keyset('n', '<leader>rf', '<Plug>(coc-refactor)', opts)
 
 -- Run the Code Lens action on the current line.
 keyset('n', '<leader>cl', '<Plug>(coc-codelens-action)', opts)
