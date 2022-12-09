@@ -2,6 +2,10 @@ local M = {}
 local fn, api, loop = vim.fn, vim.api, vim.loop
 local space = ' '
 
+--- Vim mode words and Highlights
+---@param t string
+---@param k string
+---@return table
 local mode = setmetatable({
 	n = { 'N', '%#StatusLineNormal#' },
 	no = { 'N', '%#StatusLineNormal#' },
@@ -29,6 +33,8 @@ local mode = setmetatable({
 	end,
 })
 
+--- For file is not exist in your computer
+---@return boolean
 local function is_tmp_file()
 	-- local filename = fn.expand('%:p')
 	local bufname = api.nvim_buf_get_name(0) -- use the nvim api
@@ -46,6 +52,9 @@ local function is_tmp_file()
 	end
 end
 
+--- for quickfix settings
+---@param winid integer
+---@return string
 local function quickfix(winid)
 	winid = winid or api.nvim_get_current_win()
 	local qf_type = fn.getwininfo(winid)[1].loclist == 1 and 'loc' or 'qf'
@@ -58,6 +67,8 @@ local function quickfix(winid)
 	return ('%s (%d/%d) [%d] %s'):format(prefix, info.nr, nr, info.size, title)
 end
 
+--- for file icon
+---@return string
 local function icon_append()
 	local ok, devicons = pcall(require, 'nvim-web-devicons')
 	if ok then
@@ -73,6 +84,9 @@ local function icon_append()
 	end
 end
 
+--- file name module
+---@param width integer
+---@return string
 local function filename(width)
 	local bufname = api.nvim_buf_get_name(0)
 	local fugitive_name = vim.b.fugitive_fname
@@ -84,7 +98,7 @@ local function filename(width)
 	end
 
 	local fname, fileicon
-  local path = fn.expand "%:~:."
+	local path = fn.expand('%:~:.')
 	local bt = vim.bo.bt
 	if fugitive_name then
 		fname = fugitive_name
@@ -115,6 +129,9 @@ local function filename(width)
 		.. '%#StatusLine#'
 end
 
+--- readonly symbol
+---@param bufnr integer
+---@return string
 local function readonly(bufnr)
 	local ret
 	if vim.bo[bufnr].readonly then
@@ -127,6 +144,8 @@ local function readonly(bufnr)
 	end
 end
 
+--- for coc.nvim lsp
+---@return string
 local function coc_status()
 	local status = vim.trim(vim.g.coc_status or '')
 	if status then
@@ -135,6 +154,8 @@ local function coc_status()
 	return ''
 end
 
+--- for coc.nvim diagnostic
+---@return string
 local function coc_diagnostic()
 	local ret
 	local list = {}
@@ -161,6 +182,8 @@ local function coc_diagnostic()
 	return ret
 end
 
+--- for gitsings.nvim
+---@return string
 local function gitsigns()
 	local ret
 	local ginfo = vim.b.gitsigns_status_dict
@@ -184,6 +207,8 @@ local function gitsigns()
 	return ret
 end
 
+--- for coc.nvim's functions' showing
+---@return string
 local function show_function()
 	local func
 	local coc = vim.g.coc_enabled
@@ -200,6 +225,9 @@ local function show_function()
 	return func or ''
 end
 
+--- for file_size deliver
+---@param file string
+---@return string
 local function file_size(file)
 	local size = fn.getfsize(file)
 	if size == 0 or size == -1 or size == -2 then
@@ -215,6 +243,8 @@ local function file_size(file)
 	return size
 end
 
+--- get file size
+---@return string
 local function get_file_size()
 	local file = fn.expand('%:p')
 	if string.len(file) == 0 then
@@ -233,6 +263,8 @@ local function fileformat(bufnr)
 	return bufnr == 0 and '%#StatusLineFormat#' .. icon .. '%#StatusLine#' or icon
 end
 
+--- for spell and paste mode check
+---@return string
 local function checkmode()
 	local ret
 	if vim.wo.spell == true then
@@ -245,6 +277,8 @@ local function checkmode()
 	return ret
 end
 
+--- statusline module
+---@return string
 function M.statusline()
 	local stl = {}
 	local curmode = api.nvim_get_mode().mode
@@ -264,7 +298,7 @@ function M.statusline()
 		table.insert(stl, gitsigns())
 		table.insert(stl, fileformat(0))
 		table.insert(stl, coc_diagnostic())
-    table.insert(stl, get_file_size())
+		table.insert(stl, get_file_size())
 		table.insert(stl, mode_highlight)
 		table.insert(stl, ' %2l/%-2L%2v ')
 	else
