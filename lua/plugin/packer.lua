@@ -161,6 +161,7 @@ return require('packer').startup({
 			'kristijanhusak/vim-dadbod-ui',
 			cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
 			requires = { { 'tpope/vim-dadbod', opt = true } },
+			config = req('dadbod'),
 		})
 
 		-- lsp modules
