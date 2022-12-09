@@ -21,7 +21,7 @@ local mode = setmetatable({
 	ce = { 'Ex', '%#StatusLineCommand#' },
 	r = { 'P', '%#StatusLineCommand#' },
 	rm = { 'More', '%#StatusLineCommand#' },
-	['!'] = { '!', '%#StatusLineCommand#' },
+	['!'] = { 'SH', '%#StatusLineCommand#' },
 	t = { 'T', '%#StatusLineTerminal#' },
 }, {
 	__index = function(t, k)
@@ -58,6 +58,21 @@ local function quickfix(winid)
 	return ('%s (%d/%d) [%d] %s'):format(prefix, info.nr, nr, info.size, title)
 end
 
+local function icon_append()
+	local ok, devicons = pcall(require, 'nvim-web-devicons')
+	if ok then
+		local icon_str, icon_color = devicons.get_icon_color(
+			fn.expand('%:t'),
+			nil, -- extension is already computed by nvim-web-devicons
+			{ default = true }
+		)
+		api.nvim_set_hl(0, 'StatusLineIcon', { fg = icon_color, bg = '#242a32' })
+		return '%#StatusLineIcon#' .. icon_str .. space
+	else
+		return ''
+	end
+end
+
 local function filename(width)
 	local bufname = api.nvim_buf_get_name(0)
 	local fugitive_name = vim.b.fugitive_fname
@@ -68,7 +83,8 @@ local function filename(width)
 		end
 	end
 
-	local fname
+	local fname, fileicon
+  local path = fn.expand "%:~:."
 	local bt = vim.bo.bt
 	if fugitive_name then
 		fname = fugitive_name
@@ -83,14 +99,20 @@ local function filename(width)
 		local ft = vim.bo.ft
 		if fn.expand('%:e') == '' or ft == '' then
 			if ft ~= '' then
+				fileicon = icon_append()
 				fname = ('%s (%s)'):format(fname, ft)
 			end
 		end
 	end
 	if bt == '' then
-		fname = fname .. ' %m'
+		fname = path .. ' %m'
+		fileicon = icon_append()
 	end
-	return '%#StatusLine' .. (vim.bo.modified and 'FileModified#' or 'FileName#') .. fname .. '%#StatusLine#'
+	return (fileicon and fileicon or '')
+		.. '%#StatusLine'
+		.. (vim.bo.modified and 'FileModified#' or 'FileName#')
+		.. fname
+		.. '%#StatusLine#'
 end
 
 local function readonly(bufnr)
@@ -198,7 +220,7 @@ local function get_file_size()
 	if string.len(file) == 0 then
 		return ''
 	end
-	return file_size(file)
+	return '%#StatusLineFileSize# ' .. file_size(file)
 end
 
 local function fileformat(bufnr)
@@ -233,18 +255,18 @@ function M.statusline()
 		table.insert(stl, mode_highlight)
 		table.insert(stl, mode_name .. checkmode())
 		table.insert(stl, '%#StatusLine#') -- statusline group
-		table.insert(stl, get_file_size())
 		table.insert(stl, filename(width) .. readonly(0) .. '%<')
 		table.insert(stl, coc_status())
-		table.insert(stl, coc_diagnostic())
+		table.insert(stl, show_function())
 
 		table.insert(stl, '%=')
-		table.insert(stl, show_function())
-		table.insert(stl, gitsigns())
 
+		table.insert(stl, gitsigns())
 		table.insert(stl, fileformat(0))
+		table.insert(stl, coc_diagnostic())
+    table.insert(stl, get_file_size())
 		table.insert(stl, mode_highlight)
-		table.insert(stl, ' %l/%L%v ')
+		table.insert(stl, ' %2l/%-2L%2v ')
 	else
 		local winid = vim.g.statusline_winid
 		local bufnr = api.nvim_win_get_buf(winid)
@@ -256,16 +278,16 @@ function M.statusline()
 		table.insert(stl, '%<%=')
 
 		table.insert(stl, fileformat(bufnr))
-		table.insert(stl, ' %l/%L%v ')
+		table.insert(stl, ' %2l/%-2L%2v ')
 	end
 	return table.concat(stl, space)
 end
 
 api.nvim_create_autocmd({
-	'VimEnter',
 	'BufDelete',
 	'CursorHold',
 	'BufWinEnter',
+	'BufEnter',
 	'ShellCmdPost',
 	'BufWritePost',
 	'FileChangedShellPost',
