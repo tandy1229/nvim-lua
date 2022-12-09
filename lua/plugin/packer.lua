@@ -157,8 +157,11 @@ return require('packer').startup({
 		use({ 'cohama/agit.vim', cmd = 'Agit' })
 		-- fugitive
 		use({ 'tpope/vim-fugitive', cmd = { 'Git', 'G' } })
-		use({ 'tpope/vim-dadbod', opt = true })
-		use({ 'kristijanhusak/vim-dadbod-ui', opt = true })
+		use({
+			'kristijanhusak/vim-dadbod-ui',
+			cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
+			requires = { { 'tpope/vim-dadbod', opt = true } },
+		})
 
 		-- lsp modules
 		-- coc completion franeworks based on node
@@ -188,9 +191,17 @@ return require('packer').startup({
 		-- telescope opt choice
 		use({
 			'nvim-telescope/telescope.nvim',
-			tag = '0.1.0',
 			opt = true,
-			requires = { { 'nvim-lua/plenary.nvim' } },
+			requires = {
+				{ 'nvim-lua/plenary.nvim' },
+				{ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', opt = true },
+				{ 'nvim-telescope/telescope-file-browser.nvim', opt = true },
+				{
+					'nvim-telescope/telescope-frecency.nvim',
+					requires = { 'kkharji/sqlite.lua', opt = true },
+					opt = true,
+				},
+			},
 			config = req('telescope'),
 			cmd = 'Telescope',
 			-- after = 'nvim-treesitter',
@@ -201,7 +212,7 @@ return require('packer').startup({
 			'ziontee113/icon-picker.nvim',
 			config = req('iconpicker'),
 			opt = true,
-			event = 'BufRead',
+			event = { 'BufRead', 'BufNewFile' },
 		})
 
 		-- gnu-sed combine
@@ -270,8 +281,9 @@ return require('packer').startup({
 		use({
 			'numToStr/Comment.nvim',
 			config = req('comment'),
-			event = 'BufRead',
+			event = { 'BufRead', 'BufNewFile' },
 		})
+		use({ 'sindrets/diffview.nvim', cmd = { 'DiffviewOpen', 'DiffviewClose' } })
 		-- da= function
 		use('junegunn/vim-after-object')
 		-- multi change plugin!!
