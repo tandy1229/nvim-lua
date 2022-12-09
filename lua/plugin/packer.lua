@@ -1,15 +1,8 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
-end
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
 
-local packer_bootstrap = ensure_packer()
+if not vim.loop.fs_stat(vim.fn.glob(install_path)) then
+	os.execute('git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+end
 
 -- Source a Lua file
 local function req(plugin)
@@ -23,10 +16,11 @@ vim.cmd([[
   augroup end
 ]])
 
+vim.cmd([[packadd packer.nvim]])
 return require('packer').startup({
 	function(use)
 		-- package manager plugin
-		use({ 'wbthomason/packer.nvim' })
+		use({ 'wbthomason/packer.nvim', opt = true })
 
 		-- lua plugin acclater
 		use({ 'lewis6991/impatient.nvim' })
@@ -44,7 +38,7 @@ return require('packer').startup({
 		-- plugins for neovim interface
 		-- use('Iron-E/nvim-highlite') -- color scheme
 		-- deus
-		use({ 'tandy1229/deus.nvim' })
+		use({ '~/Downloads/deus.nvim' })
 		-- gruvbox
 		use({ 'ellisonleao/gruvbox.nvim' })
 		-- gs to switch
@@ -92,7 +86,7 @@ return require('packer').startup({
 			},
 			event = { 'BufRead', 'BufNewFile' },
 		})
-		use({ 'rainbowhxch/accelerated-jk.nvim', event = 'BufWinEnter', config = req('jk') })
+		use({ 'rainbowhxch/accelerated-jk.nvim', event = 'BufReadPost', config = req('jk') })
 		-- use treesitter to pasar
 		-- with a good looking of syntax
 		use({
@@ -107,6 +101,7 @@ return require('packer').startup({
 		use({ 'bennypowers/nvim-regexplainer', after = 'nvim-treesitter', config = req('regex') })
 		use({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', config = req('autotag') })
 		use({ 'RRethy/nvim-treesitter-endwise', after = 'nvim-treesitter', config = req('endwise') })
+		use({ 'nvim-treesitter/nvim-treesitter-context', after = 'nvim-treesitter', config = req('context') })
 		use({ 'andymass/vim-matchup', after = 'nvim-treesitter', config = req('matchup') })
 		use({
 			'JoosepAlviste/nvim-ts-context-commentstring',
@@ -332,9 +327,6 @@ return require('packer').startup({
 
 		-- vim doc with Chinese
 		use({ 'yianwillis/vimcdoc', event = 'VimEnter' })
-		if packer_bootstrap then
-			require('packer').sync()
-		end
 	end,
 	config = {
 		profile = {
@@ -343,7 +335,7 @@ return require('packer').startup({
 		},
 		display = {
 			open_fn = function()
-				return require('packer.util').float({ border = 'single' })
+				return require('packer.util').float({ border = 'rounded' })
 			end,
 		},
 	},
