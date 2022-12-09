@@ -1,4 +1,6 @@
-require('disabled')
+require('core.disabled')
+require('core.kepmappings')
+require('core.statusline')
 local o, opt, fn = vim.o, vim.opt, vim.fn
 
 -- vim set

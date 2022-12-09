@@ -275,7 +275,7 @@ api.nvim_create_autocmd({
 	'FileWritePost',
 }, {
 	callback = function()
-		vim.wo.statusline = [[%!v:lua.require'statusline'.statusline()]]
+		vim.wo.statusline = [[%!v:lua.require'core.statusline'.statusline()]]
 	end,
 })
 

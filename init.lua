@@ -4,9 +4,7 @@
 local g, api = vim.g, vim.api
 
 pcall(require, 'impatient')
-require('config')
-require('kepmappings')
-require('statusline')
+require('core.config')
 
 -- plugin manage packer
 require('plugin.packer')

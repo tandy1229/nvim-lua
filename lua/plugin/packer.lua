@@ -29,7 +29,7 @@ return require('packer').startup({
 		use({ 'wbthomason/packer.nvim' })
 
 		-- lua plugin acclater
-		use('lewis6991/impatient.nvim')
+		use({ 'lewis6991/impatient.nvim' })
 		-- lua api which any lua plugins are relying
 		use({ 'nvim-lua/plenary.nvim', event = 'VimEnter' })
 		-- neovim ui api
@@ -90,7 +90,7 @@ return require('packer').startup({
 			requires = {
 				'kyazdani42/nvim-web-devicons',
 			},
-			event = 'BufRead',
+			event = { 'BufRead', 'BufNewFile' },
 		})
 		use({ 'rainbowhxch/accelerated-jk.nvim', event = 'BufWinEnter', config = req('jk') })
 		-- use treesitter to pasar
@@ -99,7 +99,7 @@ return require('packer').startup({
 			'nvim-treesitter/nvim-treesitter',
 			config = req('treesitter'),
 			run = ':TSUpdate',
-			event = 'BufRead',--[[ , ]]
+			event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 		})
 		use({ 'nvim-treesitter/playground', after = 'nvim-treesitter' })
 		-- rainbow brackets
@@ -126,6 +126,14 @@ return require('packer').startup({
 			after = 'nvim-treesitter',
 		})
 
+		use({
+			'glacambre/firenvim',
+			run = function()
+				vim.fn['firenvim#install'](0)
+			end,
+		})
+		use({ 'junegunn/vim-easy-align' })
+
 		-- f enchance
 		use({ 'ggandor/leap.nvim', config = req('leap'), event = 'BufRead' })
 		-- s enchance
@@ -137,7 +145,7 @@ return require('packer').startup({
 
 		-- git modules
 		-- lazygit combine
-		use({ 'kdheepak/lazygit.nvim', config = req('lazygit'), event = 'BufRead' })
+		use({ 'kdheepak/lazygit.nvim', config = req('lazygit'), event = { 'BufRead', 'BufNewFile' } })
 		-- gitgutter like
 		use({
 			'lewis6991/gitsigns.nvim',
@@ -158,7 +166,7 @@ return require('packer').startup({
 			'neoclide/coc.nvim',
 			branch = 'release',
 			config = req('coc'),
-			event = { 'BufRead', 'BufAdd', 'InsertEnter' },
+			event = { 'BufRead', 'BufAdd', 'InsertEnter', 'BufNewFile' },
 		})
 		-- lsp function showing
 		use({ 'liuchengxu/vista.vim', config = req('vista'), event = 'BufRead' })
