@@ -22,6 +22,7 @@ require('nvim-treesitter.configs').setup({
 		'markdown_inline',
 	},
 
+
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
 
@@ -30,7 +31,7 @@ require('nvim-treesitter.configs').setup({
 	auto_install = true,
 	highlight = {
 		enable = true,
-		disable = { 'rust' },
+		disable = { 'rust', 'latex' },
 		additional_vim_regex_highlighting = false,
 	},
 })
