@@ -183,6 +183,13 @@ return require('packer').startup({
 		})
 		-- fzf combine
 		use({ 'ibhagwan/fzf-lua', config = req('fzf-lua'), event = 'BufRead' })
+		use({
+			'junegunn/fzf',
+			run = function()
+				vim.fn['fzf#install']()
+			end,
+			ft = 'qf',
+		})
 
 		-- telescope opt choice
 		use({

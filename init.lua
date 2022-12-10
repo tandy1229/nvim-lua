@@ -14,8 +14,6 @@ api.nvim_command('runtime init/init.vim')
 -- personal setting
 g.python3_host_prog = '/usr/local/bin/python3.11'
 
-g.vimtex_view_method = 'zathura'
-
 --     
 --
 -- use the global statusline

@@ -4,6 +4,7 @@ g.mapleader = ' '
 
 keymap.set('n', 'S', ':update<CR>', { silent = true })
 keymap.set('n', 'Q', ':q<CR>')
+keymap.set('n', 'E', ':qall<CR>')
 keymap.set('n', '<Leader>Q', ':qa!<CR>', { silent = true })
 
 keymap.set('n', 'W', '5w')
