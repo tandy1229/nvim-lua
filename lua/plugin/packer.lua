@@ -278,7 +278,7 @@ return require('packer').startup({
 		-- super <enter>
 		use({ 'gcmt/wildfire.vim', event = 'BufRead' })
 		-- tabular !!!
-		use({ 'godlygeek/tabular', req = 'tabular', event = 'BufRead' })
+		use({ 'godlygeek/tabular', config = req('tabular'), event = 'BufRead' })
 		-- gc to change code to comment
 		-- use 'tomtom/tcomment_vim'
 		use({
