@@ -144,7 +144,6 @@ return require('packer').startup({
 		-- gitgutter like
 		use({
 			'lewis6991/gitsigns.nvim',
-			requires = { 'nvim-lua/plenary.nvim' },
 			config = req('gitsigns'),
 			event = { 'BufRead', 'BufNewFile' },
 		})
@@ -263,6 +262,7 @@ return require('packer').startup({
 			config = req('alpha'),
 			-- event = 'BufWinEnter'
 		})
+		use('rafamadriz/friendly-snippets')
 
 		-- quickfix enchance
 		use({ 'kevinhwang91/nvim-bqf', ft = 'qf' })

@@ -17,4 +17,4 @@ g.python3_host_prog = '/usr/local/bin/python3.11'
 --     
 --
 -- use the global statusline
--- vim.o.laststatus = 3
+vim.o.laststatus = 3
