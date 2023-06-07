@@ -3,11 +3,11 @@
 --
 local g, api = vim.g, vim.api
 
-pcall(require, 'impatient')
+vim.loader.enable()
 require('core.config')
 
 -- plugin manage packer
-require('plugin.packer')
+require('plugin.lazy')
 
 -- vim files load
 api.nvim_command('runtime init/init.vim')

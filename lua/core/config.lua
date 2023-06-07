@@ -47,5 +47,3 @@ opt.fillchars = {
 if fn.has('nvim') then
 	opt.inccommand = 'split'
 end
-
-vim.api.nvim_command('colorscheme deus')

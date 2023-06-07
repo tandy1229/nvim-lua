@@ -2,7 +2,7 @@
   "colors.enable": false,
   "snippets.shortcut": "🌸",
   "translator.engines": ["youdao", "haici"],
-  "Lua.telemetry.enable": true,
+  "leetcode.language": "c",
   "semanticTokens.enable": true,
   "sumneko-lua.enableNvimLuaDev": true,
   "sumneko-lua.locale": "zh-cn",
