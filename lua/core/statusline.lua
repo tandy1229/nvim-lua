@@ -302,7 +302,7 @@ function M.statusline()
 		table.insert(stl, coc_diagnostic())
 		table.insert(stl, get_file_size())
 		table.insert(stl, mode_highlight)
-		table.insert(stl, ' %2l/%-2L%2v ')
+		table.insert(stl, ' %2l/%-2L%2v ')
 	else
 		local winid = vim.g.statusline_winid
 		local bufnr = api.nvim_win_get_buf(winid)
@@ -314,7 +314,7 @@ function M.statusline()
 		table.insert(stl, '%<%=')
 
 		table.insert(stl, fileformat(bufnr))
-		table.insert(stl, ' %2l/%-2L%2v ')
+		table.insert(stl, ' %2l/%-2L%2v ')
 	end
 	return table.concat(stl, space)
 end

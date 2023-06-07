@@ -17,7 +17,6 @@ require('nvim-treesitter.configs').setup({
 		'gitignore',
 		'sql',
 		'toml',
-		'help',
 		'markdown',
 		'markdown_inline',
 	},

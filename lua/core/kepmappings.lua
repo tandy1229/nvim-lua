@@ -19,7 +19,7 @@ keymap.set('n', ',l', '<C-w>l')
 keymap.set('n', '<up>', ':res +5<CR>')
 keymap.set('n', '<down>', ':res -5<CR>')
 keymap.set('n', '<left>', ':vertical resize-5<CR>')
-keymap.set('n', '<right>', ':vertical resize-5<CR>')
+keymap.set('n', '<right>', ':vertical resize+5<CR>')
 
 keymap.set('n', '<', '<<')
 keymap.set('n', '>', '>>')
