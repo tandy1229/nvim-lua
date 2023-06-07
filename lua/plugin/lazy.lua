@@ -62,6 +62,15 @@ require('lazy').setup({
 		end,
 	},
 
+	-- {
+	-- 	'folke/tokyonight.nvim',
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		vim.api.nvim_command('colorscheme tokyonight')
+	-- 	end,
+	-- },
+
 	{
 		-- gs to switch
 		'tandy1229/wordswitch.nvim',
@@ -118,7 +127,7 @@ require('lazy').setup({
 		-- tabline theme
 		'romgrk/barbar.nvim',
 		dependencies = {
-			'kyazdani42/nvim-web-devicons',
+			'nvim-tree/nvim-web-devicons',
 		},
 		event = { 'BufRead', 'BufNewFile' },
 	},
@@ -187,9 +196,9 @@ require('lazy').setup({
 	{
 		-- startup
 		'goolord/alpha-nvim',
-		dependencies = { 'kyazdani42/nvim-web-devicons' },
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		config = req('alpha'),
-		-- event = 'BufWinEnter'
+		event = 'BufWinEnter',
 	},
 
 	{
@@ -257,24 +266,66 @@ require('lazy').setup({
 	},
 
 	{
+		'neovim/nvim-lspconfig',
+		event = { 'BufReadPre', 'BufNewFile' },
+		config = req('lsp'),
+	},
+
+	{
+		'j-hui/fidget.nvim',
+		config = function()
+			require('fidget').setup({})
+		end,
+	},
+
+	{
+		'ray-x/lsp_signature.nvim',
+		config = function()
+			require('lsp_signature').setup({})
+		end,
+	},
+
+	{
+		'romainl/vim-cool',
+	},
+
+	{
 		-- coc framework bosed on node
 		-- 'neoclide/coc.nvim',
 		-- branch = 'release',
 		-- config = req('coc'),
 		-- event = { 'BufRead', 'BufAdd', 'InsertEnter', 'BufNewFile' },
 		'hrsh7th/nvim-cmp',
-    config = req('cmp'),
+		config = req('cmp'),
 		dependencies = {
 			'f3fora/cmp-spell',
-			'neovim/nvim-lspconfig',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-cmdline',
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-nvim-lua',
-      'saadparwaiz1/cmp_luasnip',
+			'saadparwaiz1/cmp_luasnip',
 		},
 		event = 'InsertEnter',
+	},
+
+	{
+		'jose-elias-alvarez/null-ls.nvim',
+		config = function()
+			local null_ls = require('null-ls')
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.formatting.stylua,
+					null_ls.builtins.diagnostics.eslint,
+					null_ls.builtins.completion.spell,
+				},
+			})
+		end,
+	},
+
+	{
+		'folke/trouble.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
 	},
 
 	{
@@ -282,6 +333,7 @@ require('lazy').setup({
 		-- follow latest release.
 		-- install jsregexp (optional!).
 		build = 'make install_jsregexp',
+		dependencies = { 'rafamadriz/friendly-snippets' },
 	},
 
 	{
@@ -300,14 +352,6 @@ require('lazy').setup({
 		'ibhagwan/fzf-lua',
 		config = req('fzf-lua'),
 		event = 'BufRead',
-	},
-
-	{
-		-- icon selected
-		-- 'ziontee113/icon-picker.nvim',
-		-- config = req('iconpicker'),
-		-- lazy = true,
-		-- event = { 'BufRead', 'BufNewFile' },
 	},
 
 	{
@@ -387,6 +431,13 @@ require('lazy').setup({
 	{
 		-- gS & gJ
 		'AndrewRadev/splitjoin.vim',
+	},
+
+	{
+		'Wansmer/treesj',
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		config = req('treesj'),
+		event = 'BufRead',
 	},
 
 	{

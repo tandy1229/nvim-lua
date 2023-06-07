@@ -146,41 +146,67 @@ local function readonly(bufnr)
 	end
 end
 
---- for coc.nvim lsp
----@return string
-local function coc_status()
-	local status = vim.trim(vim.g.coc_status or '')
-	if status then
-		return '%#StatusLineCocStatus#' .. status .. '%#StatusLine#'
-	end
-	return ''
-end
+-- local function format_messages(messages)
+-- 	local result = {}
+-- 	local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+-- 	local ms = vim.loop.hrtime() / 1000000
+-- 	local frame = math.floor(ms / 120) % #spinners
+-- 	local i = 1
+-- 	for _, msg in pairs(messages) do
+-- 		-- Only display at most 2 progress messages at a time to avoid clutter
+-- 		if i < 3 then
+-- 			table.insert(result, (msg.percentage or 0) .. '%% ' .. (msg.title or ''))
+-- 			i = i + 1
+-- 		end
+-- 	end
+-- 	return table.concat(result, ' ') .. ' ' .. spinners[frame + 1]
+-- end
+--
+-- -- REQUIRES LSP
+-- local function lsp_progress()
+-- 	local messages = vim.lsp.util.get_progress_messages()
+-- 	if #messages == 0 then
+-- 		return ''
+-- 	end
+-- 	return '%#StatusLineCocStatus#' .. format_messages(messages) .. '%#StatusLine#'
+-- end
 
 --- for coc.nvim diagnostic
 ---@return string
-local function coc_diagnostic()
+local function lsp_diagnostic()
 	local ret
 	local list = {}
-	local info = vim.b.coc_diagnostic_info
-	if info and (info.warning > 0 or info.error > 0) then
-		if info.error > 0 then
-			local error = '' .. space .. info.error
-			table.insert(list, '%#StatusLineHunkRemove#' .. error)
+	local has_vim_diagnostics, _ = pcall(require, 'vim.diagnostic')
+	local e, w, i, h
+	if has_vim_diagnostics then
+		local res = { 0, 0, 0, 0 }
+		for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
+			res[diagnostic.severity] = res[diagnostic.severity] + 1
 		end
-		if info.warning > 0 then
-			local warning = '' .. space .. info.warning
-			table.insert(list, '%#StatusLineHunkChange#' .. warning)
-		end
-		if info.information > 0 then
-			local information = '' .. space .. info.information
-			table.insert(list, '%#StatusLineInformation#' .. information)
-		end
-		if info.hint > 0 then
-			local hint = '' .. space .. info.hint
-			table.insert(list, '%#StatusLineHint#' .. hint)
-		end
-		ret = table.concat(list, space) .. '%#StatusLine#'
+		e = res[vim.diagnostic.severity.ERROR]
+		w = res[vim.diagnostic.severity.WARN]
+		i = res[vim.diagnostic.severity.INFO]
+		h = res[vim.diagnostic.severity.HINT]
+	else
+		return ''
 	end
+	if e > 0 then
+		local error = '' .. space .. e
+		table.insert(list, '%#StatusLineHunkRemove#' .. error)
+	end
+	if w > 0 then
+		local warning = '' .. space .. w
+		table.insert(list, '%#StatusLineHunkChange#' .. warning)
+	end
+	if i > 0 then
+		local information = '' .. space .. i
+		table.insert(list, '%#StatusLineInformation#' .. information)
+	end
+	if h > 0 then
+		local hint = '' .. space .. h
+		table.insert(list, '%#StatusLineHint#' .. hint)
+	end
+	ret = table.concat(list, space) .. '%#StatusLine#'
 	return ret
 end
 
@@ -292,14 +318,14 @@ function M.statusline()
 		table.insert(stl, mode_name .. checkmode())
 		table.insert(stl, '%#StatusLine#') -- statusline group
 		table.insert(stl, filename(width) .. readonly(0) .. '%<')
-		table.insert(stl, coc_status())
+		-- table.insert(stl, lsp_progress())
 		table.insert(stl, show_function())
 
 		table.insert(stl, '%=')
 
 		table.insert(stl, gitsigns())
 		table.insert(stl, fileformat(0))
-		table.insert(stl, coc_diagnostic())
+		table.insert(stl, lsp_diagnostic())
 		table.insert(stl, get_file_size())
 		table.insert(stl, mode_highlight)
 		table.insert(stl, ' %2l/%-2L%2v ')

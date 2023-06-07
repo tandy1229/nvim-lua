@@ -1,4 +1,3 @@
-require('wilder').set_option('use_python_remote_plugin', 0)
 local wilder = require('wilder')
 wilder.setup({ modes = { ':', '/', '?' } })
 
@@ -52,3 +51,5 @@ wilder.set_option(
 		substitute = wildmenu_renderer,
 	})
 )
+
+require('wilder').set_option('use_python_remote_plugin', 0)
