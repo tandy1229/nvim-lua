@@ -20,6 +20,7 @@ vim.diagnostic.config({
 require('lspconfig.ui.windows').default_options = FLOAT_CONFIG
 
 -- Setup language servers.
+require('neodev').setup({})
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup({})
 lspconfig.tsserver.setup({})
