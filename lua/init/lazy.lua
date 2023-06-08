@@ -262,7 +262,7 @@ require('lazy').setup({
 	{
 		'neovim/nvim-lspconfig',
 		event = { 'BufReadPre', 'BufNewFile' },
-		config = req('lsp'),
+		config = req('lsp.lspconfig'),
 		dependencies = {
 			-- lua api of neovim which describes for nvim function
 			'folke/neodev.nvim',

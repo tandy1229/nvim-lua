@@ -7,7 +7,7 @@ vim.loader.enable()
 require('core.config')
 
 -- plugin manage packer
-require('plugin.lazy')
+require('init.lazy')
 
 -- vim files load
 api.nvim_command('runtime init/init.vim')
