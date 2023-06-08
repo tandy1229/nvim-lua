@@ -27,4 +27,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-packer_compiled.lua
+lazy-lock.json
+.luarc.json
