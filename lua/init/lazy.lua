@@ -28,7 +28,6 @@ require('lazy').setup({
 	{
 		-- lua api which any lua plugins are relying
 		'nvim-lua/plenary.nvim',
-		event = 'VimEnter',
 	},
 
 	{
@@ -118,6 +117,11 @@ require('lazy').setup({
 	},
 
 	{
+		-- with the plugin hlslens
+		'romainl/vim-cool',
+	},
+
+	{
 		-- tabline theme
 		'romgrk/barbar.nvim',
 		dependencies = {
@@ -145,6 +149,12 @@ require('lazy').setup({
 
 	{
 		'nvim-treesitter/playground',
+	},
+	{
+		-- textobjects
+		'nvim-treesitter/nvim-treesitter-textobjects',
+		config = req('textobjects'),
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 	},
 	{
 		-- rainbow bracket
@@ -273,7 +283,7 @@ require('lazy').setup({
 		'lvimuser/lsp-inlayhints.nvim',
 		branch = 'anticonceal',
 		config = function()
-			require("lsp-inlayhints").setup()
+			require('lsp-inlayhints').setup()
 			-- vim.api.nvim_create_augroup('LspAttach_inlayhints', {})
 			-- vim.api.nvim_create_autocmd('LspAttach', {
 			-- 	group = 'LspAttach_inlayhints',
@@ -291,28 +301,46 @@ require('lazy').setup({
 	},
 
 	{
+		'stevearc/aerial.nvim',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+			'nvim-tree/nvim-web-devicons',
+		},
+		config = req('aerial'),
+	},
+
+	{
+		-- statusline of the function
 		'Bekaboo/dropbar.nvim',
 	},
 
 	{
+		-- lsp text
 		'j-hui/fidget.nvim',
+		tag = 'legacy',
 		config = function()
 			require('fidget').setup({})
 		end,
 	},
 
 	{
+		-- function showing the para
 		'ray-x/lsp_signature.nvim',
-		config = function()
-			require('lsp_signature').setup({})
+		init = function()
+			vim.api.nvim_create_autocmd('LspAttach', {
+				callback = function(event)
+					require('lsp_signature').on_attach({}, event.buf)
+				end,
+			})
 		end,
+		lazy = true,
+		-- config = function()
+		-- 	require('lsp_signature').setup({})
+		-- end,
 	},
 
 	{
-		'romainl/vim-cool',
-	},
-
-	{
+		-- just guess indent
 		'NMAC427/guess-indent.nvim',
 		config = function()
 			require('guess-indent').setup({})
@@ -325,12 +353,13 @@ require('lazy').setup({
 		-- branch = 'release',
 		-- config = req('coc'),
 		-- event = { 'BufRead', 'BufAdd', 'InsertEnter', 'BufNewFile' },
+		-- now change to the nvim inner
 		'hrsh7th/nvim-cmp',
 		config = req('cmp'),
 		dependencies = {
 			'f3fora/cmp-spell',
 			'hrsh7th/cmp-path',
-			'hrsh7th/cmp-cmdline',
+			-- 'hrsh7th/cmp-cmdline',
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-nvim-lua',
@@ -354,6 +383,7 @@ require('lazy').setup({
 	},
 
 	{
+		-- showing the lsp diagnostics
 		'folke/trouble.nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 	},
@@ -364,6 +394,9 @@ require('lazy').setup({
 		-- install jsregexp (optional!).
 		build = 'make install_jsregexp',
 		dependencies = { 'rafamadriz/friendly-snippets' },
+		config = function()
+			require('luasnip.loaders.from_vscode').lazy_load()
+		end,
 	},
 
 	{
@@ -464,6 +497,7 @@ require('lazy').setup({
 	},
 
 	{
+		-- gS & gJ with treesitter
 		'Wansmer/treesj',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		config = req('treesj'),
@@ -530,6 +564,7 @@ require('lazy').setup({
 	},
 
 	{
+		-- chinese vim doc
 		'yianwillis/vimcdoc',
 		event = 'VimEnter',
 	},
