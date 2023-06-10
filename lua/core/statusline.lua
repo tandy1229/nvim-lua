@@ -210,7 +210,7 @@ local function lsp_diagnostic()
 	return ret
 end
 
---- for gitsings.nvim
+--- for gitsigns.nvim
 ---@return string
 local function gitsigns()
 	local ret
