@@ -109,13 +109,10 @@ cmp.setup({
 			end
 		end, { 'i', 's' }),
 	},
-	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' }, -- For luasnip users.
-	}, {
-		{ name = 'buffer' },
-	}),
+	sources = cmp.config.sources(
+		{ { name = 'nvim_lsp' }, { name = 'luasnip' } },
+		{ { name = 'spell' }, { name = 'buffer' } },
+		{ { name = 'path' } },
+		{ { name = 'nvim_lua' } }
+	),
 })
-
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
