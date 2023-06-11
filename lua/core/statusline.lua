@@ -3,8 +3,6 @@ local fn, api, loop = vim.fn, vim.api, vim.loop
 local space = ' '
 
 --- Vim mode words and Highlights
----@param t string
----@param k string
 ---@return table
 -- stylua: ignore start
 local mode = setmetatable({
@@ -187,8 +185,6 @@ local function lsp_diagnostic()
 		w = res[vim.diagnostic.severity.WARN]
 		i = res[vim.diagnostic.severity.INFO]
 		h = res[vim.diagnostic.severity.HINT]
-	else
-		return ''
 	end
 	if e > 0 then
 		local error = '' .. space .. e
@@ -206,8 +202,10 @@ local function lsp_diagnostic()
 		local hint = '' .. space .. h
 		table.insert(list, '%#StatusLineHint#' .. hint)
 	end
-	ret = table.concat(list, space) .. '%#StatusLine#'
-	return ret
+	if list then
+		ret = table.concat(list, space) .. '%#StatusLine#'
+	end
+	return ret or ''
 end
 
 --- for gitsigns.nvim
@@ -235,40 +233,23 @@ local function gitsigns()
 	return ret
 end
 
---- for coc.nvim's functions' showing
----@return string
-local function show_function()
-	local func
-	local coc = vim.g.coc_enabled
-	local coc_function = vim.b.coc_current_function
-	local vista = vim.b.vista_nearest_method_or_function
-	if coc and coc_function then
-		func = coc_function
-	elseif vista then
-		func = vista
-	end
-	if func then
-		func = '%#StatusLineHunkAdd#' .. func .. '%#StatusLine#'
-	end
-	return func or ''
-end
-
 --- for file_size deliver
 ---@param file string
 ---@return string
 local function file_size(file)
 	local size = fn.getfsize(file)
+	local FileSize
 	if size == 0 or size == -1 or size == -2 then
 		return ''
 	end
 	if size < 1024 then
-		size = size .. 'B'
+		FileSize = size .. 'B'
 	elseif size < 1024 * 1024 then
-		size = string.format('%0.1f', size / 1024) .. 'KB'
+		FileSize = string.format('%0.1f', size / 1024) .. 'KB'
 	elseif size < 1024 * 1024 * 1024 then
-		size = string.format('%0.1f', size / 1024 / 1024) .. 'GB'
+		FileSize = string.format('%0.1f', size / 1024 / 1024) .. 'GB'
 	end
-	return size
+	return FileSize
 end
 
 --- get file size
@@ -281,6 +262,7 @@ local function get_file_size()
 	return '%#StatusLineFileSize# ' .. file_size(file)
 end
 
+---@return string
 local function fileformat(bufnr)
 	local icon
 	if vim.bo[bufnr].fileformat == 'unix' then
@@ -319,7 +301,6 @@ function M.statusline()
 		table.insert(stl, '%#StatusLine#') -- statusline group
 		table.insert(stl, filename(width) .. readonly(0) .. '%<')
 		-- table.insert(stl, lsp_progress())
-		table.insert(stl, show_function())
 
 		table.insert(stl, '%=')
 
