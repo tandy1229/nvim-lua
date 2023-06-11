@@ -28,20 +28,24 @@ require('lazy').setup({
 	{
 		-- lua api which any lua plugins are relying
 		'nvim-lua/plenary.nvim',
+		lazy = true,
 	},
 
 	{
 		'stevearc/dressing.nvim',
+		lazy = true,
 	},
 
 	{
 		-- ui component
 		'MunifTanjim/nui.nvim',
+		lazy = true,
 	},
 
 	{
 		-- beautiful notice
 		'rcarriga/nvim-notify',
+		lazy = true,
 	},
 
 	{
@@ -216,6 +220,7 @@ require('lazy').setup({
 		-- indentline
 		'lukas-reineke/indent-blankline.nvim',
 		config = req('indent'),
+		event = 'BufRead',
 	},
 
 	{
@@ -282,6 +287,7 @@ require('lazy').setup({
 	{
 		'lvimuser/lsp-inlayhints.nvim',
 		branch = 'anticonceal',
+		event = { 'BufReadPre', 'BufNewFile' },
 		config = function()
 			require('lsp-inlayhints').setup()
 			-- vim.api.nvim_create_augroup('LspAttach_inlayhints', {})
@@ -307,20 +313,21 @@ require('lazy').setup({
 			'nvim-tree/nvim-web-devicons',
 		},
 		config = req('aerial'),
+		event = { 'BufReadPre', 'BufNewFile' },
 	},
 
 	{
 		-- statusline of the function
 		'Bekaboo/dropbar.nvim',
+		event = { 'BufReadPre', 'BufNewFile' },
 	},
 
 	{
 		-- lsp text
 		'j-hui/fidget.nvim',
 		tag = 'legacy',
-		config = function()
-			require('fidget').setup({})
-		end,
+		config = req('fidget'),
+		event = { 'BufReadPre', 'BufNewFile' },
 	},
 
 	{
@@ -345,6 +352,7 @@ require('lazy').setup({
 		config = function()
 			require('guess-indent').setup({})
 		end,
+		event = { 'BufReadPre', 'BufNewFile' },
 	},
 
 	{
@@ -370,6 +378,13 @@ require('lazy').setup({
 
 	{
 		'jose-elias-alvarez/null-ls.nvim',
+		event = { 'BufReadPre', 'FileType' },
+		cmd = {
+			'NullLsLog',
+			'NullLsInfo',
+			'NullLsFormatOnSaveToggle',
+		},
+		dependencies = { 'plenary.nvim' },
 		config = function()
 			local null_ls = require('null-ls')
 			null_ls.setup({
@@ -385,6 +400,7 @@ require('lazy').setup({
 	{
 		-- showing the lsp diagnostics
 		'folke/trouble.nvim',
+		event = { 'BufReadPre', 'FileType' },
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 	},
 
@@ -393,6 +409,7 @@ require('lazy').setup({
 		-- follow latest release.
 		-- install jsregexp (optional!).
 		build = 'make install_jsregexp',
+		event = 'InsertCharPre',
 		dependencies = { 'rafamadriz/friendly-snippets' },
 		config = function()
 			require('luasnip.loaders.from_vscode').lazy_load()
@@ -494,9 +511,9 @@ require('lazy').setup({
 	{
 		-- gS & gJ
 		'AndrewRadev/splitjoin.vim',
+		event = 'BufRead',
 	},
-
-	{
+{
 		-- gS & gJ with treesitter
 		'Wansmer/treesj',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
@@ -543,6 +560,7 @@ require('lazy').setup({
 		'michaelb/sniprun',
 		config = req('snip'),
 		build = 'sh ./install.sh',
+		event = 'BufRead',
 	},
 
 	{
