@@ -6,6 +6,8 @@ end
 
 local luasnip = require('luasnip')
 local cmp = require('cmp')
+local kind = require('cmp.types').lsp.CompletionItemKind --- @type lsp.CompletionItemKind
+
 local kind_icons = {
 	Text = '',
 	Method = '󰆧',
@@ -109,10 +111,13 @@ cmp.setup({
 			end
 		end, { 'i', 's' }),
 	},
-	sources = cmp.config.sources(
-		{ { name = 'nvim_lsp' }, { name = 'luasnip' } },
-		{ { name = 'spell' }, { name = 'buffer' } },
-		{ { name = 'path' } },
-		{ { name = 'nvim_lua' } }
-	),
+	sources = cmp.config.sources({
+		{
+			name = 'nvim_lsp',
+			entry_filter = function(entry)
+				return kind[entry:get_kind()] ~= 'Text'
+			end,
+		},
+		{ name = 'luasnip' },
+	}, { { name = 'spell' }, { name = 'buffer' } }, { { name = 'path' } }, { { name = 'nvim_lua' } }),
 })
