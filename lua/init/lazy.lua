@@ -238,6 +238,17 @@ require('lazy').setup({
 	},
 
 	{
+		'jiaoshijie/undotree',
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+		},
+		config = function()
+			vim.keymap.set('n', '<leader>u', require('undotree').toggle, { noremap = true, silent = true })
+			require('undotree').setup()
+		end,
+	},
+
+	{
 		-- cursor word
 		'itchyny/vim-cursorword',
 	},
@@ -513,7 +524,7 @@ require('lazy').setup({
 		'AndrewRadev/splitjoin.vim',
 		event = 'BufRead',
 	},
-{
+	{
 		-- gS & gJ with treesitter
 		'Wansmer/treesj',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
