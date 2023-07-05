@@ -126,13 +126,29 @@ require('lazy').setup({
 	},
 
 	{
-		-- tabline theme
-		'romgrk/barbar.nvim',
-		dependencies = {
-			'nvim-tree/nvim-web-devicons',
-		},
+		'akinsho/bufferline.nvim',
+		version = '*',
+		dependencies = 'nvim-tree/nvim-web-devicons',
 		event = { 'BufRead', 'BufNewFile' },
+		config = function()
+			require('bufferline').setup({
+				options = {
+					indicator = {
+						style = 'underline',
+					},
+				},
+			})
+		end,
 	},
+
+	-- {
+	-- 	-- tabline theme
+	-- 	'romgrk/barbar.nvim',
+	-- 	dependencies = {
+	-- 		'nvim-tree/nvim-web-devicons',
+	-- 	},
+	-- 	event = { 'BufRead', 'BufNewFile' },
+	-- },
 
 	{
 		-- jk enchance
@@ -216,11 +232,17 @@ require('lazy').setup({
 		event = 'VimEnter',
 	},
 
+	-- {
+	-- 	-- indentline
+	-- 	'lukas-reineke/indent-blankline.nvim',
+	-- 	config = req('indent'),
+	-- 	event = 'UIEnter',
+	-- },
+
 	{
-		-- indentline
-		'lukas-reineke/indent-blankline.nvim',
-		config = req('indent'),
-		event = 'BufRead',
+		'shellRaining/hlchunk.nvim',
+		event = { 'UIEnter' },
+		config = req('hlchunk'),
 	},
 
 	{
@@ -295,27 +317,27 @@ require('lazy').setup({
 		},
 	},
 
-	{
-		'lvimuser/lsp-inlayhints.nvim',
-		branch = 'anticonceal',
-		event = { 'BufReadPre', 'BufNewFile' },
-		config = function()
-			require('lsp-inlayhints').setup()
-			-- vim.api.nvim_create_augroup('LspAttach_inlayhints', {})
-			-- vim.api.nvim_create_autocmd('LspAttach', {
-			-- 	group = 'LspAttach_inlayhints',
-			-- 	callback = function(args)
-			-- 		if not (args.data and args.data.client_id) then
-			-- 			return
-			-- 		end
-			--
-			-- 		local bufnr = args.buf
-			-- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-			-- 		require('lsp-inlayhints').on_attach(client, bufnr)
-			-- 	end,
-			-- })
-		end,
-	},
+	-- {
+	-- 	'lvimuser/lsp-inlayhints.nvim',
+	-- 	branch = 'anticonceal',
+	-- 	event = { 'BufReadPre', 'BufNewFile' },
+	-- 	config = function()
+	-- 		require('lsp-inlayhints').setup()
+	-- 		-- vim.api.nvim_create_augroup('LspAttach_inlayhints', {})
+	-- 		-- vim.api.nvim_create_autocmd('LspAttach', {
+	-- 		-- 	group = 'LspAttach_inlayhints',
+	-- 		-- 	callback = function(args)
+	-- 		-- 		if not (args.data and args.data.client_id) then
+	-- 		-- 			return
+	-- 		-- 		end
+	-- 		--
+	-- 		-- 		local bufnr = args.buf
+	-- 		-- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
+	-- 		-- 		require('lsp-inlayhints').on_attach(client, bufnr)
+	-- 		-- 	end,
+	-- 		-- })
+	-- 	end,
+	-- },
 
 	{
 		'stevearc/aerial.nvim',
