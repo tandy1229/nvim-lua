@@ -23,6 +23,7 @@ opt.smartindent = true
 opt.splitbelow = true
 opt.splitright = true
 opt.signcolumn = 'yes'
+-- opt.mousemoveevent = true
 opt.scrolloff = 5
 opt.tabstop = 4
 opt.shiftwidth = 0
