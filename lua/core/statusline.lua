@@ -291,7 +291,7 @@ end
 ---@return string
 function M.statusline()
 	local stl = {}
-	local curmode = api.nvim_get_mode().mode
+	local curmode = vim.fn.mode()
 	local mode_name, mode_highlight = unpack(mode[curmode])
 	local width = api.nvim_win_get_width(vim.g.statusline_winid)
 
