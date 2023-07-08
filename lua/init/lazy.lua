@@ -468,6 +468,30 @@ require('lazy').setup({
 	},
 
 	{
+		'nvim-telescope/telescope.nvim',
+		cmd = 'Telescope',
+		dependencies = {
+			'plenary.nvim',
+			'telescope-fzf-native.nvim',
+			'debugloop/telescope-undo.nvim',
+		},
+		config = req('telescope'),
+	},
+
+	{
+		'nvim-telescope/telescope-fzf-native.nvim',
+		build = 'make',
+		lazy = true,
+		dependencies = { 'plenary.nvim', 'telescope.nvim' },
+	},
+
+	{
+		'debugloop/telescope-undo.nvim',
+		lazy = true,
+		dependencies = { 'plenary.nvim', 'telescope.nvim' },
+	},
+
+	{
 		-- gnu-sed integrate
 		'nvim-pack/nvim-spectre',
 		config = req('spectre'),
