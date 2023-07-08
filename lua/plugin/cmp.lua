@@ -42,12 +42,15 @@ local SOURCES = {
 	nvim_lsp = '',
 	nvim_lua = '󰢱',
 	path = '',
-	snippy = '',
+	luasnip = '',
 	spell = '󰓆',
 }
 
 cmp.setup({
 	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		maxwidth = 60,
+		maxheight = 10,
 		format = function(entry, vim_item)
 			-- Kind icons
 			vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
