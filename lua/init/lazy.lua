@@ -226,11 +226,15 @@ require('lazy').setup({
 	},
 
 	{
-		-- ranger integrate
-		'kevinhwang91/rnvimr',
-		config = req('rnvimr'),
-		event = 'VimEnter',
+		'theniceboy/joshuto.nvim',
+		config = req('joshuto'),
 	},
+	-- {
+	-- 	-- ranger integrate
+	-- 	'kevinhwang91/rnvimr',
+	-- 	config = req('rnvimr'),
+	-- 	event = 'VimEnter',
+	-- },
 
 	-- {
 	-- 	-- indentline
