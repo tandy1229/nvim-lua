@@ -32,7 +32,6 @@ endfun
 
 " commands
 command! -nargs=0 CleanExtraSpaces :call CleanExtraSpaces()
-command! -nargs=0 CompileRun :call CompileRun()
 command! -bang AutoSave call s:autosave(<bang>1)
 
 " Move the next character to the end of the line
