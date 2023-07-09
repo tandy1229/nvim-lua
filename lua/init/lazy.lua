@@ -79,6 +79,7 @@ require('lazy').setup({
 		-- scrollbar showing working with gitsigns and coc
 		'petertriho/nvim-scrollbar',
 		config = req('scrollbar'),
+		event = 'BufReadPost',
 	},
 
 	{
@@ -175,6 +176,7 @@ require('lazy').setup({
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		config = req('textobjects'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
 		-- rainbow bracket
@@ -182,39 +184,46 @@ require('lazy').setup({
 		'HiPhish/nvim-ts-rainbow2',
 		config = req('rainbow'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
 		-- regex
 		'bennypowers/nvim-regexplainer',
 		config = req('regex'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
 		-- autotag
 		'windwp/nvim-ts-autotag',
 		config = req('autotag'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
 		'RRethy/nvim-treesitter-endwise',
 		config = req('endwise'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
 		'nvim-treesitter/nvim-treesitter-context',
 		config = req('context'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
 		'andymass/vim-matchup',
 		config = req('matchup'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
 		-- annotation plugin
 		'danymat/neogen',
 		config = req('neogen'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 
 	{
@@ -228,7 +237,9 @@ require('lazy').setup({
 	{
 		'theniceboy/joshuto.nvim',
 		config = req('joshuto'),
+		event = 'BufWinEnter',
 	},
+
 	-- {
 	-- 	-- ranger integrate
 	-- 	'kevinhwang91/rnvimr',
