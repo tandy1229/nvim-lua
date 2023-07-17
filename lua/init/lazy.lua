@@ -170,6 +170,7 @@ require('lazy').setup({
 
 	{
 		'nvim-treesitter/playground',
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
 		-- textobjects
@@ -283,6 +284,7 @@ require('lazy').setup({
 			vim.keymap.set('n', '<leader>u', require('undotree').toggle, { noremap = true, silent = true })
 			require('undotree').setup()
 		end,
+		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 
 	{
@@ -633,6 +635,34 @@ require('lazy').setup({
 		config = req('snip'),
 		build = 'sh ./install.sh',
 		event = 'BufRead',
+	},
+
+	{ -- This plugin
+		'Zeioth/compiler.nvim',
+		cmd = { 'CompilerOpen', 'CompilerToggleResults' },
+		-- config = req('compiler'),
+		dependencies = { 'stevearc/overseer.nvim' },
+		config = function(_, opts)
+			require('compiler').setup(opts)
+		end,
+	},
+
+	{ -- The framework we use to run tasks
+		'stevearc/overseer.nvim',
+		cmd = { 'CompilerOpen', 'CompilerToggleResults' },
+		opts = {
+			task_list = {
+				direction = 'bottom',
+				min_height = 25,
+				max_height = 25,
+				default_detail = 1,
+				bindings = {
+					['q'] = function()
+						vim.cmd('OverseerClose')
+					end,
+				},
+			},
+		},
 	},
 
 	{
