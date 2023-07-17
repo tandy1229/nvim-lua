@@ -1,11 +1,17 @@
 --[[/* UI */]]
 
-vim.cmd([[
-	sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
-	sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
-	sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
-	sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=
-]])
+-- vim.cmd([[
+-- 	sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
+-- 	sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
+-- 	sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
+-- 	sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=
+-- ]])
+
+-- lsp sign
+vim.fn.sign_define('DiagnosticSignError', {text='', texthl='DiagnosticSignError'})
+vim.fn.sign_define('DiagnosticSignWarn', {text='', texthl='DiagnosticSignWarn'})
+vim.fn.sign_define('DiagnosticSignInfo', {text='', texthl='DiagnosticSignInfo'})
+vim.fn.sign_define('DiagnosticSignHint', {text='', texthl='DiagnosticSignHint'})
 
 --- Configuration for `nvim_open_win`
 local FLOAT_CONFIG = { border = 'rounded' }
@@ -14,8 +20,10 @@ vim.diagnostic.config({
 	float = FLOAT_CONFIG,
 	underline = true,
 	severity_sort = true,
+	signs = true,
 	virtual_text = { prefix = ' ', source = 'if_many', spacing = 4 },
 })
+
 
 require('lspconfig.ui.windows').default_options = FLOAT_CONFIG
 
@@ -40,6 +48,7 @@ lspconfig.lua_ls.setup({
 			workspace = {
 				-- Make the server aware of Neovim runtime files
 				library = vim.api.nvim_get_runtime_file('', true),
+				checkThirdParty = false,
 			},
 			-- Do not send telemetry data containing a randomized but unique identifier
 			telemetry = {
