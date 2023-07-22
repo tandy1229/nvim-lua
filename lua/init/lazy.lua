@@ -94,7 +94,8 @@ require('lazy').setup({
 		'akinsho/toggleterm.nvim',
 		version = '*',
 		config = req('terminal'),
-		event = 'UIEnter',
+		keys = { '<C-T>', mode = { 'n', 'i' } },
+		-- event = 'UIEnter',
 	},
 
 	{
@@ -170,6 +171,7 @@ require('lazy').setup({
 
 	{
 		'nvim-treesitter/playground',
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
 	},
 	{
@@ -238,7 +240,8 @@ require('lazy').setup({
 	{
 		'theniceboy/joshuto.nvim',
 		config = req('joshuto'),
-		event = 'BufWinEnter',
+		keys = { 'R', mode = { 'n' } },
+		-- event = 'BufWinEnter',
 	},
 
 	-- {
@@ -257,7 +260,8 @@ require('lazy').setup({
 
 	{
 		'shellRaining/hlchunk.nvim',
-		event = { 'UIEnter' },
+		-- event = { 'UIEnter' },
+		event = 'BufRead',
 		config = req('hlchunk'),
 	},
 
@@ -428,12 +432,12 @@ require('lazy').setup({
 
 	{
 		'jose-elias-alvarez/null-ls.nvim',
-		event = { 'BufReadPre', 'FileType' },
-		cmd = {
-			'NullLsLog',
-			'NullLsInfo',
-			'NullLsFormatOnSaveToggle',
-		},
+		event = { 'BufReadPre' },
+		-- cmd = {
+		-- 	'NullLsLog',
+		-- 	'NullLsInfo',
+		-- 	'NullLsFormatOnSaveToggle',
+		-- },
 		dependencies = { 'plenary.nvim' },
 		config = function()
 			local null_ls = require('null-ls')
@@ -585,6 +589,10 @@ require('lazy').setup({
 	{
 		-- gS & gJ
 		'AndrewRadev/splitjoin.vim',
+		-- keys = {
+		-- 	{ 'gS', mode = { 'n' } },
+		-- 	{ 'gJ', mode = { 'n' } },
+		-- },
 		event = 'BufRead',
 	},
 	{
@@ -592,6 +600,10 @@ require('lazy').setup({
 		'Wansmer/treesj',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		config = req('treesj'),
+		-- keys = {
+		-- 	{ 'gS', mode = { 'n' } },
+		-- 	{ 'gJ', mode = { 'n' } },
+		-- },
 		event = 'BufRead',
 	},
 
@@ -615,7 +627,8 @@ require('lazy').setup({
 	{
 		-- code format
 		'sbdchd/neoformat',
-		event = 'BufRead',
+		cmd = 'Neoformat',
+		-- event = 'BufRead',
 	},
 
 	{
@@ -676,6 +689,20 @@ require('lazy').setup({
 		'preservim/vim-markdown',
 		ft = { 'markdown' },
 		config = req('markdown'),
+	},
+
+	{
+		'iamcco/markdown-preview.nvim',
+		build = 'cd app && npm install',
+		ft = 'markdown',
+		lazy = true,
+		keys = { { 'gm', '<cmd>MarkdownPreviewToggle<cr>', desc = 'Markdown Preview' } },
+		config = function()
+			vim.g.mkdp_browser = '/Applications/Firefox.app'
+			vim.g.mkdp_open_ip = '127.0.0.1'
+			vim.g.mkdp_port = '8888'
+			vim.g.mkdp_echo_preview_url = true
+		end,
 	},
 
 	{
