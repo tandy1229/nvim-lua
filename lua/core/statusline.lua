@@ -123,10 +123,10 @@ local function filename(width)
 		fileicon = icon_append()
 	end
 	return (fileicon and fileicon or '')
-			.. '%#StatusLine'
-			.. (vim.bo.modified and 'FileModified#' or 'FileName#')
-			.. fname
-			.. '%#StatusLine#'
+		.. '%#StatusLine'
+		.. (vim.bo.modified and 'FileModified#' or 'FileName#')
+		.. fname
+		.. '%#StatusLine#'
 end
 
 --- readonly symbol

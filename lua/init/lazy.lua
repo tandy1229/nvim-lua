@@ -166,20 +166,20 @@ require('lazy').setup({
 		'nvim-treesitter/nvim-treesitter',
 		config = req('treesitter'),
 		build = ':TSUpdate',
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 
 	{
 		'nvim-treesitter/playground',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 	{
 		-- textobjects
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		config = req('textobjects'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 	{
 		-- rainbow bracket
@@ -187,46 +187,46 @@ require('lazy').setup({
 		'HiPhish/nvim-ts-rainbow2',
 		config = req('rainbow'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 	{
 		-- regex
 		'bennypowers/nvim-regexplainer',
 		config = req('regex'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 	{
 		-- autotag
 		'windwp/nvim-ts-autotag',
 		config = req('autotag'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 	{
 		'RRethy/nvim-treesitter-endwise',
 		config = req('endwise'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 	{
 		'nvim-treesitter/nvim-treesitter-context',
 		config = req('context'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 	{
 		'andymass/vim-matchup',
 		config = req('matchup'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 	{
 		-- annotation plugin
 		'danymat/neogen',
 		config = req('neogen'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 
 	{
@@ -288,7 +288,7 @@ require('lazy').setup({
 			vim.keymap.set('n', '<leader>u', require('undotree').toggle, { noremap = true, silent = true })
 			require('undotree').setup()
 		end,
-		event = { 'BufRead', 'BufNewFile' },--[[ , ]]
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 
 	{

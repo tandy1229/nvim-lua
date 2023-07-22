@@ -48,7 +48,7 @@ local SOURCES = {
 
 cmp.setup({
 	formatting = {
-		fields = { "kind", "abbr", "menu" },
+		fields = { 'kind', 'abbr', 'menu' },
 		maxwidth = 60,
 		maxheight = 10,
 		format = function(entry, vim_item)
