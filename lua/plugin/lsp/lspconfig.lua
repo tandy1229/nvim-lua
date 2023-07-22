@@ -8,10 +8,10 @@
 -- ]])
 
 -- lsp sign
-vim.fn.sign_define('DiagnosticSignError', {text='', texthl='DiagnosticSignError'})
-vim.fn.sign_define('DiagnosticSignWarn', {text='', texthl='DiagnosticSignWarn'})
-vim.fn.sign_define('DiagnosticSignInfo', {text='', texthl='DiagnosticSignInfo'})
-vim.fn.sign_define('DiagnosticSignHint', {text='', texthl='DiagnosticSignHint'})
+vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
+vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
+vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
+vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 
 --- Configuration for `nvim_open_win`
 local FLOAT_CONFIG = { border = 'rounded' }
@@ -23,7 +23,6 @@ vim.diagnostic.config({
 	signs = true,
 	virtual_text = { prefix = ' ', source = 'if_many', spacing = 4 },
 })
-
 
 require('lspconfig.ui.windows').default_options = FLOAT_CONFIG
 

@@ -6,26 +6,26 @@ local space = ' '
 ---@return table
 -- stylua: ignore start
 local mode = setmetatable({
-	n        = { 'N'      , '%#StatusLineNormal#'   },
-	no       = { 'N'      , '%#StatusLineNormal#'   },
-	v        = { 'V'      , '%#StatusLineVisual#'   },
-	V        = { 'VL'     , '%#StatusLineVisual#'   },
-	['\x16'] = { 'VB'     , '%#StatusLineVisual#'   },
-	s        = { 'S'      , '%#StatusLineVisual#'   },
-	S        = { 'SL'     , '%#StatusLineVisual#'   },
-	['\x13'] = { 'SB'     , '%#StatusLineVisual#'   },
-	i        = { 'I'      , '%#StatusLineInsert#'   },
-	ic       = { 'I'      , '%#StatusLineInsert#'   },
-	ix       = { 'I'      , '%#StatusLineInsert#'   },
-	R        = { 'R'      , '%#StatusLineReplace#'  },
-	Rv       = { 'VR'     , '%#StatusLineReplace#'  },
-	c        = { 'C'      , '%#StatusLineCommand#'  },
-	cv       = { 'Vim Ex' , '%#StatusLineCommand#'  },
-	ce       = { 'Ex'     , '%#StatusLineCommand#'  },
-	r        = { 'P'      , '%#StatusLineCommand#'  },
-	rm       = { 'More'   , '%#StatusLineCommand#'  },
-	['!']    = { 'SH'     , '%#StatusLineCommand#'  },
-	t        = { 'T'      , '%#StatusLineTerminal#' },
+	n        = { 'N', '%#StatusLineNormal#' },
+	no       = { 'N', '%#StatusLineNormal#' },
+	v        = { 'V', '%#StatusLineVisual#' },
+	V        = { 'VL', '%#StatusLineVisual#' },
+	['\x16'] = { 'VB', '%#StatusLineVisual#' },
+	s        = { 'S', '%#StatusLineVisual#' },
+	S        = { 'SL', '%#StatusLineVisual#' },
+	['\x13'] = { 'SB', '%#StatusLineVisual#' },
+	i        = { 'I', '%#StatusLineInsert#' },
+	ic       = { 'I', '%#StatusLineInsert#' },
+	ix       = { 'I', '%#StatusLineInsert#' },
+	R        = { 'R', '%#StatusLineReplace#' },
+	Rv       = { 'VR', '%#StatusLineReplace#' },
+	c        = { 'C', '%#StatusLineCommand#' },
+	cv       = { 'Vim Ex', '%#StatusLineCommand#' },
+	ce       = { 'Ex', '%#StatusLineCommand#' },
+	r        = { 'P', '%#StatusLineCommand#' },
+	rm       = { 'More', '%#StatusLineCommand#' },
+	['!']    = { 'SH', '%#StatusLineCommand#' },
+	t        = { 'T', '%#StatusLineTerminal#' },
 }, {
 	__index = function(t, k)
 		return t[k:sub(1, 1)] or t['n']
@@ -123,10 +123,10 @@ local function filename(width)
 		fileicon = icon_append()
 	end
 	return (fileicon and fileicon or '')
-		.. '%#StatusLine'
-		.. (vim.bo.modified and 'FileModified#' or 'FileName#')
-		.. fname
-		.. '%#StatusLine#'
+			.. '%#StatusLine'
+			.. (vim.bo.modified and 'FileModified#' or 'FileName#')
+			.. fname
+			.. '%#StatusLine#'
 end
 
 --- readonly symbol
