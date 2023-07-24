@@ -34,6 +34,9 @@ lspconfig.tsserver.setup({})
 lspconfig.gopls.setup({})
 lspconfig.bashls.setup({})
 lspconfig.clangd.setup({})
+lspconfig.rust_analyzer.setup({})
+lspconfig.marksman.setup({})
+lspconfig.texlab.setup({})
 lspconfig.lua_ls.setup({
 	settings = {
 		Lua = {
