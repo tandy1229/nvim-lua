@@ -15,7 +15,6 @@ vim.keymap.set('n', '<F5>', dap.continue, { noremap = true })
 vim.keymap.set('n', '<F6>', dap.pause, { noremap = true })
 vim.keymap.set('n', '<F8>', dap.repl.open, { noremap = true })
 vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, { noremap = true })
-vim.keymap.set('n', '<F10>', dap.step_over, { noremap = true })
 vim.keymap.set('n', '<F11>', dap.step_into, { noremap = true })
 
 vim.fn.sign_define(
