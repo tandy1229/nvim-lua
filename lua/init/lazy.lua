@@ -242,22 +242,7 @@ require('lazy').setup({
 		'theniceboy/joshuto.nvim',
 		config = req('joshuto'),
 		keys = { 'R', mode = { 'n' } },
-		-- event = 'BufWinEnter',
 	},
-
-	-- {
-	-- 	-- ranger integrate
-	-- 	'kevinhwang91/rnvimr',
-	-- 	config = req('rnvimr'),
-	-- 	event = 'VimEnter',
-	-- },
-
-	-- {
-	-- 	-- indentline
-	-- 	'lukas-reineke/indent-blankline.nvim',
-	-- 	config = req('indent'),
-	-- 	event = 'UIEnter',
-	-- },
 
 	{
 		'shellRaining/hlchunk.nvim',
@@ -280,7 +265,14 @@ require('lazy').setup({
 				end,
 				desc = 'Flash',
 			},
-			-- { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			{
+				',s',
+				mode = { 'n', 'o', 'x' },
+				function()
+					require('flash').treesitter()
+				end,
+				desc = 'Flash Treesitter',
+			},
 			{
 				'r',
 				mode = 'o',
@@ -289,14 +281,14 @@ require('lazy').setup({
 				end,
 				desc = 'Remote Flash',
 			},
-			-- {
-			-- 	'R',
-			-- 	mode = { 'o', 'x' },
-			-- 	function()
-			-- 		require('flash').treesitter_search()
-			-- 	end,
-			-- 	desc = 'Treesitter Search',
-			-- },
+			{
+				'R',
+				mode = { 'o', 'x' },
+				function()
+					require('flash').treesitter_search()
+				end,
+				desc = 'Treesitter Search',
+			},
 			{
 				'<c-s>',
 				mode = { 'c' },
@@ -322,20 +314,6 @@ require('lazy').setup({
 		dependencies = { 'williamboman/mason.nvim' },
 		event = 'BufRead',
 	},
-
-	-- {
-	-- 	-- s enchance
-	-- 	'ggandor/leap.nvim',
-	-- 	config = req('leap'),
-	-- 	event = 'BufRead',
-	-- },
-	--
-	-- {
-	-- 	-- f enchance
-	-- 	'ggandor/flit.nvim',
-	-- 	config = req('flit'),
-	-- 	event = 'BufRead',
-	-- },
 
 	{
 		'jiaoshijie/undotree',
@@ -397,28 +375,6 @@ require('lazy').setup({
 		},
 	},
 
-	-- {
-	-- 	'lvimuser/lsp-inlayhints.nvim',
-	-- 	branch = 'anticonceal',
-	-- 	event = { 'BufReadPre', 'BufNewFile' },
-	-- 	config = function()
-	-- 		require('lsp-inlayhints').setup()
-	-- 		-- vim.api.nvim_create_augroup('LspAttach_inlayhints', {})
-	-- 		-- vim.api.nvim_create_autocmd('LspAttach', {
-	-- 		-- 	group = 'LspAttach_inlayhints',
-	-- 		-- 	callback = function(args)
-	-- 		-- 		if not (args.data and args.data.client_id) then
-	-- 		-- 			return
-	-- 		-- 		end
-	-- 		--
-	-- 		-- 		local bufnr = args.buf
-	-- 		-- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-	-- 		-- 		require('lsp-inlayhints').on_attach(client, bufnr)
-	-- 		-- 	end,
-	-- 		-- })
-	-- 	end,
-	-- },
-
 	{
 		'stevearc/aerial.nvim',
 		dependencies = {
@@ -454,9 +410,6 @@ require('lazy').setup({
 			})
 		end,
 		lazy = true,
-		-- config = function()
-		-- 	require('lsp_signature').setup({})
-		-- end,
 	},
 
 	{
@@ -469,11 +422,6 @@ require('lazy').setup({
 	},
 
 	{
-		-- coc framework bosed on node
-		-- 'neoclide/coc.nvim',
-		-- branch = 'release',
-		-- config = req('coc'),
-		-- event = { 'BufRead', 'BufAdd', 'InsertEnter', 'BufNewFile' },
 		-- now change to the nvim inner
 		'hrsh7th/nvim-cmp',
 		config = req('cmp'),
@@ -499,34 +447,7 @@ require('lazy').setup({
 		-- 	'NullLsFormatOnSaveToggle',
 		-- },
 		dependencies = { 'plenary.nvim' },
-		config = function()
-			local null_ls = require('null-ls')
-			null_ls.setup({
-				sources = {
-					-- null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.stylua.with({
-						condition = function(utils)
-							return utils.root_has_file({ 'stylua.toml', '.stylua.toml' })
-						end,
-					}),
-
-					null_ls.builtins.diagnostics.eslint,
-					null_ls.builtins.completion.spell,
-					null_ls.builtins.code_actions.gitsigns,
-					null_ls.builtins.code_actions.shellcheck,
-					null_ls.builtins.formatting.shfmt,
-					null_ls.builtins.diagnostics.markdownlint,
-					null_ls.builtins.formatting.markdown_toc,
-					null_ls.builtins.formatting.markdownlint,
-					null_ls.builtins.formatting.clang_format,
-					null_ls.builtins.diagnostics.cspell.with({
-						filetypes = { 'markdown', 'text', 'javascript', 'typescript' },
-						extraArgs = { '--language', 'en' },
-					}),
-					null_ls.builtins.code_actions.cspell,
-				},
-			})
-		end,
+		config = req('lsp/null-ls'),
 	},
 
 	{
@@ -696,10 +617,6 @@ require('lazy').setup({
 	{
 		-- gS & gJ
 		'AndrewRadev/splitjoin.vim',
-		-- keys = {
-		-- 	{ 'gS', mode = { 'n' } },
-		-- 	{ 'gJ', mode = { 'n' } },
-		-- },
 		config = req('splitjoin'),
 		event = 'BufRead',
 	},
@@ -708,10 +625,6 @@ require('lazy').setup({
 		'Wansmer/treesj',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		config = req('treesj'),
-		-- keys = {
-		-- 	{ 'gS', mode = { 'n' } },
-		-- 	{ 'gJ', mode = { 'n' } },
-		-- },
 		event = 'BufRead',
 	},
 
