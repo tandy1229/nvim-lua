@@ -33,7 +33,14 @@ lspconfig.pyright.setup({})
 lspconfig.tsserver.setup({})
 lspconfig.gopls.setup({})
 lspconfig.bashls.setup({})
-lspconfig.clangd.setup({})
+lspconfig.clangd.setup({
+	-- on_attach = on_attach,
+	-- capabilities = cmp_nvim_lsp.default_capabilities(),
+	cmd = {
+		"clangd",
+		"--offset-encoding=utf-16",
+	},
+})
 lspconfig.rust_analyzer.setup({})
 lspconfig.marksman.setup({})
 lspconfig.texlab.setup({})
@@ -55,6 +62,9 @@ lspconfig.lua_ls.setup({
 			-- Do not send telemetry data containing a randomized but unique identifier
 			telemetry = {
 				enable = false,
+			},
+			hint = {
+				enable = true,
 			},
 		},
 	},
