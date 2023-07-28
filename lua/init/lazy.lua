@@ -125,6 +125,7 @@ require('lazy').setup({
 	{
 		-- with the plugin hlslens
 		'romainl/vim-cool',
+		event = 'FileType',
 	},
 
 	{
@@ -266,18 +267,75 @@ require('lazy').setup({
 	},
 
 	{
-		-- s enchance
-		'ggandor/leap.nvim',
-		config = req('leap'),
+		'folke/flash.nvim',
+		event = 'VeryLazy',
+		---@type Flash.Config
+		opts = {},
+		keys = {
+			{
+				's',
+				mode = { 'n', 'x', 'o' },
+				function()
+					require('flash').jump()
+				end,
+				desc = 'Flash',
+			},
+			-- { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			{
+				'r',
+				mode = 'o',
+				function()
+					require('flash').remote()
+				end,
+				desc = 'Remote Flash',
+			},
+			-- {
+			-- 	'R',
+			-- 	mode = { 'o', 'x' },
+			-- 	function()
+			-- 		require('flash').treesitter_search()
+			-- 	end,
+			-- 	desc = 'Treesitter Search',
+			-- },
+			{
+				'<c-s>',
+				mode = { 'c' },
+				function()
+					require('flash').toggle()
+				end,
+				desc = 'Toggle Flash Search',
+			},
+		},
+	},
+
+	{
+		'williamboman/mason.nvim',
+		config = function()
+			require('mason').setup()
+		end,
 		event = 'BufRead',
 	},
 
 	{
-		-- f enchance
-		'ggandor/flit.nvim',
-		config = req('flit'),
+		'jay-babu/mason-nvim-dap.nvim',
+		config = req('mason-dap'),
+		dependencies = { 'williamboman/mason.nvim' },
 		event = 'BufRead',
 	},
+
+	-- {
+	-- 	-- s enchance
+	-- 	'ggandor/leap.nvim',
+	-- 	config = req('leap'),
+	-- 	event = 'BufRead',
+	-- },
+	--
+	-- {
+	-- 	-- f enchance
+	-- 	'ggandor/flit.nvim',
+	-- 	config = req('flit'),
+	-- 	event = 'BufRead',
+	-- },
 
 	{
 		'jiaoshijie/undotree',
@@ -294,6 +352,7 @@ require('lazy').setup({
 	{
 		-- cursor word
 		'itchyny/vim-cursorword',
+		event = { 'BufRead', 'BufNewFile' },
 	},
 
 	{
@@ -426,6 +485,7 @@ require('lazy').setup({
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-nvim-lua',
 			'saadparwaiz1/cmp_luasnip',
+			'rcarriga/cmp-dap',
 		},
 		event = 'InsertEnter',
 	},
@@ -513,6 +573,7 @@ require('lazy').setup({
 			'plenary.nvim',
 			'telescope-fzf-native.nvim',
 			'debugloop/telescope-undo.nvim',
+			'nvim-telescope/telescope-dap.nvim',
 		},
 		config = req('telescope'),
 	},
@@ -559,6 +620,34 @@ require('lazy').setup({
 		'kevinhwang91/nvim-bqf',
 		dependencies = { 'junegunn/fzf' },
 		ft = 'qf',
+	},
+
+	{
+		'mfussenegger/nvim-dap',
+		dependencies = {
+			'cmp-dap',
+			'nvim-dap-ui',
+			'theHamsta/nvim-dap-virtual-text',
+		},
+		config = req('dap'),
+		event = 'BufRead',
+	},
+
+	{
+		'jbyuki/one-small-step-for-vimkind',
+		cmd = 'DapOSVLaunchServer',
+		dependencies = 'nvim-dap',
+	},
+
+	{
+		'rcarriga/nvim-dap-ui',
+		lazy = true,
+		dependencies = { 'nvim-dap', 'nvim-web-devicons' },
+	},
+
+	{
+		'theHamsta/nvim-dap-virtual-text',
+		lazy = true,
 	},
 
 	{
@@ -667,34 +756,6 @@ require('lazy').setup({
 		config = req('snip'),
 		build = 'sh ./install.sh',
 		event = 'BufRead',
-	},
-
-	{ -- This plugin
-		'Zeioth/compiler.nvim',
-		cmd = { 'CompilerOpen', 'CompilerToggleResults' },
-		-- config = req('compiler'),
-		dependencies = { 'stevearc/overseer.nvim' },
-		config = function(_, opts)
-			require('compiler').setup(opts)
-		end,
-	},
-
-	{ -- The framework we use to run tasks
-		'stevearc/overseer.nvim',
-		cmd = { 'CompilerOpen', 'CompilerToggleResults' },
-		opts = {
-			task_list = {
-				direction = 'bottom',
-				min_height = 25,
-				max_height = 25,
-				default_detail = 1,
-				bindings = {
-					['q'] = function()
-						vim.cmd('OverseerClose')
-					end,
-				},
-			},
-		},
 	},
 
 	{
