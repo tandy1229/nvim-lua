@@ -124,3 +124,11 @@ cmp.setup({
 		{ name = 'luasnip' },
 	}, { { name = 'spell' }, { name = 'buffer' } }, { { name = 'path' } }, { { name = 'nvim_lua' } }),
 })
+
+-- Completion in DAP buffers
+cmp.setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+  enabled = true,
+  sources = {
+    { name = 'dap' },
+  },
+})
