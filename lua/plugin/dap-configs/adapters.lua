@@ -1,12 +1,11 @@
 local adapters = {}
 
-adapters.codelldb = {
-  type = 'server',
-  port = "${port}",
-  executable = {
-    command = '~/.vscode/extensions/vadimcn.vscode-lldb-1.9.2/adapter/codelldb',
-    args = {"--port", "${port}"},
-  }
-}
+adapters.nlua = function(callback, config)
+	callback({
+		type = 'server',
+		host = config.host or '127.0.0.1',
+		port = config.port or 8086,
+	})
+end
 
 return adapters

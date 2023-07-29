@@ -556,7 +556,8 @@ require('lazy').setup({
 
 	{
 		'jbyuki/one-small-step-for-vimkind',
-		cmd = 'DapOSVLaunchServer',
+		-- cmd = 'DapOSVLaunchServer',
+		ft = 'lua',
 		dependencies = 'nvim-dap',
 	},
 

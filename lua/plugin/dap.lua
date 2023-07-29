@@ -37,5 +37,5 @@ vim.fn.sign_define('DapLogPoint', {
 })
 vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
 
--- dap.adapters = require('plugin.dap-configs.adapters')
--- dap.configurations = require('plugin.dap-configs.configurations')
+dap.adapters = require('plugin.dap-configs.adapters')
+dap.configurations = require('plugin.dap-configs.configurations')
