@@ -36,7 +36,7 @@ Even without those plugins and so now in my opinion the neovim is becoming the m
 
 ## References
 
-Thank you for these great configs ~~~
+Thank you for these great configs \~~~
 
 > It's theniceboy's video guide me to the Vim so far I was using the IDE. And then through him I have a chance to turn the Vim to using the most useful editor -- nvim.
 
@@ -46,5 +46,3 @@ Thank you for these great configs ~~~
 
 - [ ] inspired by [nvim](https://github.com/theniceboy/nvim) .
 - [ ] inspired by [Iron-E](https://github.com/Iron-E) .
-
-
