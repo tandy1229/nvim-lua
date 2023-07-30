@@ -110,7 +110,7 @@ require('lazy').setup({
 		'tversteeg/registers.nvim',
 		config = req('registers'),
 		keys = {
-			{ '"', mode = { 'n', 'v' } },
+			{ '"',     mode = { 'n', 'v' } },
 			{ '<C-R>', mode = 'i' },
 		},
 	},
@@ -374,6 +374,37 @@ require('lazy').setup({
 			'folke/neodev.nvim',
 		},
 	},
+
+	{
+		'Exafunction/codeium.vim',
+		event = { 'InsertEnter', 'BufReadPre', 'BufNewFile' },
+		config = function()
+			-- Change '<C-g>' here to any keycode you like.
+			vim.keymap.set('i', '<C-c>', function()
+				return vim.fn['codeium#Accept']()
+			end, { expr = true })
+			vim.keymap.set('i', '<c-;>', function()
+				return vim.fn['codeium#CycleCompletions'](1)
+			end, { expr = true })
+			vim.keymap.set('i', '<c-\'>', function()
+				return vim.fn['codeium#CycleCompletions'](-1)
+			end, { expr = true })
+			vim.keymap.set('i', '<c-x>', function()
+				return vim.fn['codeium#Clear']()
+			end, { expr = true })
+		end,
+	},
+
+	-- {
+	-- 	'jcdickinson/codeium.nvim',
+	-- 	dependencies = {
+	-- 		'nvim-lua/plenary.nvim',
+	-- 		'hrsh7th/nvim-cmp',
+	-- 	},
+	-- 	config = function()
+	-- 		require('codeium').setup({})
+	-- 	end,
+	-- },
 
 	{
 		'stevearc/aerial.nvim',
