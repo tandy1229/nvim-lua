@@ -44,6 +44,7 @@ local SOURCES = {
 	path = '',
 	luasnip = '',
 	spell = '󰓆',
+	Codeium = '',
 }
 
 cmp.setup({
@@ -114,21 +115,27 @@ cmp.setup({
 			end
 		end, { 'i', 's' }),
 	},
-	sources = cmp.config.sources({
+	sources = cmp.config.sources(
 		{
-			name = 'nvim_lsp',
-			entry_filter = function(entry)
-				return kind[entry:get_kind()] ~= 'Text'
-			end,
+			{
+				name = 'nvim_lsp',
+				entry_filter = function(entry)
+					return kind[entry:get_kind()] ~= 'Text'
+				end,
+			},
+			{ name = 'luasnip' },
 		},
-		{ name = 'luasnip' },
-	}, { { name = 'spell' }, { name = 'buffer' } }, { { name = 'path' } }, { { name = 'nvim_lua' } }),
+		{ { name = 'spell' }, { name = 'buffer' } },
+		{ { name = 'path' } },
+		{ { name = 'nvim_lua' } },
+		{ { name = 'codeium' } }
+	),
 })
 
 -- Completion in DAP buffers
 cmp.setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
-  enabled = true,
-  sources = {
-    { name = 'dap' },
-  },
+	enabled = true,
+	sources = {
+		{ name = 'dap' },
+	},
 })
