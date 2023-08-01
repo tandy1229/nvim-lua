@@ -18,6 +18,28 @@ local function req(plugin)
 	end
 end
 
+local config = {
+	ui = {
+		border = 'rounded',
+		size = { width = 0.7, height = 0.74 },
+	},
+	change_detection = { notify = false },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				'gzip',
+				'matchit',
+				'tarPlugin',
+				'tohtml',
+				'tutor',
+				'zipPlugin',
+				'health',
+				'netrwPlugin',
+			},
+		},
+	},
+}
+
 require('lazy').setup({
 	{
 		-- from packer.nvim moving to lazy
@@ -110,7 +132,7 @@ require('lazy').setup({
 		'tversteeg/registers.nvim',
 		config = req('registers'),
 		keys = {
-			{ '"',     mode = { 'n', 'v' } },
+			{ '"', mode = { 'n', 'v' } },
 			{ '<C-R>', mode = 'i' },
 		},
 	},
@@ -386,7 +408,7 @@ require('lazy').setup({
 			vim.keymap.set('i', '<c-;>', function()
 				return vim.fn['codeium#CycleCompletions'](1)
 			end, { expr = true })
-			vim.keymap.set('i', '<c-\'>', function()
+			vim.keymap.set('i', "<c-'>", function()
 				return vim.fn['codeium#CycleCompletions'](-1)
 			end, { expr = true })
 			vim.keymap.set('i', '<c-x>', function()
@@ -740,4 +762,4 @@ require('lazy').setup({
 		'yianwillis/vimcdoc',
 		event = 'VimEnter',
 	},
-})
+}, config)
