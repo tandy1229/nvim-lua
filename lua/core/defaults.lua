@@ -47,7 +47,8 @@ opt.listchars = {
   precedes    = '…',
   nbsp        = '␣',
   trail       = '·',
-	eol         = '↴',
+	eol         = '󱞣',
+	-- eol         = '↴',
 }
 opt.fillchars = {
   fold        = '·',
