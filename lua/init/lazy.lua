@@ -23,6 +23,12 @@ local config = {
 		border = 'rounded',
 		size = { width = 0.7, height = 0.74 },
 	},
+	dev = {
+		path = "~/projects",
+		---@type string[]
+		patterns = { "tandy1229" },
+		fallback = true,
+	},
 	change_detection = { notify = false },
 	performance = {
 		rtp = {
@@ -72,8 +78,9 @@ require('lazy').setup({
 
 	{
 		-- plugin for neovim interface
-		dir = '~/Downloads/deus.nvim',
-		-- 'tandy1229/deus.nvim',
+		-- dir = '~/Downloads/deus.nvim',
+		'tandy1229/deus.nvim',
+		dev = true,
 		lazy = false,
 		priority = 1000,
 		config = function()
@@ -132,7 +139,7 @@ require('lazy').setup({
 		'tversteeg/registers.nvim',
 		config = req('registers'),
 		keys = {
-			{ '"', mode = { 'n', 'v' } },
+			{ '"',     mode = { 'n', 'v' } },
 			{ '<C-R>', mode = 'i' },
 		},
 	},
