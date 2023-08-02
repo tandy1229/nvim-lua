@@ -24,9 +24,9 @@ local config = {
 		size = { width = 0.7, height = 0.74 },
 	},
 	dev = {
-		path = "~/projects",
+		path = '~/projects',
 		---@type string[]
-		patterns = { "tandy1229" },
+		patterns = { 'tandy1229' },
 		fallback = true,
 	},
 	change_detection = { notify = false },
@@ -103,6 +103,12 @@ require('lazy').setup({
 		event = 'BufReadPost',
 	},
 
+	-- {
+	-- 	url = 'https://codeberg.org/jgoguen/tmpl.vim',
+	-- 	event = 'FileType',
+	-- 	config = req('tmpl'),
+	-- },
+
 	-- interface modules
 	{
 		-- scrollbar showing working with gitsigns and coc
@@ -139,7 +145,7 @@ require('lazy').setup({
 		'tversteeg/registers.nvim',
 		config = req('registers'),
 		keys = {
-			{ '"',     mode = { 'n', 'v' } },
+			{ '"', mode = { 'n', 'v' } },
 			{ '<C-R>', mode = 'i' },
 		},
 	},
