@@ -21,6 +21,7 @@ null_ls.setup({
 		-- null_ls.builtins.formatting.remark,
 		null_ls.builtins.formatting.clang_format,
 		null_ls.builtins.formatting.black,
+		null_ls.builtins.formatting.rustfmt,
 		null_ls.builtins.diagnostics.ruff,
 		null_ls.builtins.diagnostics.cspell.with({
 			filetypes = { 'markdown', 'text', 'javascript', 'typescript' },
