@@ -31,6 +31,7 @@ opt.scrolloff = 5
 opt.tabstop = 4
 opt.shiftwidth = 0
 -- opt.expandtab = true
+opt.smoothscroll = true
 opt.ttimeoutlen = 20
 opt.termguicolors = true
 opt.updatetime = 100
