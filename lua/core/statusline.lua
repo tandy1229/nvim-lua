@@ -34,7 +34,7 @@ local mode = setmetatable({
 -- stylua: ignore end
 
 --- For file is not exist in your computer
----@return boolean
+--- @return boolean
 local function is_tmp_file()
 	-- local filename = fn.expand('%:p')
 	local bufname = api.nvim_buf_get_name(0) -- use the nvim api
@@ -53,8 +53,8 @@ local function is_tmp_file()
 end
 
 --- for quickfix settings
----@param winid integer
----@return string
+--- @param winid integer
+--- @return string
 local function quickfix(winid)
 	winid = winid or api.nvim_get_current_win()
 	local qf_type = fn.getwininfo(winid)[1].loclist == 1 and 'loc' or 'qf'
@@ -68,7 +68,7 @@ local function quickfix(winid)
 end
 
 --- for file icon
----@return string
+--- @return string
 local function icon_append()
 	local ok, devicons = pcall(require, 'nvim-web-devicons')
 	if ok then
@@ -85,8 +85,8 @@ local function icon_append()
 end
 
 --- file name module
----@param width integer
----@return string
+--- @param width integer
+--- @return string
 local function filename(width)
 	local bufname = api.nvim_buf_get_name(0)
 	local fugitive_name = vim.b.fugitive_fname
@@ -130,8 +130,8 @@ local function filename(width)
 end
 
 --- readonly symbol
----@param bufnr integer
----@return string
+--- @param bufnr integer
+--- @return string
 local function readonly(bufnr)
 	local ret
 	if vim.bo[bufnr].readonly then
@@ -169,8 +169,8 @@ end
 -- 	return '%#StatusLineCocStatus#' .. format_messages(messages) .. '%#StatusLine#'
 -- end
 
---- for coc.nvim diagnostic
----@return string
+--- for native lsp diagnostic
+--- @return string
 local function lsp_diagnostic()
 	local ret
 	local list = {}
@@ -209,7 +209,7 @@ local function lsp_diagnostic()
 end
 
 --- for gitsigns.nvim
----@return string
+--- @return string
 local function gitsigns()
 	local ret
 	local ginfo = vim.b.gitsigns_status_dict
@@ -234,8 +234,8 @@ local function gitsigns()
 end
 
 --- for file_size deliver
----@param file string
----@return string
+--- @param file string
+--- @return string
 local function file_size(file)
 	local size = fn.getfsize(file)
 	local FileSize
@@ -253,7 +253,7 @@ local function file_size(file)
 end
 
 --- get file size
----@return string
+--- @return string
 local function get_file_size()
 	local file = fn.expand('%:p')
 	if string.len(file) == 0 then
@@ -262,7 +262,8 @@ local function get_file_size()
 	return '%#StatusLineFileSize# ' .. file_size(file)
 end
 
----@return string
+--- for OS
+--- @return string
 local function fileformat(bufnr)
 	local icon
 	if vim.bo[bufnr].fileformat == 'unix' then
@@ -274,7 +275,7 @@ local function fileformat(bufnr)
 end
 
 --- for spell and paste mode check
----@return string
+--- @return string
 local function checkmode()
 	local ret
 	if vim.wo.spell == true then
@@ -288,7 +289,7 @@ local function checkmode()
 end
 
 --- statusline module
----@return string
+--- @return string
 function M.statusline()
 	local stl = {}
 	local curmode = vim.fn.mode()
