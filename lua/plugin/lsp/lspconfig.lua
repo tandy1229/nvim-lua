@@ -1,11 +1,7 @@
 --[[/* UI */]]
 
--- vim.cmd([[
--- 	sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
--- 	sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
--- 	sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
--- 	sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=
--- ]])
+local lspconfig = require('lspconfig')
+-- local util = require('lspconfig.util')
 
 -- lsp sign
 vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
@@ -13,8 +9,27 @@ vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSig
 vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(ev)
+		if vim.lsp.get_client_by_id(ev.data.client_id).server_capabilities.inlayHintProvider then
+			vim.lsp.inlay_hint(ev.buf, true)
+			vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<C-c>', '', {
+				callback = function()
+					vim.lsp.inlay_hint(0)
+				end,
+			})
+		end
+	end,
+})
+
 --- Configuration for `nvim_open_win`
 local FLOAT_CONFIG = { border = 'rounded' }
+
+--- Event handlers
+local HANDLERS = {
+	['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, FLOAT_CONFIG),
+	['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, FLOAT_CONFIG),
+}
 
 vim.diagnostic.config({
 	float = FLOAT_CONFIG,
@@ -26,25 +41,41 @@ vim.diagnostic.config({
 
 require('lspconfig.ui.windows').default_options = FLOAT_CONFIG
 
+--- @param lsp string
+--- @param config? table
+local function setup(lsp, config)
+	if config == nil then
+		config = {}
+	end
+
+	config.handlers = HANDLERS
+	lspconfig[lsp].setup(config)
+end
+
 -- Setup language servers.
+-- lua
 require('neodev').setup({})
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup({})
-lspconfig.tsserver.setup({})
-lspconfig.gopls.setup({})
-lspconfig.bashls.setup({})
-lspconfig.clangd.setup({
+
+-- lspconfig.pyright.setup({})
+setup('pyright')
+-- setup('pylyzer')
+-- setup('pylsp')
+setup('tsserver')
+setup('sqlls')
+setup('gopls')
+setup('bashls')
+setup('marksman')
+setup('rust_analyzer')
+setup('texlab')
+setup('clangd', {
 	-- on_attach = on_attach,
 	-- capabilities = cmp_nvim_lsp.default_capabilities(),
 	cmd = {
-		"clangd",
-		"--offset-encoding=utf-16",
+		'clangd',
+		'--offset-encoding=utf-16',
 	},
 })
-lspconfig.rust_analyzer.setup({})
-lspconfig.marksman.setup({})
-lspconfig.texlab.setup({})
-lspconfig.lua_ls.setup({
+setup('lua_ls', {
 	settings = {
 		Lua = {
 			runtime = {
@@ -67,12 +98,6 @@ lspconfig.lua_ls.setup({
 				enable = true,
 			},
 		},
-	},
-})
-lspconfig.rust_analyzer.setup({
-	-- Server-specific settings. See `:help lspconfig-setup`
-	settings = {
-		['rust-analyzer'] = {},
 	},
 })
 
