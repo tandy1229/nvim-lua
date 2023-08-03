@@ -103,6 +103,25 @@ require('lazy').setup({
 		event = 'BufReadPost',
 	},
 
+	{
+		'KronsyC/nvim-license',
+		opts = function()
+			return {
+				name = 'tandy',
+				-- Optional
+				year = "2023"
+			}
+		end,
+		cmd = {
+			'License',
+			'LicenseHeader',
+			'AutoLicense',
+		},
+		dependencies = {
+			{ 'numToStr/Comment.nvim' },
+		},
+	},
+
 	-- {
 	-- 	url = 'https://codeberg.org/jgoguen/tmpl.vim',
 	-- 	event = 'FileType',
@@ -145,7 +164,7 @@ require('lazy').setup({
 		'tversteeg/registers.nvim',
 		config = req('registers'),
 		keys = {
-			{ '"', mode = { 'n', 'v' } },
+			{ '"',     mode = { 'n', 'v' } },
 			{ '<C-R>', mode = 'i' },
 		},
 	},
