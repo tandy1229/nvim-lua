@@ -135,7 +135,7 @@ end
 local function readonly(bufnr)
 	local ret
 	if vim.bo[bufnr].readonly then
-		ret = loop.fs_stat(api.nvim_buf_get_name(bufnr or 0)) and '' or ''
+		ret = loop.fs_stat(api.nvim_buf_get_name(bufnr or 0)) and '' or '󰌿'
 	end
 	if ret then
 		return ret
@@ -188,11 +188,11 @@ local function lsp_diagnostic()
 	end
 	if e > 0 then
 		local error = '' .. space .. e
-		table.insert(list, '%#StatusLineHunkRemove#' .. error)
+		table.insert(list, '%#StatusLineError#' .. error)
 	end
 	if w > 0 then
 		local warning = '' .. space .. w
-		table.insert(list, '%#StatusLineHunkChange#' .. warning)
+		table.insert(list, '%#StatusLineWarning#' .. warning)
 	end
 	if i > 0 then
 		local information = '' .. space .. i
@@ -215,7 +215,7 @@ local function gitsigns()
 	local ginfo = vim.b.gitsigns_status_dict
 	if ginfo then
 		local branch = ginfo.head
-		local list = { '%#StatusLineBranch#' .. branch }
+		local list = { '%#StatusLineBranch#' .. space .. '' .. branch }
 		local add = ginfo.added
 		local change = ginfo.changed
 		local remove = ginfo.removed
@@ -228,7 +228,7 @@ local function gitsigns()
 		if remove and remove > 0 then
 			table.insert(list, '%#StatusLineHunkRemove#-' .. remove)
 		end
-		ret = table.concat(list, space) .. '%#StatusLine#'
+		ret = table.concat(list, space) .. space .. '%#StatusLine#'
 	end
 	return ret
 end
@@ -259,7 +259,7 @@ local function get_file_size()
 	if string.len(file) == 0 then
 		return ''
 	end
-	return '%#StatusLineFileSize# ' .. file_size(file)
+	return '%#StatusLineFileSize#' .. space .. file_size(file)
 end
 
 --- for OS  󰀶
@@ -267,11 +267,11 @@ end
 local function fileformat(bufnr)
 	local icon
 	if vim.bo[bufnr].fileformat == 'unix' then
-		icon = jit.os == 'OSX' and '' or ''
+		icon = jit.os == 'OSX' and '%#StatusLineApple#' or '%#StatusLineLinux#'
 	else
-		icon = ''
+		icon = '%#StatusLineWindows#'
 	end
-	return bufnr == 0 and '%#StatusLineFormat#' .. icon .. '%#StatusLine#' or icon
+	return bufnr == 0 and icon .. '%#StatusLine#' or icon
 end
 
 --- for spell and paste mode check
@@ -299,16 +299,20 @@ function M.statusline()
 	if api.nvim_get_current_win() == vim.g.statusline_winid then
 		table.insert(stl, mode_highlight)
 		table.insert(stl, mode_name .. checkmode())
-		table.insert(stl, '%#StatusLine#') -- statusline group
+		table.insert(stl, gitsigns())
+		-- table.insert(stl, '%#StatusLine#') -- statusline group
 		table.insert(stl, filename(width) .. readonly(0) .. '%<')
 		-- table.insert(stl, lsp_progress())
 
 		table.insert(stl, '%=')
 
-		table.insert(stl, gitsigns())
 		table.insert(stl, fileformat(0))
-		table.insert(stl, lsp_diagnostic())
-		table.insert(stl, get_file_size())
+		if lsp_diagnostic() ~= '' then
+			table.insert(stl, lsp_diagnostic())
+		end
+		if get_file_size() ~= '' then
+			table.insert(stl, get_file_size())
+		end
 		table.insert(stl, mode_highlight)
 		table.insert(stl, ' %2l/%-2L%2v ')
 	else
