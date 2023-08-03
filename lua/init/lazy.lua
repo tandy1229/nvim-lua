@@ -11,7 +11,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Source a Lua file
+--- Source a Lua file
+--- @param plugin string
+--- @return function
 local function req(plugin)
 	return function()
 		require('plugin.' .. plugin)
@@ -25,7 +27,7 @@ local config = {
 	},
 	dev = {
 		path = '~/projects',
-		---@type string[]
+		--- @type string[]
 		patterns = { 'tandy1229' },
 		fallback = true,
 	},
@@ -109,7 +111,7 @@ require('lazy').setup({
 			return {
 				name = 'tandy',
 				-- Optional
-				year = "2023"
+				year = os.date('%Y'),
 			}
 		end,
 		cmd = {
@@ -447,6 +449,12 @@ require('lazy').setup({
 				return vim.fn['codeium#Clear']()
 			end, { expr = true })
 		end,
+	},
+
+	{
+		'zbirenbaum/neodim',
+		event = 'LspAttach',
+		config = req('neodim'),
 	},
 
 	-- {
