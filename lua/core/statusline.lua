@@ -208,14 +208,14 @@ local function lsp_diagnostic()
 	return ret or ''
 end
 
---- for gitsigns.nvim
+--- for gitsigns.nvim  
 --- @return string
 local function gitsigns()
 	local ret
 	local ginfo = vim.b.gitsigns_status_dict
 	if ginfo then
 		local branch = ginfo.head
-		local list = { '%#StatusLineBranch#' .. branch }
+		local list = { '%#StatusLineBranch#' .. branch }
 		local add = ginfo.added
 		local change = ginfo.changed
 		local remove = ginfo.removed
@@ -249,7 +249,7 @@ local function file_size(file)
 	elseif size < 1024 * 1024 * 1024 then
 		FileSize = string.format('%0.1f', size / 1024 / 1024) .. 'GB'
 	end
-	return FileSize
+	return '' .. space .. FileSize
 end
 
 --- get file size
@@ -262,12 +262,12 @@ local function get_file_size()
 	return '%#StatusLineFileSize# ' .. file_size(file)
 end
 
---- for OS
+--- for OS  󰀶
 --- @return string
 local function fileformat(bufnr)
 	local icon
 	if vim.bo[bufnr].fileformat == 'unix' then
-		icon = jit.os == 'OSX' and '' or 'ﱦ'
+		icon = jit.os == 'OSX' and '' or ''
 	else
 		icon = ''
 	end
