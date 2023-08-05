@@ -230,7 +230,7 @@ local function gitsigns()
 		end
 		ret = table.concat(list, space) .. space .. '%#StatusLine#'
 	end
-	return ret
+	return ret or '%#StatusLine#'
 end
 
 --- for file_size deliver
@@ -300,7 +300,6 @@ function M.statusline()
 		table.insert(stl, mode_highlight)
 		table.insert(stl, mode_name .. checkmode())
 		table.insert(stl, gitsigns())
-		-- table.insert(stl, '%#StatusLine#') -- statusline group
 		table.insert(stl, filename(width) .. readonly(0) .. '%<')
 		-- table.insert(stl, lsp_progress())
 
