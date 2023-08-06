@@ -53,7 +53,7 @@ local function is_tmp_file()
 end
 
 --- for quickfix settings
---- @param winid integer
+--- @param winid integer|nil
 --- @return string
 local function quickfix(winid)
 	winid = winid or api.nvim_get_current_win()
@@ -68,7 +68,7 @@ local function quickfix(winid)
 end
 
 --- for file icon
---- @return string
+--- @return string|nil
 local function icon_append()
 	local ok, devicons = pcall(require, 'nvim-web-devicons')
 	if ok then
@@ -80,7 +80,7 @@ local function icon_append()
 		api.nvim_set_hl(0, 'StatusLineIcon', { fg = icon_color, bg = '#242a32' })
 		return '%#StatusLineIcon#' .. icon_str .. space
 	else
-		return ''
+		return nil
 	end
 end
 
@@ -123,15 +123,15 @@ local function filename(width)
 		fileicon = icon_append()
 	end
 	return (fileicon and fileicon or '')
-		.. '%#StatusLine'
-		.. (vim.bo.modified and 'FileModified#' or 'FileName#')
-		.. fname
-		.. '%#StatusLine#'
+			.. '%#StatusLine'
+			.. (vim.bo.modified and 'FileModified#' or 'FileName#')
+			.. fname
+			.. '%#StatusLine#'
 end
 
 --- readonly symbol
 --- @param bufnr integer
---- @return string
+--- @return string|nil
 local function readonly(bufnr)
 	local ret
 	if vim.bo[bufnr].readonly then
@@ -140,7 +140,7 @@ local function readonly(bufnr)
 	if ret then
 		return ret
 	else
-		return ''
+		return nil
 	end
 end
 
@@ -212,6 +212,8 @@ end
 --- @return string
 local function gitsigns()
 	local ret
+	--- @type table
+	--- @diagnostic disable-next-line: undefined-field
 	local ginfo = vim.b.gitsigns_status_dict
 	if ginfo then
 		local branch = ginfo.head
@@ -234,13 +236,13 @@ local function gitsigns()
 end
 
 --- for file_size deliver
---- @param file string
---- @return string
+--- @param file string|string[]
+--- @return string|nil
 local function file_size(file)
 	local size = fn.getfsize(file)
 	local FileSize
 	if size == 0 or size == -1 or size == -2 then
-		return ''
+		return nil
 	end
 	if size < 1024 then
 		FileSize = size .. 'B'
@@ -253,17 +255,17 @@ local function file_size(file)
 end
 
 --- get file size
---- @return string
+--- @return string|nil
 local function get_file_size()
 	local file = fn.expand('%:p')
-	if string.len(file) == 0 then
-		return ''
+	if not file_size(file) then
+		return nil
 	end
 	return '%#StatusLineFileSize#' .. space .. file_size(file)
 end
 
 --- for OS  󰀶
---- @return string
+--- @return string|nil
 local function fileformat(bufnr)
 	local icon
 	if vim.bo[bufnr].fileformat == 'unix' then
@@ -275,7 +277,7 @@ local function fileformat(bufnr)
 end
 
 --- for spell and paste mode check
---- @return string
+--- @return string|nil
 local function checkmode()
 	local ret
 	if vim.wo.spell == true then
@@ -283,7 +285,7 @@ local function checkmode()
 	elseif vim.o.paste == true then
 		ret = 'PASTE'
 	else
-		ret = ''
+		ret = nil
 	end
 	return ret
 end
