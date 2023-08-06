@@ -68,7 +68,7 @@ local function quickfix(winid)
 end
 
 --- for file icon
---- @return string|nil
+--- @return string
 local function icon_append()
 	local ok, devicons = pcall(require, 'nvim-web-devicons')
 	if ok then
@@ -80,7 +80,7 @@ local function icon_append()
 		api.nvim_set_hl(0, 'StatusLineIcon', { fg = icon_color, bg = '#242a32' })
 		return '%#StatusLineIcon#' .. icon_str .. space
 	else
-		return nil
+		return ''
 	end
 end
 
@@ -131,7 +131,7 @@ end
 
 --- readonly symbol
 --- @param bufnr integer
---- @return string|nil
+--- @return string
 local function readonly(bufnr)
 	local ret
 	if vim.bo[bufnr].readonly then
@@ -140,7 +140,7 @@ local function readonly(bufnr)
 	if ret then
 		return ret
 	else
-		return nil
+		return ''
 	end
 end
 
@@ -170,7 +170,7 @@ end
 -- end
 
 --- for native lsp diagnostic
---- @return string
+--- @return string|nil
 local function lsp_diagnostic()
 	local ret
 	local list = {}
@@ -205,7 +205,7 @@ local function lsp_diagnostic()
 	if list then
 		ret = table.concat(list, space) .. '%#StatusLine#'
 	end
-	return ret or ''
+	return ret or nil
 end
 
 --- for gitsigns.nvim  
@@ -285,7 +285,7 @@ local function checkmode()
 	elseif vim.o.paste == true then
 		ret = 'PASTE'
 	else
-		ret = nil
+		ret = ''
 	end
 	return ret
 end
@@ -308,10 +308,10 @@ function M.statusline()
 		table.insert(stl, '%=')
 
 		table.insert(stl, fileformat(0))
-		if lsp_diagnostic() ~= '' then
+		if lsp_diagnostic() then
 			table.insert(stl, lsp_diagnostic())
 		end
-		if get_file_size() ~= '' then
+		if get_file_size() then
 			table.insert(stl, get_file_size())
 		end
 		table.insert(stl, mode_highlight)
