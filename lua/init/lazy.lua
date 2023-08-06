@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -227,6 +228,12 @@ require('lazy').setup({
 	},
 
 	{
+		'HiPhish/rainbow-delimiters.nvim',
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		config = req('rainbow'),
+	},
+
+	{
 		'nvim-treesitter/playground',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
@@ -235,14 +242,6 @@ require('lazy').setup({
 		-- textobjects
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		config = req('textobjects'),
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
-	},
-	{
-		-- rainbow bracket
-		-- the ts-rainbow is not longer maintained so change to this one
-		'HiPhish/nvim-ts-rainbow2',
-		config = req('rainbow'),
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},

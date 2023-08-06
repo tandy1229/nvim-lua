@@ -1,12 +1,22 @@
-require('nvim-treesitter.configs').setup({
-	rainbow = {
-		enable = true,
-		-- disable = { "jsx", "cpp" }, --list of languages you want to disable the plugin for
-		disable = { 'latex' }, --list of languages you want to disable the plugin for
-		query = 'rainbow-parens',
-		-- Highlight the entire buffer all at once
-		strategy = require('ts-rainbow').strategy.global,
-		-- colors = {}, -- table of hex strings
-		-- termcolors = {} -- table of colour name strings
+-- This module contains a number of default definitions
+local rainbow_delimiters = require 'rainbow-delimiters'
+
+vim.g.rainbow_delimiters = {
+	strategy = {
+		[''] = rainbow_delimiters.strategy['global'],
+		vim = rainbow_delimiters.strategy['local'],
 	},
-})
+	query = {
+		[''] = 'rainbow-delimiters',
+		lua = 'rainbow-blocks',
+	},
+	highlight = {
+		'RainbowDelimiterRed',
+		'RainbowDelimiterYellow',
+		'RainbowDelimiterBlue',
+		'RainbowDelimiterOrange',
+		'RainbowDelimiterGreen',
+		'RainbowDelimiterViolet',
+		'RainbowDelimiterCyan',
+	},
+}
