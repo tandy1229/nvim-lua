@@ -208,6 +208,15 @@ local function lsp_diagnostic()
 	return ret or nil
 end
 
+--- for pr_status
+--- @return string
+local function pr_status()
+	local has_pr_status, github_pr = pcall(require, 'pr_status')
+	local status = github_pr.get_last_result_string()
+	return status or ''
+-- require("pr_status").get_last_result_string() or "pr_status failed"
+end
+
 --- for gitsigns.nvim  
 --- @return string
 local function gitsigns()
@@ -264,12 +273,12 @@ local function get_file_size()
 	return '%#StatusLineFileSize#' .. space .. file_size(file)
 end
 
---- for OS  󰀶
+--- for OS   󰀶
 --- @return string|nil
 local function fileformat(bufnr)
 	local icon
 	if vim.bo[bufnr].fileformat == 'unix' then
-		icon = jit.os == 'OSX' and '%#StatusLineApple#' or '%#StatusLineLinux#'
+		icon = jit.os == 'OSX' and '%#StatusLineApple#' or '%#StatusLineLinux#'
 	else
 		icon = '%#StatusLineWindows#'
 	end
@@ -307,6 +316,7 @@ function M.statusline()
 
 		table.insert(stl, '%=')
 
+		table.insert(stl, pr_status())
 		table.insert(stl, fileformat(0))
 		if lsp_diagnostic() then
 			table.insert(stl, lsp_diagnostic())
