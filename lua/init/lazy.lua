@@ -231,6 +231,7 @@ require('lazy').setup({
 		'HiPhish/rainbow-delimiters.nvim',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		config = req('rainbow'),
+		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 
 	{
@@ -414,6 +415,17 @@ require('lazy').setup({
 		cmd = 'Agit',
 	},
 
+	-- lazy.nvim
+	{
+		'Velrok/pr_status.nvim',
+		config = function()
+			require('pr_status').setup(
+				{ auto_start = true } -- if you want it to just start
+			)
+		end,
+		event = { 'BufRead', 'BufNewFile' },
+	},
+
 	{
 		-- fugitive
 		'tpope/vim-fugitive',
@@ -562,9 +574,7 @@ require('lazy').setup({
 		build = 'make install_jsregexp',
 		event = 'InsertCharPre',
 		dependencies = { 'rafamadriz/friendly-snippets' },
-		config = function()
-			require('luasnip.loaders.from_vscode').lazy_load()
-		end,
+		config = req('luasnip'),
 	},
 
 	{
