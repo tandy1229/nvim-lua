@@ -275,6 +275,12 @@ local function get_file_size()
 	return '%#StatusLineFileSize#' .. space .. file_size(file)
 end
 
+--- for file encoding    whether it is utf-8 or not
+--- @return string
+local function encoding()
+  return vim.opt.fileencoding:get()
+end
+
 --- for OS   󰀶
 --- @return string|nil
 local function fileformat(bufnr)
@@ -320,6 +326,7 @@ function M.statusline()
 
 		table.insert(stl, pr_status())
 		table.insert(stl, fileformat(0))
+		table.insert(stl, encoding())
 		if lsp_diagnostic() then
 			table.insert(stl, lsp_diagnostic())
 		end
