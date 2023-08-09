@@ -258,7 +258,9 @@ local function file_size(file)
 	elseif size < 1024 * 1024 then
 		FileSize = string.format('%0.1f', size / 1024) .. 'KB'
 	elseif size < 1024 * 1024 * 1024 then
-		FileSize = string.format('%0.1f', size / 1024 / 1024) .. 'GB'
+		FileSize = string.format('%0.1f', size / 1024 / 1024) .. 'MB'
+	else
+		FileSize = string.format('%0.1f', size / 1024 / 1024 / 1024) .. 'GB'
 	end
 	return '' .. space .. FileSize
 end
