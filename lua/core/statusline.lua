@@ -123,10 +123,10 @@ local function filename(width)
 		fileicon = icon_append()
 	end
 	return (fileicon and fileicon or '')
-			.. '%#StatusLine'
-			.. (vim.bo.modified and 'FileModified#' or 'FileName#')
-			.. fname
-			.. '%#StatusLine#'
+		.. '%#StatusLine'
+		.. (vim.bo.modified and 'FileModified#' or 'FileName#')
+		.. fname
+		.. '%#StatusLine#'
 end
 
 --- readonly symbol
@@ -214,7 +214,7 @@ local function pr_status()
 	local has_pr_status, github_pr = pcall(require, 'pr_status')
 	local status = github_pr.get_last_result_string()
 	return status or ''
--- require("pr_status").get_last_result_string() or "pr_status failed"
+	-- require("pr_status").get_last_result_string() or "pr_status failed"
 end
 
 --- for gitsigns.nvim  
@@ -276,9 +276,14 @@ local function get_file_size()
 end
 
 --- for file encoding    whether it is utf-8 or not
---- @return string
+--- @return string|nil
 local function encoding()
-  return vim.opt.fileencoding:get()
+	local enc = vim.opt.fileencoding:get()
+	if enc == 'utf-8' then
+		return nil
+	else
+		return enc
+	end
 end
 
 --- for OS   󰀶
@@ -326,7 +331,9 @@ function M.statusline()
 
 		table.insert(stl, pr_status())
 		table.insert(stl, fileformat(0))
-		table.insert(stl, encoding())
+		if encoding() then
+			table.insert(stl, encoding())
+		end
 		if lsp_diagnostic() then
 			table.insert(stl, lsp_diagnostic())
 		end
