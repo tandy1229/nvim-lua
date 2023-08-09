@@ -11,6 +11,8 @@ opt.background = 'dark'
 opt.backup = false
 opt.breakindent = true
 opt.breakindentopt = 'shift:2'
+--- Chinese support
+opt.fileencodings = {'utf-8', 'ucs-bom', 'gb18030', 'gbk', 'gb2312', 'cp936'}
 opt.encoding = 'utf-8'
 opt.laststatus = 3
 opt.hidden = true
