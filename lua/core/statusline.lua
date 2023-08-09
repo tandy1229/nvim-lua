@@ -144,31 +144,6 @@ local function readonly(bufnr)
 	end
 end
 
--- local function format_messages(messages)
--- 	local result = {}
--- 	local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
--- 	local ms = vim.loop.hrtime() / 1000000
--- 	local frame = math.floor(ms / 120) % #spinners
--- 	local i = 1
--- 	for _, msg in pairs(messages) do
--- 		-- Only display at most 2 progress messages at a time to avoid clutter
--- 		if i < 3 then
--- 			table.insert(result, (msg.percentage or 0) .. '%% ' .. (msg.title or ''))
--- 			i = i + 1
--- 		end
--- 	end
--- 	return table.concat(result, ' ') .. ' ' .. spinners[frame + 1]
--- end
---
--- -- REQUIRES LSP
--- local function lsp_progress()
--- 	local messages = vim.lsp.util.get_progress_messages()
--- 	if #messages == 0 then
--- 		return ''
--- 	end
--- 	return '%#StatusLineCocStatus#' .. format_messages(messages) .. '%#StatusLine#'
--- end
-
 --- for native lsp diagnostic
 --- @return string|nil
 local function lsp_diagnostic()
@@ -325,7 +300,6 @@ function M.statusline()
 		table.insert(stl, mode_name .. checkmode())
 		table.insert(stl, gitsigns())
 		table.insert(stl, filename(width) .. readonly(0) .. '%<')
-		-- table.insert(stl, lsp_progress())
 
 		table.insert(stl, '%=')
 
