@@ -1,8 +1,12 @@
+---@author tandy1229
+---@license MIT
+
 local M = {}
 local fn, api, loop = vim.fn, vim.api, vim.loop
 local space = ' '
 
 --- Vim mode words and Highlights
+---@type table<string, table<string, string>>
 ---@return table
 -- stylua: ignore start
 local mode = setmetatable({
@@ -34,11 +38,15 @@ local mode = setmetatable({
 -- stylua: ignore end
 
 --- For file is not exist in your computer
+--- @usage if not file_exists() then return end
 --- @return boolean
 local function is_tmp_file()
 	-- local filename = fn.expand('%:p')
+	---@type string
 	local bufname = api.nvim_buf_get_name(0) -- use the nvim api
+	---@type string[]
 	local pluginfiletype = { 'alpha', 'startify', 'vim-plug', 'agit', 'agit_diff', 'agit_stat', 'vista' }
+	---@type integer
 	local temp_file = fn.index(pluginfiletype, vim.bo.filetype)
 	local preview_window = vim.wo.previewwindow -- use the nvim api
 	if vim.bo.buftype ~= '' then
@@ -57,6 +65,7 @@ end
 --- @return string
 local function quickfix(winid)
 	winid = winid or api.nvim_get_current_win()
+	---@type string
 	local qf_type = fn.getwininfo(winid)[1].loclist == 1 and 'loc' or 'qf'
 	local what = { nr = 0, size = 0 }
 	local info = qf_type == 'loc' and fn.getloclist(0, what) or fn.getqflist(what)
@@ -123,10 +132,10 @@ local function filename(width)
 		fileicon = icon_append()
 	end
 	return (fileicon and fileicon or '')
-		.. '%#StatusLine'
-		.. (vim.bo.modified and 'FileModified#' or 'FileName#')
-		.. fname
-		.. '%#StatusLine#'
+			.. '%#StatusLine'
+			.. (vim.bo.modified and 'FileModified#' or 'FileName#')
+			.. fname
+			.. '%#StatusLine#'
 end
 
 --- readonly symbol
@@ -255,6 +264,7 @@ end
 --- for file encoding    whether it is utf-8 or not
 --- @return string|nil
 local function encoding()
+	---@type string
 	local enc = vim.opt.fileencoding:get()
 	if enc == 'utf-8' then
 		return nil
@@ -264,6 +274,7 @@ local function encoding()
 end
 
 --- for OS   󰀶
+--- @param bufnr integer
 --- @return string|nil
 local function fileformat(bufnr)
 	local icon
@@ -294,6 +305,7 @@ end
 function M.statusline()
 	local stl = {}
 	local curmode = vim.fn.mode()
+	---@type string,string
 	local mode_name, mode_highlight = unpack(mode[curmode])
 	local width = api.nvim_win_get_width(vim.g.statusline_winid)
 
