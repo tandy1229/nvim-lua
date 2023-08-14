@@ -16,6 +16,6 @@ require('neogen').setup({
 })
 local opts = { silent = true }
 vim.keymap.set('n', '<Leader>rr', ":lua require('neogen').generate()<CR>", opts)
-vim.keymap.set('i', '<C-j>', [[<Cmd>lua require('neogen').jump_next()<CR>]])
-vim.keymap.set('i', '<C-k>', [[<Cmd>lua require('neogen').jump_prev()<CR>]])
+vim.keymap.set('i', '<C-u>', [[<Cmd>lua require('neogen').jump_next()<CR>]])
+vim.keymap.set('i', '<C-i>', [[<Cmd>lua require('neogen').jump_prev()<CR>]])
 vim.keymap.set('n', '<Leader>dg', [[:Neogen<Space>]], { silent = false })
