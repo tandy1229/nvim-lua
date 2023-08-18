@@ -38,11 +38,15 @@ Even without those plugins and so now in my opinion the neovim is becoming the m
 
 Thank you for these great configs \~~~
 
-> It's theniceboy's video guide me to the Vim so far I was using the IDE. And then through him I have a chance to turn the Vim to using the most useful editor -- nvim.
+> It's @theniceboy whose video guide me to the Vim so far I was using the IDE. And then through him I have a chance to turn the Vim to using the editor -- nvim.
 
 > Hahahah, I was using nvim since 0.4, and now as neovim is going to have the 0.10 tag, nvim has become the mature project.
 
-> Ohhhh, thank you to lua script making the nvim with spirit. And I also hope Vimscript9 can become better and better:-). I hope everything goes well.
+> Ohhhh, lua script making the nvim different, and make it a different road compared to Vim. But neovim now always updates with breaking changes, I hope it can be more stable in the day:-). And I also hope Vim keep stable, VimScript9 can become better and better:-). I hope everything goes well.
 
 - [ ] inspired by [nvim](https://github.com/theniceboy/nvim) .
 - [ ] inspired by [Iron-E](https://github.com/Iron-E) .
+
+## Memory
+
+**In memory of Bram, the creator of VIM.**
