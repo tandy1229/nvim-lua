@@ -418,12 +418,12 @@ require('lazy').setup({
 	-- lazy.nvim
 	{
 		'Velrok/pr_status.nvim',
+		event = { 'BufReadPre', 'BufNewFile' },
 		config = function()
 			require('pr_status').setup(
 				{ auto_start = true } -- if you want it to just start
 			)
 		end,
-		event = { 'BufRead', 'BufNewFile' },
 	},
 
 	{
@@ -624,14 +624,14 @@ require('lazy').setup({
 		-- gnu-sed integrate
 		'nvim-pack/nvim-spectre',
 		config = req('spectre'),
-		event = 'BufRead',
+		event = { 'BufRead', 'BufNewFile' },
 	},
 
 	{
 		-- tpope wheels
 		'kylechui/nvim-surround',
 		config = req('surround'),
-		event = 'BufRead',
+		event = { 'BufRead', 'BufNewFile' },
 	},
 
 	{
@@ -691,14 +691,14 @@ require('lazy').setup({
 	{
 		-- super <Enter>
 		'gcmt/wildfire.vim',
-		event = 'BufRead',
+		event = { 'BufRead', 'BufNewFile' },
 	},
 
 	{
 		-- tabular !!!
 		'godlygeek/tabular',
 		config = req('tabular'),
-		event = 'BufRead',
+		event = { 'BufRead', 'BufNewFile' },
 	},
 
 	{
