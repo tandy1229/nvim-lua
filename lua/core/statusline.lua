@@ -101,7 +101,7 @@ local function filename(width)
 	local fugitive_name = vim.b.fugitive_fname
 	if not fugitive_name then
 		if bufname:match('^fugitive:') and fn.exists('*FugitiveReal') == 1 then
-			fugitive_name = fn.fnamemodify(fn.FugitiveReal(bufname), ':t') .. ' '
+			fugitive_name = fn.fnamemodify(fn.FugitiveReal(bufname), ':t') .. '  '
 			vim.b.fugitive_fname = fugitive_name
 		end
 	end
