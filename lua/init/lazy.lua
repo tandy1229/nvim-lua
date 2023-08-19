@@ -389,6 +389,10 @@ require('lazy').setup({
 		event = { 'BufRead', 'BufNewFile' },
 	},
 
+	--	{
+	--		'xiyaowong/virtcolumn.nvim',
+	--	},
+
 	{
 		-- editorconfig
 		'editorconfig/editorconfig-vim',
