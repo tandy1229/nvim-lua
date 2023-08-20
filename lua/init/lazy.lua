@@ -167,7 +167,7 @@ require('lazy').setup({
 		'tversteeg/registers.nvim',
 		config = req('registers'),
 		keys = {
-			{ '"',     mode = { 'n', 'v' } },
+			{ '"', mode = { 'n', 'v' } },
 			{ '<C-R>', mode = 'i' },
 		},
 	},
@@ -389,9 +389,10 @@ require('lazy').setup({
 		event = { 'BufRead', 'BufNewFile' },
 	},
 
-	--	{
-	--		'xiyaowong/virtcolumn.nvim',
-	--	},
+	{
+		'xiyaowong/virtcolumn.nvim',
+		event = { 'BufRead', 'BufNewFile' },
+	},
 
 	{
 		-- editorconfig
@@ -422,7 +423,7 @@ require('lazy').setup({
 	-- lazy.nvim
 	{
 		'Velrok/pr_status.nvim',
-		event = { 'BufReadPre', 'BufNewFile' },
+		event = { 'BufRead' },
 		config = function()
 			require('pr_status').setup(
 				{ auto_start = true } -- if you want it to just start
