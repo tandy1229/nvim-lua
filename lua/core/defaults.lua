@@ -6,7 +6,7 @@ local opt, fn = vim.opt, vim.fn
 -- vim set
 opt.cursorline = true
 opt.eb = false
--- opt.colorcolumn = '80'
+opt.colorcolumn = '80'
 opt.background = 'dark'
 opt.backup = false
 opt.breakindent = true
