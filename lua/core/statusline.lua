@@ -61,7 +61,7 @@ local function is_tmp_file()
 end
 
 --- for quickfix settings
---- @param winid integer|nil
+--- @param winid integer|nil The winid of the neovim window
 --- @return string
 local function quickfix(winid)
 	winid = winid or api.nvim_get_current_win()
@@ -179,7 +179,7 @@ local function lsp_diagnostic()
 		table.insert(list, '%#StatusLineWarning#' .. warning)
 	end
 	if i > 0 then
-		local information = '' .. space .. i
+		local information = '' .. space .. i
 		table.insert(list, '%#StatusLineInformation#' .. information)
 	end
 	if h > 0 then
