@@ -1,5 +1,5 @@
 --
--- init files for neovim 0.9.0+
+-- init files for neovim 0.10.0+
 --     
 --
 
