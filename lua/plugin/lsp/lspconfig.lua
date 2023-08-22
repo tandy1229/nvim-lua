@@ -76,6 +76,10 @@ setup('clangd', {
 	},
 })
 setup('lua_ls', {
+	cmd = {
+		'lua-language-server',
+		'--locale=zh-cn',
+	},
 	settings = {
 		Lua = {
 			runtime = {
