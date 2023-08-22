@@ -420,17 +420,6 @@ require('lazy').setup({
 		cmd = 'Agit',
 	},
 
-	-- lazy.nvim
-	{
-		'Velrok/pr_status.nvim',
-		event = { 'BufRead' },
-		config = function()
-			require('pr_status').setup(
-				{ auto_start = true } -- if you want it to just start
-			)
-		end,
-	},
-
 	{
 		-- fugitive
 		'tpope/vim-fugitive',

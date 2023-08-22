@@ -192,17 +192,6 @@ local function lsp_diagnostic()
 	return ret or nil
 end
 
---- for pr_status
---- @return string|nil
-local function pr_status()
-	local has_pr_status, github_pr = pcall(require, 'pr_status')
-	if has_pr_status then
-		local status = github_pr.get_last_result_string()
-		return status or ''
-	end
-	return nil
-end
-
 --- for gitsigns.nvim  
 --- @return string
 local function gitsigns()
@@ -317,9 +306,6 @@ function M.statusline()
 
 		table.insert(stl, '%=')
 
-		if pr_status() then
-			table.insert(stl, pr_status())
-		end
 		table.insert(stl, fileformat(0))
 		if encoding() then
 			table.insert(stl, encoding())
