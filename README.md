@@ -1,6 +1,7 @@
 # Nvim Config
 
-[![pCqCxTH.png](https://s1.ax1x.com/2023/07/22/pCqCxTH.png)](https://imgse.com/i/pCqCxTH)
+<!-- [![pCqCxTH.png](https://s1.ax1x.com/2023/07/22/pCqCxTH.png)](https://imgse.com/i/pCqCxTH) -->
+[![pPJKU91.png](https://s1.ax1x.com/2023/08/22/pPJKU91.png)](https://imgse.com/i/pPJKU91)
 
 This is my personal neovim config written in Lua.
 
