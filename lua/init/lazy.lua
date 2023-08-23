@@ -125,12 +125,6 @@ require('lazy').setup({
 		},
 	},
 
-	-- {
-	-- 	url = 'https://codeberg.org/jgoguen/tmpl.vim',
-	-- 	event = 'FileType',
-	-- 	config = req('tmpl'),
-	-- },
-
 	-- interface modules
 	{
 		-- scrollbar showing working with gitsigns and coc
@@ -189,7 +183,7 @@ require('lazy').setup({
 		'akinsho/bufferline.nvim',
 		version = '*',
 		dependencies = 'nvim-tree/nvim-web-devicons',
-		event = { 'BufRead', 'BufNewFile' },
+		event = { 'BufReadPre', 'BufNewFile' },
 		config = function()
 			require('bufferline').setup({
 				options = {
@@ -200,15 +194,6 @@ require('lazy').setup({
 			})
 		end,
 	},
-
-	-- {
-	-- 	-- tabline theme
-	-- 	'romgrk/barbar.nvim',
-	-- 	dependencies = {
-	-- 		'nvim-tree/nvim-web-devicons',
-	-- 	},
-	-- 	event = { 'BufRead', 'BufNewFile' },
-	-- },
 
 	{
 		-- jk enchance
@@ -286,59 +271,10 @@ require('lazy').setup({
 		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 
-	-- {
-	-- 	-- startup
-	-- 	'goolord/alpha-nvim',
-	-- 	dependencies = { 'nvim-tree/nvim-web-devicons' },
-	-- 	config = req('alpha'),
-	-- 	event = 'BufWinEnter',
-	-- },
-
 	{
 		'glepnir/dashboard-nvim',
 		event = 'BufWinEnter',
-		config = function()
-			require('dashboard').setup({
-				-- config
-				-- shortcut_type = 'number',
-				theme = 'hyper',
-				shortcut_type = 'number',
-				config = {
-					-- footer = { '得意须尽欢' },
-					footer = {},
-					week_header = {
-						enable = true,
-					},
-					project = {
-						enable = true,
-					},
-					shortcut = {
-						{ desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
-						{
-							icon = ' ',
-							icon_hl = 'Label',
-							desc = 'Files',
-							group = 'Label',
-							-- action = 'Telescope find_files',
-							action = 'FzfLua files',
-							key = 'f',
-						},
-						{
-							desc = ' Apps',
-							group = 'DeusYellow',
-							action = 'Telescope app',
-							key = 'a',
-						},
-						{
-							desc = ' dotfiles',
-							group = 'Number',
-							action = 'Telescope dotfiles',
-							key = 'd',
-						},
-					},
-				},
-			})
-		end,
+		config = req('dashboard'),
 		dependencies = { { 'nvim-tree/nvim-web-devicons' } },
 	},
 	{
@@ -472,6 +408,7 @@ require('lazy').setup({
 		-- lazygit integrate
 		'kdheepak/lazygit.nvim',
 		config = req('lazygit'),
+		keys = { '<Leader>lg', mode = { 'n' } },
 		event = { 'BufRead', 'BufNewFile' },
 	},
 
@@ -535,17 +472,6 @@ require('lazy').setup({
 		event = 'LspAttach',
 		config = req('neodim'),
 	},
-
-	-- {
-	-- 	'jcdickinson/codeium.nvim',
-	-- 	dependencies = {
-	-- 		'nvim-lua/plenary.nvim',
-	-- 		'hrsh7th/nvim-cmp',
-	-- 	},
-	-- 	config = function()
-	-- 		require('codeium').setup({})
-	-- 	end,
-	-- },
 
 	{
 		'stevearc/aerial.nvim',
