@@ -286,14 +286,61 @@ require('lazy').setup({
 		event = { 'BufRead', 'BufNewFile' }, --[[ , ]]
 	},
 
-	{
-		-- startup
-		'goolord/alpha-nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
-		config = req('alpha'),
-		event = 'BufWinEnter',
-	},
+	-- {
+	-- 	-- startup
+	-- 	'goolord/alpha-nvim',
+	-- 	dependencies = { 'nvim-tree/nvim-web-devicons' },
+	-- 	config = req('alpha'),
+	-- 	event = 'BufWinEnter',
+	-- },
 
+	{
+		'glepnir/dashboard-nvim',
+		event = 'BufWinEnter',
+		config = function()
+			require('dashboard').setup({
+				-- config
+				-- shortcut_type = 'number',
+				theme = 'hyper',
+				shortcut_type = 'number',
+				config = {
+					-- footer = { '得意须尽欢' },
+					footer = {},
+					week_header = {
+						enable = true,
+					},
+					project = {
+						enable = true,
+					},
+					shortcut = {
+						{ desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
+						{
+							icon = ' ',
+							icon_hl = 'Label',
+							desc = 'Files',
+							group = 'Label',
+							-- action = 'Telescope find_files',
+							action = 'FzfLua files',
+							key = 'f',
+						},
+						{
+							desc = ' Apps',
+							group = 'DeusYellow',
+							action = 'Telescope app',
+							key = 'a',
+						},
+						{
+							desc = ' dotfiles',
+							group = 'Number',
+							action = 'Telescope dotfiles',
+							key = 'd',
+						},
+					},
+				},
+			})
+		end,
+		dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+	},
 	{
 		'theniceboy/joshuto.nvim',
 		config = req('joshuto'),
@@ -408,8 +455,8 @@ require('lazy').setup({
 		},
 		config = function()
 			require('leetbuddy').setup({
-				domain = "cn", -- `cn` for chinese leetcode
-				language = "py",
+				domain = 'cn', -- `cn` for chinese leetcode
+				language = 'py',
 			})
 		end,
 		keys = {
@@ -607,6 +654,7 @@ require('lazy').setup({
 		-- no need to explain fzf
 		'ibhagwan/fzf-lua',
 		config = req('fzf-lua'),
+		cmd = 'FzfLua',
 		event = 'BufRead',
 	},
 
