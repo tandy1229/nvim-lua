@@ -30,7 +30,7 @@ require('dashboard').setup({
 			},
 			{
 				desc = ' Apps',
-				group = 'DeusYellow',
+				group = 'deusOrange',
 				action = 'Telescope app',
 				key = 'a',
 			},
