@@ -65,6 +65,8 @@ require('telescope').load_extension('fzf')
 require('telescope').load_extension('notify')
 require('telescope').load_extension('undo')
 require('telescope').load_extension('dap')
+require('telescope').load_extension('dotfiles')
+require('telescope').load_extension('app')
 -- require('telescope').load_extension('frecency')
 -- require('telescope').load_extension('file_browser')
 -- " "
