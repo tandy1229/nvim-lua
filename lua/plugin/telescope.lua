@@ -44,8 +44,7 @@ telescope.setup({
 				['<Tab>'] = actions.select_default + actions.center,
 				['<C-t>'] = actions.select_tab_drop,
 				['<C-v>'] = actions.file_vsplit,
-				['<C-h>'] = actions.file_split,
-			},
+				['<C-h>'] = actions.file_split, },
 			n = {
 				['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
 				['<C-a>'] = actions.send_to_qflist + actions.open_qflist,
@@ -61,12 +60,13 @@ telescope.setup({
 		},
 	},
 })
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('notify')
-require('telescope').load_extension('undo')
-require('telescope').load_extension('dap')
-require('telescope').load_extension('dotfiles')
-require('telescope').load_extension('app')
+telescope.load_extension('fzf')
+telescope.load_extension('notify')
+telescope.load_extension('undo')
+telescope.load_extension('dap')
+telescope.load_extension('dotfiles')
+telescope.load_extension('app')
+telescope.load_extension('yank_history')
 -- require('telescope').load_extension('frecency')
 -- require('telescope').load_extension('file_browser')
 -- " "

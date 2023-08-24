@@ -291,6 +291,12 @@ require('lazy').setup({
 	},
 
 	{
+		'gbprod/yanky.nvim',
+		event = 'BufRead',
+		config = req('yanky'),
+	},
+
+	{
 		'folke/flash.nvim',
 		event = 'VeryLazy',
 		---@type Flash.Config
