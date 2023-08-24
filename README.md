@@ -1,6 +1,17 @@
-# Nvim Config
+# Nvim Awesome Config
+
+<!--toc:start-->
+- [Nvim Awesome Config](#nvim-awesome-config)
+  - [Pros](#pros)
+  - [Installation](#installation)
+    - [git](#git)
+    - [Requirement](#requirement)
+  - [References](#references)
+  - [Memory](#memory)
+<!--toc:end-->
 
 <!-- [![pCqCxTH.png](https://s1.ax1x.com/2023/07/22/pCqCxTH.png)](https://imgse.com/i/pCqCxTH) -->
+
 [![pPJKU91.png](https://s1.ax1x.com/2023/08/22/pPJKU91.png)](https://imgse.com/i/pPJKU91)
 
 This is my personal neovim config written in Lua.
@@ -8,7 +19,7 @@ This is my personal neovim config written in Lua.
 ## Pros
 
 - Pure Lua script with nice speed
-- Integrated with the commandline tools like grep and [fzf](https://github.com/junegunn/fzf)
+- Integrated with the command line tools like grep and [fzf](https://github.com/junegunn/fzf)
 - Run fast with 90 plugins
 - Easy to manage the plugins with a nice structure
 
@@ -29,9 +40,7 @@ git clone --depth=1 https://github.com/tandy1229/nvim-lua ~/.config/nvim
 
 Just to Reading the plugin docs:-)
 
-## Speed
-
-With the lazy.nvim and the lua cache speed up, its startup time is just **49.5ms** which is test in the Macbook constructed with 1.4GHz 4 core 8th Intel Core i5.
+With the lazy.nvim and the lua cache speed up, its startup time is just **49.5ms** which is test in the MacBook constructed with 1.4GHz 4 core 8th Intel Core i5.
 
 Even without those plugins and so now in my opinion the neovim is becoming the most useful front end now.
 
