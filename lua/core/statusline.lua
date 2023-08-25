@@ -1,33 +1,35 @@
+---@author tandy1229
+---@license MIT
+
 local M = {}
 local fn, api, loop = vim.fn, vim.api, vim.loop
 local space = ' '
 
 --- Vim mode words and Highlights
----@param t string
----@param k string
+---@type table<string, table<string, string>>
 ---@return table
 -- stylua: ignore start
 local mode = setmetatable({
-	n        = { 'N'      , '%#StatusLineNormal#'   },
-	no       = { 'N'      , '%#StatusLineNormal#'   },
-	v        = { 'V'      , '%#StatusLineVisual#'   },
-	V        = { 'VL'     , '%#StatusLineVisual#'   },
-	['\x16'] = { 'VB'     , '%#StatusLineVisual#'   },
-	s        = { 'S'      , '%#StatusLineVisual#'   },
-	S        = { 'SL'     , '%#StatusLineVisual#'   },
-	['\x13'] = { 'SB'     , '%#StatusLineVisual#'   },
-	i        = { 'I'      , '%#StatusLineInsert#'   },
-	ic       = { 'I'      , '%#StatusLineInsert#'   },
-	ix       = { 'I'      , '%#StatusLineInsert#'   },
-	R        = { 'R'      , '%#StatusLineReplace#'  },
-	Rv       = { 'VR'     , '%#StatusLineReplace#'  },
-	c        = { 'C'      , '%#StatusLineCommand#'  },
-	cv       = { 'Vim Ex' , '%#StatusLineCommand#'  },
-	ce       = { 'Ex'     , '%#StatusLineCommand#'  },
-	r        = { 'P'      , '%#StatusLineCommand#'  },
-	rm       = { 'More'   , '%#StatusLineCommand#'  },
-	['!']    = { 'SH'     , '%#StatusLineCommand#'  },
-	t        = { 'T'      , '%#StatusLineTerminal#' },
+	n        = { 'N', '%#StatusLineNormal#' },
+	no       = { 'N', '%#StatusLineNormal#' },
+	v        = { 'V', '%#StatusLineVisual#' },
+	V        = { 'VL', '%#StatusLineVisual#' },
+	['\x16'] = { 'VB', '%#StatusLineVisual#' },
+	s        = { 'S', '%#StatusLineVisual#' },
+	S        = { 'SL', '%#StatusLineVisual#' },
+	['\x13'] = { 'SB', '%#StatusLineVisual#' },
+	i        = { 'I', '%#StatusLineInsert#' },
+	ic       = { 'I', '%#StatusLineInsert#' },
+	ix       = { 'I', '%#StatusLineInsert#' },
+	R        = { 'R', '%#StatusLineReplace#' },
+	Rv       = { 'VR', '%#StatusLineReplace#' },
+	c        = { 'C', '%#StatusLineCommand#' },
+	cv       = { 'Vim Ex', '%#StatusLineCommand#' },
+	ce       = { 'Ex', '%#StatusLineCommand#' },
+	r        = { 'P', '%#StatusLineCommand#' },
+	rm       = { 'More', '%#StatusLineCommand#' },
+	['!']    = { 'SH', '%#StatusLineCommand#' },
+	t        = { 'T', '%#StatusLineTerminal#' },
 }, {
 	__index = function(t, k)
 		return t[k:sub(1, 1)] or t['n']
@@ -36,11 +38,15 @@ local mode = setmetatable({
 -- stylua: ignore end
 
 --- For file is not exist in your computer
----@return boolean
+--- @usage if not file_exists() then return end
+--- @return boolean
 local function is_tmp_file()
 	-- local filename = fn.expand('%:p')
+	---@type string
 	local bufname = api.nvim_buf_get_name(0) -- use the nvim api
+	---@type string[]
 	local pluginfiletype = { 'alpha', 'startify', 'vim-plug', 'agit', 'agit_diff', 'agit_stat', 'vista' }
+	---@type integer
 	local temp_file = fn.index(pluginfiletype, vim.bo.filetype)
 	local preview_window = vim.wo.previewwindow -- use the nvim api
 	if vim.bo.buftype ~= '' then
@@ -55,10 +61,11 @@ local function is_tmp_file()
 end
 
 --- for quickfix settings
----@param winid integer
----@return string
+--- @param winid integer|nil The winid of the neovim window
+--- @return string
 local function quickfix(winid)
 	winid = winid or api.nvim_get_current_win()
+	---@type string
 	local qf_type = fn.getwininfo(winid)[1].loclist == 1 and 'loc' or 'qf'
 	local what = { nr = 0, size = 0 }
 	local info = qf_type == 'loc' and fn.getloclist(0, what) or fn.getqflist(what)
@@ -70,7 +77,7 @@ local function quickfix(winid)
 end
 
 --- for file icon
----@return string
+--- @return string
 local function icon_append()
 	local ok, devicons = pcall(require, 'nvim-web-devicons')
 	if ok then
@@ -87,14 +94,14 @@ local function icon_append()
 end
 
 --- file name module
----@param width integer
----@return string
+--- @param width integer
+--- @return string
 local function filename(width)
 	local bufname = api.nvim_buf_get_name(0)
 	local fugitive_name = vim.b.fugitive_fname
 	if not fugitive_name then
 		if bufname:match('^fugitive:') and fn.exists('*FugitiveReal') == 1 then
-			fugitive_name = fn.fnamemodify(fn.FugitiveReal(bufname), ':t') .. ' '
+			fugitive_name = fn.fnamemodify(fn.FugitiveReal(bufname), ':t') .. '  '
 			vim.b.fugitive_fname = fugitive_name
 		end
 	end
@@ -125,19 +132,19 @@ local function filename(width)
 		fileicon = icon_append()
 	end
 	return (fileicon and fileicon or '')
-		.. '%#StatusLine'
-		.. (vim.bo.modified and 'FileModified#' or 'FileName#')
-		.. fname
-		.. '%#StatusLine#'
+			.. '%#StatusLine'
+			.. (vim.bo.modified and 'FileModified#' or 'FileName#')
+			.. fname
+			.. '%#StatusLine#'
 end
 
 --- readonly symbol
----@param bufnr integer
----@return string
+--- @param bufnr integer
+--- @return string
 local function readonly(bufnr)
 	local ret
 	if vim.bo[bufnr].readonly then
-		ret = loop.fs_stat(api.nvim_buf_get_name(bufnr or 0)) and '' or ''
+		ret = loop.fs_stat(api.nvim_buf_get_name(bufnr or 0)) and '' or '󰌿'
 	end
 	if ret then
 		return ret
@@ -146,33 +153,8 @@ local function readonly(bufnr)
 	end
 end
 
--- local function format_messages(messages)
--- 	local result = {}
--- 	local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
--- 	local ms = vim.loop.hrtime() / 1000000
--- 	local frame = math.floor(ms / 120) % #spinners
--- 	local i = 1
--- 	for _, msg in pairs(messages) do
--- 		-- Only display at most 2 progress messages at a time to avoid clutter
--- 		if i < 3 then
--- 			table.insert(result, (msg.percentage or 0) .. '%% ' .. (msg.title or ''))
--- 			i = i + 1
--- 		end
--- 	end
--- 	return table.concat(result, ' ') .. ' ' .. spinners[frame + 1]
--- end
---
--- -- REQUIRES LSP
--- local function lsp_progress()
--- 	local messages = vim.lsp.util.get_progress_messages()
--- 	if #messages == 0 then
--- 		return ''
--- 	end
--- 	return '%#StatusLineCocStatus#' .. format_messages(messages) .. '%#StatusLine#'
--- end
-
---- for coc.nvim diagnostic
----@return string
+--- for native lsp diagnostic
+--- @return string|nil
 local function lsp_diagnostic()
 	local ret
 	local list = {}
@@ -187,37 +169,39 @@ local function lsp_diagnostic()
 		w = res[vim.diagnostic.severity.WARN]
 		i = res[vim.diagnostic.severity.INFO]
 		h = res[vim.diagnostic.severity.HINT]
-	else
-		return ''
 	end
 	if e > 0 then
 		local error = '' .. space .. e
-		table.insert(list, '%#StatusLineHunkRemove#' .. error)
+		table.insert(list, '%#StatusLineError#' .. error)
 	end
 	if w > 0 then
 		local warning = '' .. space .. w
-		table.insert(list, '%#StatusLineHunkChange#' .. warning)
+		table.insert(list, '%#StatusLineWarning#' .. warning)
 	end
 	if i > 0 then
-		local information = '' .. space .. i
+		local information = '' .. space .. i
 		table.insert(list, '%#StatusLineInformation#' .. information)
 	end
 	if h > 0 then
 		local hint = '' .. space .. h
 		table.insert(list, '%#StatusLineHint#' .. hint)
 	end
-	ret = table.concat(list, space) .. '%#StatusLine#'
-	return ret
+	if list then
+		ret = table.concat(list, space) .. '%#StatusLine#'
+	end
+	return ret or nil
 end
 
---- for gitsings.nvim
----@return string
+--- for gitsigns.nvim  
+--- @return string
 local function gitsigns()
 	local ret
+	--- @type table
+	--- @diagnostic disable-next-line: undefined-field
 	local ginfo = vim.b.gitsigns_status_dict
 	if ginfo then
 		local branch = ginfo.head
-		local list = { '%#StatusLineBranch#' .. branch }
+		local list = { '%#StatusLineBranch#' .. space .. '' .. branch }
 		local add = ginfo.added
 		local change = ginfo.changed
 		local remove = ginfo.removed
@@ -230,69 +214,69 @@ local function gitsigns()
 		if remove and remove > 0 then
 			table.insert(list, '%#StatusLineHunkRemove#-' .. remove)
 		end
-		ret = table.concat(list, space) .. '%#StatusLine#'
+		ret = table.concat(list, space) .. space .. '%#StatusLine#'
 	end
-	return ret
-end
-
---- for coc.nvim's functions' showing
----@return string
-local function show_function()
-	local func
-	local coc = vim.g.coc_enabled
-	local coc_function = vim.b.coc_current_function
-	local vista = vim.b.vista_nearest_method_or_function
-	if coc and coc_function then
-		func = coc_function
-	elseif vista then
-		func = vista
-	end
-	if func then
-		func = '%#StatusLineHunkAdd#' .. func .. '%#StatusLine#'
-	end
-	return func or ''
+	return ret or '%#StatusLine#'
 end
 
 --- for file_size deliver
----@param file string
----@return string
+--- @param file string|string[]
+--- @return string|nil
 local function file_size(file)
 	local size = fn.getfsize(file)
+	local FileSize
 	if size == 0 or size == -1 or size == -2 then
-		return ''
+		return nil
 	end
 	if size < 1024 then
-		size = size .. 'B'
+		FileSize = size .. 'B'
 	elseif size < 1024 * 1024 then
-		size = string.format('%0.1f', size / 1024) .. 'KB'
+		FileSize = string.format('%0.1f', size / 1024) .. 'KB'
 	elseif size < 1024 * 1024 * 1024 then
-		size = string.format('%0.1f', size / 1024 / 1024) .. 'GB'
+		FileSize = string.format('%0.1f', size / 1024 / 1024) .. 'MB'
+	else
+		FileSize = string.format('%0.1f', size / 1024 / 1024 / 1024) .. 'GB'
 	end
-	return size
+	return '' .. space .. FileSize
 end
 
 --- get file size
----@return string
+--- @return string|nil
 local function get_file_size()
 	local file = fn.expand('%:p')
-	if string.len(file) == 0 then
-		return ''
+	if not file_size(file) then
+		return nil
 	end
-	return '%#StatusLineFileSize# ' .. file_size(file)
+	return '%#StatusLineFileSize#' .. space .. file_size(file)
 end
 
+--- for file encoding    whether it is utf-8 or not
+--- @return string|nil
+local function encoding()
+	---@type string
+	local enc = vim.opt.fileencoding:get()
+	if enc == 'utf-8' then
+		return nil
+	else
+		return enc
+	end
+end
+
+--- for OS   󰀶
+--- @param bufnr integer
+--- @return string|nil
 local function fileformat(bufnr)
 	local icon
 	if vim.bo[bufnr].fileformat == 'unix' then
-		icon = jit.os == 'OSX' and '' or 'ﱦ'
+		icon = jit.os == 'OSX' and '%#StatusLineApple#' or '%#StatusLineLinux#'
 	else
-		icon = ''
+		icon = '%#StatusLineWindows#'
 	end
-	return bufnr == 0 and '%#StatusLineFormat#' .. icon .. '%#StatusLine#' or icon
+	return bufnr == 0 and icon .. '%#StatusLine#' or icon
 end
 
 --- for spell and paste mode check
----@return string
+--- @return string|nil
 local function checkmode()
 	local ret
 	if vim.wo.spell == true then
@@ -306,27 +290,32 @@ local function checkmode()
 end
 
 --- statusline module
----@return string
+--- @return string
 function M.statusline()
 	local stl = {}
-	local curmode = api.nvim_get_mode().mode
+	local curmode = vim.fn.mode()
+	---@type string,string
 	local mode_name, mode_highlight = unpack(mode[curmode])
 	local width = api.nvim_win_get_width(vim.g.statusline_winid)
 
 	if api.nvim_get_current_win() == vim.g.statusline_winid then
 		table.insert(stl, mode_highlight)
 		table.insert(stl, mode_name .. checkmode())
-		table.insert(stl, '%#StatusLine#') -- statusline group
+		table.insert(stl, gitsigns())
 		table.insert(stl, filename(width) .. readonly(0) .. '%<')
-		-- table.insert(stl, lsp_progress())
-		table.insert(stl, show_function())
 
 		table.insert(stl, '%=')
 
-		table.insert(stl, gitsigns())
 		table.insert(stl, fileformat(0))
-		table.insert(stl, lsp_diagnostic())
-		table.insert(stl, get_file_size())
+		if encoding() then
+			table.insert(stl, encoding())
+		end
+		if lsp_diagnostic() then
+			table.insert(stl, lsp_diagnostic())
+		end
+		if get_file_size() then
+			table.insert(stl, get_file_size())
+		end
 		table.insert(stl, mode_highlight)
 		table.insert(stl, ' %2l/%-2L%2v ')
 	else

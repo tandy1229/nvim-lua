@@ -1,5 +1,10 @@
 require('todo-comments').setup({
-	-- your configuration comes here
-	-- or leave it empty to use the default settings
-	-- refer to the configuration section below
+	keywords = {
+		FIX = { icon = '' },
+		NOTE = { icon = '' },
+		PERF = { icon = '󰓅' },
+		TEST = { icon = '' },
+		TODO = { icon = '󰦕' },
+		WARN = { icon = '' },
+	},
 })

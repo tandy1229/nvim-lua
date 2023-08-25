@@ -6,6 +6,8 @@ end
 
 local luasnip = require('luasnip')
 local cmp = require('cmp')
+local kind = require('cmp.types').lsp.CompletionItemKind --- @type lsp.CompletionItemKind
+
 local kind_icons = {
 	Text = '',
 	Method = '󰆧',
@@ -40,12 +42,16 @@ local SOURCES = {
 	nvim_lsp = '',
 	nvim_lua = '󰢱',
 	path = '',
-	snippy = '',
+	luasnip = '',
 	spell = '󰓆',
+	Codeium = '',
 }
 
 cmp.setup({
 	formatting = {
+		fields = { 'kind', 'abbr', 'menu' },
+		maxwidth = 60,
+		maxheight = 10,
 		format = function(entry, vim_item)
 			-- Kind icons
 			vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
@@ -77,17 +83,18 @@ cmp.setup({
 		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 		['<C-y>'] = cmp.config.disable,
 		['<C-e>'] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-		['<CR>'] = cmp.mapping({
-			i = function(fallback)
-				if cmp.visible() and cmp.get_active_entry() then
-					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-				else
-					fallback()
-				end
-			end,
-			s = cmp.mapping.confirm({ select = true }),
-			c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-		}),
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
+		-- ['<CR>'] = cmp.mapping({
+		-- 	i = function(fallback)
+		-- 		if cmp.visible() and cmp.get_active_entry() then
+		-- 			cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+		-- 		else
+		-- 			fallback()
+		-- 		end
+		-- 	end,
+		-- 	s = cmp.mapping.confirm({ select = true }),
+		-- 	c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+		-- }),
 		['<Tab>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -109,13 +116,27 @@ cmp.setup({
 			end
 		end, { 'i', 's' }),
 	},
-	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' }, -- For luasnip users.
-	}, {
-		{ name = 'buffer' },
-	}),
+	sources = cmp.config.sources(
+		{
+			{
+				name = 'nvim_lsp',
+				entry_filter = function(entry)
+					return kind[entry:get_kind()] ~= 'Text'
+				end,
+			},
+			{ name = 'luasnip' },
+		},
+		{ { name = 'spell' }, { name = 'buffer' } },
+		{ { name = 'path' } },
+		{ { name = 'nvim_lua' } },
+		{ { name = 'codeium' } }
+	),
 })
 
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Completion in DAP buffers
+cmp.setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+	enabled = true,
+	sources = {
+		{ name = 'dap' },
+	},
+})
