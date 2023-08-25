@@ -1,7 +1,10 @@
 # Nvim Awesome Config
 
+## Table of Content
+
 <!--toc:start-->
 - [Nvim Awesome Config](#nvim-awesome-config)
+  - [Table of Content](#table-of-content)
   - [Pros](#pros)
   - [Installation](#installation)
     - [git](#git)
@@ -22,7 +25,7 @@ This is my personal neovim config written in Lua.
 - Pure Lua script with nice speed
 - Integrated with the command line tools like grep and
 [fzf](https://github.com/junegunn/fzf)
-- Run fast with 90 plugins
+- Run fast with 100 plugins
 - Easy to manage the plugins with a nice structure
 
 ## Installation
