@@ -67,6 +67,7 @@ setup('bashls')
 setup('marksman')
 setup('rust_analyzer')
 setup('texlab')
+setup('intelephense')
 setup('clangd', {
 	-- on_attach = on_attach,
 	-- capabilities = cmp_nvim_lsp.default_capabilities(),
