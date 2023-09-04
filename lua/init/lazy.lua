@@ -112,7 +112,7 @@ require('lazy').setup({
 			return {
 				name = 'tandy',
 				-- Optional
-				year = os.date('%Y'),
+				year = os.date('%Y') .. '-present',
 			}
 		end,
 		cmd = {
@@ -467,11 +467,11 @@ require('lazy').setup({
 	-- 	end,
 	-- },
 
-	{
-		'github/copilot.vim',
-		event = { 'InsertEnter', 'BufReadPre', 'BufNewFile' },
-		config = req('copilot'),
-	},
+	-- {
+	-- 	'github/copilot.vim',
+	-- 	event = { 'InsertEnter', 'BufReadPre', 'BufNewFile' },
+	-- 	config = req('copilot'),
+	-- },
 
 	{
 		'zbirenbaum/neodim',
