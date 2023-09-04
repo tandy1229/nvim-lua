@@ -4,7 +4,7 @@ require('dashboard').setup({
 	theme = 'hyper',
 	shortcut_type = 'number',
 	hide = {
-		statusline = true, -- hide statusline default is true
+		statusline = false, -- hide statusline default is true
 		tabline = false, -- hide the tabline
 		winbar = false, -- hide winbar
 	},
