@@ -2,7 +2,7 @@
 ---@license MIT
 
 local M = {}
-local fn, api, loop = vim.fn, vim.api, vim.loop
+local fn, api, uv = vim.fn, vim.api, vim.uv
 local space = ' '
 
 --- Vim mode words and Highlights
@@ -144,7 +144,7 @@ end
 local function readonly(bufnr)
 	local ret
 	if vim.bo[bufnr].readonly then
-		ret = loop.fs_stat(api.nvim_buf_get_name(bufnr or 0)) and '' or '󰌿'
+		ret = uv.fs_stat(api.nvim_buf_get_name(bufnr or 0)) and '' or '󰌿'
 	end
 	if ret then
 		return ret
