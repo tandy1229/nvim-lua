@@ -419,6 +419,18 @@ require('lazy').setup({
 	},
 
 	{
+		'wintermute-cell/gitignore.nvim',
+		cmd = 'Gitignore',
+		dependencies = {
+			'nvim-telescope/telescope.nvim',
+		},
+		config = function()
+			local gitignore = require('gitignore')
+			vim.keymap.set('n', '<leader>gi', gitignore.generate)
+		end,
+	},
+
+	{
 		-- gitsigns
 		'lewis6991/gitsigns.nvim',
 		config = req('gitsigns'),
@@ -447,25 +459,25 @@ require('lazy').setup({
 		},
 	},
 
-	-- {
-	-- 	'Exafunction/codeium.vim',
-	-- 	event = { 'InsertEnter', 'BufReadPre', 'BufNewFile' },
-	-- 	config = function()
-	-- 		-- Change '<C-g>' here to any keycode you like.
-	-- 		vim.keymap.set('i', '<C-c>', function()
-	-- 			return vim.fn['codeium#Accept']()
-	-- 		end, { expr = true })
-	-- 		vim.keymap.set('i', '<c-;>', function()
-	-- 			return vim.fn['codeium#CycleCompletions'](1)
-	-- 		end, { expr = true })
-	-- 		vim.keymap.set('i', "<c-'>", function()
-	-- 			return vim.fn['codeium#CycleCompletions'](-1)
-	-- 		end, { expr = true })
-	-- 		vim.keymap.set('i', '<c-x>', function()
-	-- 			return vim.fn['codeium#Clear']()
-	-- 		end, { expr = true })
-	-- 	end,
-	-- },
+	{
+		'Exafunction/codeium.vim',
+		event = { 'InsertEnter', 'BufEnter', 'BufReadPre', 'BufNewFile' },
+		config = function()
+			-- Change '<C-g>' here to any keycode you like.
+			vim.keymap.set('i', '<C-c>', function()
+				return vim.fn['codeium#Accept']()
+			end, { expr = true })
+			vim.keymap.set('i', '<c-;>', function()
+				return vim.fn['codeium#CycleCompletions'](1)
+			end, { expr = true })
+			vim.keymap.set('i', "<c-'>", function()
+				return vim.fn['codeium#CycleCompletions'](-1)
+			end, { expr = true })
+			vim.keymap.set('i', '<c-x>', function()
+				return vim.fn['codeium#Clear']()
+			end, { expr = true })
+		end,
+	},
 
 	-- {
 	-- 	'github/copilot.vim',
