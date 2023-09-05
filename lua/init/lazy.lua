@@ -383,11 +383,13 @@ require('lazy').setup({
 		event = { 'BufRead', 'BufNewFile' },
 	},
 
-	{
-		-- editorconfig
-		'editorconfig/editorconfig-vim',
-		event = 'BufRead',
-	},
+	-- {
+	-- 	-- editorconfig
+	-- 	-- now the nvim has build-in editorconfig
+	-- 	-- so that remove it
+	-- 	'editorconfig/editorconfig-vim',
+	-- 	event = 'BufRead',
+	-- },
 
 	{
 		'Dhanus3133/LeetBuddy.nvim',
