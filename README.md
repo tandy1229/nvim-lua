@@ -71,6 +71,11 @@ Thank you for these great configs \~~~
 - [ ] inspired by [nvim](https://github.com/theniceboy/nvim) .
 - [ ] inspired by [Iron-E](https://github.com/Iron-E) .
 
+## Acknowledgements
+
+Thanks to [jetbrains](https://www.jetbrains.com/) for the open source license!
+![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)
+
 ## Memory
 
 **In memory of Bram, the creator of VIM.**
