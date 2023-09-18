@@ -463,7 +463,7 @@ require('lazy').setup({
 
 	{
 		'Exafunction/codeium.vim',
-		event = { 'InsertEnter', 'BufEnter', 'BufReadPre', 'BufNewFile' },
+		event = { 'InsertEnter', 'BufReadPre', 'BufNewFile' },
 		config = function()
 			-- Change '<C-g>' here to any keycode you like.
 			vim.keymap.set('i', '<C-c>', function()
@@ -480,12 +480,6 @@ require('lazy').setup({
 			end, { expr = true })
 		end,
 	},
-
-	-- {
-	-- 	'github/copilot.vim',
-	-- 	event = { 'InsertEnter', 'BufReadPre', 'BufNewFile' },
-	-- 	config = req('copilot'),
-	-- },
 
 	{
 		'zbirenbaum/neodim',
