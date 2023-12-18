@@ -481,11 +481,13 @@ require('lazy').setup({
 		end,
 	},
 
+	--[[
 	{
 		'zbirenbaum/neodim',
 		event = 'LspAttach',
 		config = req('neodim'),
 	},
+	]]--
 
 	{
 		'stevearc/aerial.nvim',
@@ -500,7 +502,6 @@ require('lazy').setup({
 	{
 		-- statusline of the function
 		'Bekaboo/dropbar.nvim',
-		event = { 'BufReadPre', 'BufNewFile' },
 	},
 
 	{
