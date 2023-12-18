@@ -9,18 +9,18 @@ vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSig
 vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-	callback = function(ev)
-		if vim.lsp.get_client_by_id(ev.data.client_id).server_capabilities.inlayHintProvider then
-			vim.lsp.inlay_hint(ev.buf, true)
-			vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<C-c>', '', {
-				callback = function()
-					vim.lsp.inlay_hint(0)
-				end,
-			})
-		end
-	end,
-})
+-- vim.api.nvim_create_autocmd('LspAttach', {
+-- 	callback = function(ev)
+-- 		if vim.lsp.get_client_by_id(ev.data.client_id).server_capabilities.inlayHintProvider then
+-- 			vim.lsp.inlay_hint(ev.buf, true)
+-- 			vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<C-c>', '', {
+-- 				callback = function()
+-- 					vim.lsp.inlay_hint(0)
+-- 				end,
+-- 			})
+-- 		end
+-- 	end,
+-- })
 
 --- Configuration for `nvim_open_win`
 local FLOAT_CONFIG = { border = 'rounded' }
@@ -57,9 +57,9 @@ end
 require('neodev').setup({})
 
 -- lspconfig.pyright.setup({})
-setup('pyright')
+-- setup('pyright')
 -- setup('pylyzer')
--- setup('pylsp')
+setup('pylsp')
 setup('tsserver')
 setup('sqlls')
 setup('gopls')
