@@ -161,7 +161,7 @@ require('lazy').setup({
 		'tversteeg/registers.nvim',
 		config = req('registers'),
 		keys = {
-			{ '"',     mode = { 'n', 'v' } },
+			{ '"', mode = { 'n', 'v' } },
 			{ '<C-R>', mode = 'i' },
 		},
 	},
@@ -405,10 +405,10 @@ require('lazy').setup({
 		end,
 		keys = {
 			{ '<leader>oq', '<cmd>LBQuestions<cr>', desc = 'List Questions' },
-			{ '<leader>ol', '<cmd>LBQuestion<cr>',  desc = 'View Question' },
-			{ '<leader>or', '<cmd>LBReset<cr>',     desc = 'Reset Code' },
-			{ '<leader>ot', '<cmd>LBTest<cr>',      desc = 'Run Code' },
-			{ '<leader>os', '<cmd>LBSubmit<cr>',    desc = 'Submit Code' },
+			{ '<leader>ol', '<cmd>LBQuestion<cr>', desc = 'View Question' },
+			{ '<leader>or', '<cmd>LBReset<cr>', desc = 'Reset Code' },
+			{ '<leader>ot', '<cmd>LBTest<cr>', desc = 'Run Code' },
+			{ '<leader>os', '<cmd>LBSubmit<cr>', desc = 'Submit Code' },
 		},
 	},
 
@@ -487,7 +487,8 @@ require('lazy').setup({
 		event = 'LspAttach',
 		config = req('neodim'),
 	},
-	]]--
+	]]
+	--
 
 	{
 		'stevearc/aerial.nvim',
@@ -507,7 +508,6 @@ require('lazy').setup({
 	{
 		-- lsp text
 		'j-hui/fidget.nvim',
-		tag = 'legacy',
 		config = req('fidget'),
 		event = { 'BufReadPre', 'BufNewFile' },
 	},
@@ -552,15 +552,6 @@ require('lazy').setup({
 	},
 
 	{
-		'jose-elias-alvarez/null-ls.nvim',
-		event = { 'BufReadPre' },
-		-- cmd = {
-		-- 	'NullLsLog',
-		-- 	'NullLsInfo',
-		-- 	'NullLsFormatOnSaveToggle',
-		-- },
-		dependencies = { 'plenary.nvim' },
-		config = req('lsp/null-ls'),
 	},
 
 	{
