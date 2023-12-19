@@ -552,6 +552,8 @@ require('lazy').setup({
 	},
 
 	{
+		'mfussenegger/nvim-lint',
+		-- config = req('lint'),
 	},
 
 	{
