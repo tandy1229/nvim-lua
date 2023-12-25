@@ -554,6 +554,20 @@ require('lazy').setup({
 	{
 		'mfussenegger/nvim-lint',
 		-- config = req('lint'),
+		config = function()
+			require('lint').linters_by_ft = {
+				python = { 'ruff', 'mypy' },
+				bash = { 'shellcheck' },
+			}
+			vim.api.nvim_create_autocmd({ 'InsertLeave', 'BufWritePost' }, {
+				callback = function()
+					local lint_status, lint = pcall(require, 'lint')
+					if lint_status then
+						lint.try_lint()
+					end
+				end,
+			})
+		end,
 	},
 
 	{
@@ -575,18 +589,24 @@ require('lazy').setup({
 		opts = {
 			-- Define your formatters
 			formatters_by_ft = {
+				bash = { 'shfmt' },
+				c = { 'clang_format' },
+				['c++'] = { 'clang_format' },
+				go = { 'gofmt' },
 				lua = { 'stylua' },
-				python = { 'isort', 'black' },
+				python = function(bufnr)
+					if require('conform').get_formatter_info('ruff_format', bufnr).available then
+						return { 'ruff_format' }
+					else
+						return { 'isort', 'black' }
+					end
+				end,
 				javascript = { { 'prettierd', 'prettier' } },
 			},
 			-- Set up format-on-save
 			format_on_save = { timeout_ms = 500, lsp_fallback = true },
 			-- Customize formatters
-			formatters = {
-				shfmt = {
-					prepend_args = { '-i', '2' },
-				},
-			},
+			formatters = {},
 		},
 	},
 
